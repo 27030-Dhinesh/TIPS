@@ -62,6 +62,29 @@
             contactList.Add(new Contact(name, phone, email, notes));
         }
 
+        private static void EditContact(List<Contact> contactList)
+        {
+            string name = GetInput("Enter name to find:");
+            for (int i = 0; i < contactList.Count; ++i)
+            {
+                if (string.Equals(contactList[i].Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Found a match. Enter new details:\n");
+                    string newName = GetInput("Enter name:");
+                    string newPhone = GetInput("Enter phone:");
+                    string newEmail = GetInput("Enter email:");
+                    string newNotes = GetInput("Enter notes:");
+
+                    contactList[i] = new Contact(newName, newPhone, newEmail, newNotes);
+
+                    Console.WriteLine("Update successful.");
+                    return;
+                }
+            }
+
+            Console.WriteLine("Name not found.");
+        }
+
         private static string GetInput(string prompt)
         {
             string input;
