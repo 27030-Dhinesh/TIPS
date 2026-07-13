@@ -37,6 +37,20 @@
                 }
             }
         }
+
+        /// <summary>
+        /// Print app functionalities.
+        /// </summary>
+        private static void DisplayInfo()
+        {
+            Console.WriteLine();
+            Console.WriteLine("[A]dd a new contact.");
+            Console.WriteLine("[E]dit a contact.");
+            Console.WriteLine("[D]elete a contact");
+            Console.WriteLine("[S]how all contacts");
+            Console.WriteLine("[Q]uit");
+            Console.WriteLine("\nEnter your choice:");
+        }
     }
 
     internal class Contact
