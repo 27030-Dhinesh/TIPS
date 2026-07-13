@@ -51,6 +51,25 @@
             Console.WriteLine("[Q]uit");
             Console.WriteLine("\nEnter your choice:");
         }
+
+        private static void AddNewContact(List<Contact> contactList)
+        {
+            string name = GetInput("Enter name:");
+            string phone = GetInput("Enter phone:");
+            string email = GetInput("Enter email:");
+            string notes = GetInput("Enter any additional notes:");
+
+            contactList.Add(new Contact(name, phone, email, notes));
+        }
+
+        private static string GetInput(string prompt)
+        {
+            string input;
+            Console.WriteLine(prompt);
+            input = Console.ReadLine();
+
+            return input;
+        }
     }
 
     internal class Contact
