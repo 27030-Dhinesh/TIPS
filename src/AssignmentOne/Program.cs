@@ -1,5 +1,8 @@
 ﻿namespace Assignments
 {
+    /// <summary>
+    /// Program Class - Entry Point
+    /// </summary>
     internal class Program
     {
         /// <summary>
@@ -129,8 +132,18 @@
         }
     }
 
+    /// <summary>
+    /// Contact Model class
+    /// </summary>
     internal class Contact
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Contact"/> class.
+        /// </summary>
+        /// <param name="name">Name of the Contact</param>
+        /// <param name="phone">Phone number of Contact</param>
+        /// <param name="email">Email address of Contact</param>
+        /// <param name="notes">Additional notes for Contact</param>
         public Contact(string name, string phone, string email, string notes)
         {
             Name = name;
@@ -139,12 +152,36 @@
             Notes = notes;
         }
 
+        /// <summary>
+        /// Gets or sets Name property
+        /// </summary>
+        /// <value>
+        /// Name of the Contact
+        /// </value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets Phone property
+        /// </summary>
+        /// <value>
+        /// Phone number of the Contact
+        /// </value>
         public string Phone { get; set; }
 
+        /// <summary>
+        /// Gets or sets Email property
+        /// </summary>
+        /// <value>
+        /// Email address of the Contact
+        /// </value>
         public string Email { get; set; }
 
+        /// <summary>
+        /// Gets or sets Notes property
+        /// </summary>
+        /// <value>
+        /// Additional notes for the Contact
+        /// </value>
         public string? Notes { get; set; }
     }
 }
