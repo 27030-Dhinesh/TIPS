@@ -85,6 +85,22 @@
             Console.WriteLine("Name not found.");
         }
 
+        private static void DeleteContact(List<Contact> contactList)
+        {
+            string name = GetInput("Enter name:");
+            for (int i = 0; i < contactList.Count; ++i)
+            {
+                if (string.Equals(contactList[i].Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    contactList.RemoveAt(i);
+                    Console.WriteLine("Contact deleted successfully.");
+                    return;
+                }
+            }
+
+            Console.WriteLine("Contact not found.");
+        }
+
         private static string GetInput(string prompt)
         {
             string input;
