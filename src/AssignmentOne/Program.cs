@@ -101,6 +101,24 @@
             Console.WriteLine("Contact not found.");
         }
 
+        private static void DisplayContacts(List<Contact> contactList)
+        {
+            if (contactList.Count == 0)
+            {
+                Console.WriteLine("Contact Book is empty.");
+                return;
+            }
+
+            foreach (Contact contact in contactList)
+            {
+                Console.WriteLine($"Name: {contact.Name}");
+                Console.WriteLine($"Email: {contact.Email}");
+                Console.WriteLine($"Phone: {contact.Phone}");
+                Console.WriteLine($"Notes: {contact.Notes}");
+                Console.WriteLine("\n***********************************\n");
+            }
+        }
+
         private static string GetInput(string prompt)
         {
             string input;
