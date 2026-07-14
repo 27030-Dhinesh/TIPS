@@ -19,6 +19,7 @@
             {
                 DisplayInfo();
                 userChoice = Console.ReadLine();
+                Console.WriteLine("\n\n");
 
                 switch (userChoice.ToUpper())
                 {
@@ -34,6 +35,9 @@
                     case "S":
                         DisplayContacts(contactList);
                         break;
+                    case "Q":
+                        Console.WriteLine("Exiting application...");
+                        return;
                     default:
                         Console.WriteLine("Invalid choice.");
                         break;
@@ -67,18 +71,41 @@
 
         private static void EditContact(List<Contact> contactList)
         {
+            if (contactList.Count == 0)
+            {
+                Console.WriteLine("Contact Book is empty.");
+                return;
+            }
+
             string name = GetInput("Enter name to find:");
             for (int i = 0; i < contactList.Count; ++i)
             {
                 if (string.Equals(contactList[i].Name, name, StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("Found a match. Enter new details:\n");
-                    string newName = GetInput("Enter name:");
-                    string newPhone = GetInput("Enter phone:");
-                    string newEmail = GetInput("Enter email:");
-                    string newNotes = GetInput("Enter notes:");
+                    Contact c = contactList[i];
 
-                    contactList[i] = new Contact(newName, newPhone, newEmail, newNotes);
+                    Dictionary<string, string> categories = new Dictionary<string, string>()
+                    {
+                        {"name", c.Name}, { "phone", c.Phone }, { "email", c.Email }, { "notes", c.Notes },
+                    };
+
+                    string edit = string.Empty;
+                    foreach (var key in categories.Keys)
+                    {
+                        EditMsg(key);
+                        edit = Console.ReadLine();
+                        if (string.Equals(edit, "Y", StringComparison.OrdinalIgnoreCase))
+                        {
+                            categories[key] = GetInput($"Enter {key}");
+                        }
+                    }
+
+                    contactList[i] = new Contact(
+                        categories["name"],
+                        categories["phone"],
+                        categories["email"],
+                        categories["notes"]);
 
                     Console.WriteLine("Update successful.");
                     return;
@@ -88,8 +115,18 @@
             Console.WriteLine("Name not found.");
         }
 
+        private static void EditMsg(string category)
+        {
+            Console.WriteLine($"Do you want to edit {category} [Y]? (empty to leave as it is)");
+        }
+
         private static void DeleteContact(List<Contact> contactList)
         {
+            if (contactList.Count == 0)
+            {
+                Console.WriteLine("Contact list is empty.");
+                return;
+            }
             string name = GetInput("Enter name:");
             for (int i = 0; i < contactList.Count; ++i)
             {
