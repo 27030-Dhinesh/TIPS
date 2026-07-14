@@ -1,4 +1,6 @@
-﻿using AssignmentOne.Services;
+﻿using AssignmentOne.Models;
+using AssignmentOne.Services;
+using static AssignmentOne.Helpers;
 
 namespace Assignments
 {
@@ -13,43 +15,60 @@ namespace Assignments
         /// <param name="args">CLI arguments</param>
         public static void Main(string[] args)
         {
-            string? userChoice;
+            string? userChoice, name, email, phone, notes;
 
             ContactManager manager = new ContactManager();
 
             while (true)
             {
-                DisplayInfo();
-                userChoice = Console.ReadLine();
-                if (string.IsNullOrEmpty(userChoice))
-                {
-                    Console.WriteLine("Invalid input.\n");
-                    continue;
-                }
+                DisplayAppInfo();
 
+                userChoice = GetInput("Enter your choice:");
                 Console.WriteLine("\n\n");
 
-                switch (userChoice.ToUpper())
+                switch (userChoice)
                 {
-                    case "1":
-                        AddNewContact(contactList);
+                    case "1": // Add a new contact
+                        name = GetInput("Enter the name:");
+                        email = GetInput("Enter the email: ");
+                        phone = GetInput("Ener the phone no.:");
+                        notes = GetInput("Enter additional notes:");
+
+                        manager.Save(name, email, phone, notes);
                         break;
-                    case "2":
-                        EditContact(contactList);
+                    case "2": // Edit an existing contact
+                        string? input = GetInput("Enter Guid:");
+
+                        ContactInfo newContact = new ContactInfo();
+
+                        if (Guid.TryParse(input, out Guid id))
+                        {
+                            manager.EditContact(id, newContact);
+                        }
                         break;
-                    case "3":
-                        DeleteContact(contactList);
+                    case "3": // Delete contact by name
+                        manager.Delete(name);
                         break;
-                    case "4":
-                        DisplayContacts(contactList);
+                    case "4": // Show all contacts
+                        manager.DisplayContacts();
                         break;
-                    case "5":
-                        SearchContact(contactList);
+                    case "5": // Search contact by name
+                        string? name = GetInput("Enter name to search:");
+                        ContactInfo? c = manager.SearchContact(name);
+                        if (c == null)
+                        {
+                            Console.WriteLine("Contact not found.");
+                        }
+                        else
+                        {
+                            PrintContact(c);
+                        }
+
                         break;
-                    case "6":
-                        DisplaySortedContacts(contactList);
+                    case "6": // Show all contacts by name
+                        manager.DisplayByName();
                         break;
-                    case "7":
+                    case "7": // Exit the app
                         Console.WriteLine("Exiting application...");
                         return;
                     default:
@@ -57,51 +76,6 @@ namespace Assignments
                         break;
                 }
             }
-        }
-
-        private static void DisplaySortedContacts(List<Contact> contactList)
-        {
-            if (contactList.Count == 0)
-            {
-                Console.WriteLine("Contact Book is empty.");
-                return;
-            }
-
-            foreach (Contact contact in contactList.OrderBy(c => c.Name))
-            {
-                PrintContact(contact);
-                Console.WriteLine("*********************************\n");
-            }
-        }
-
-        private static void SearchContact(List<Contact> contactList)
-        {
-            if (contactList.Count == 0)
-            {
-                Console.WriteLine("Contact Book is empty.");
-                return;
-            }
-
-            string name = GetInput("Enter name to search:");
-            foreach (Contact contact in contactList)
-            {
-                if (string.Equals(contact.Name, name, StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine("\nContact found.");
-                    PrintContact(contact);
-                    Console.WriteLine("*********************************\n");
-                }
-            }
-        }
-
-        private static void AddNewContact(List<Contact> contactList)
-        {
-            string name = GetInput("Enter name:");
-            string phone = GetInput("Enter phone:");
-            string email = GetInput("Enter email:");
-            string notes = GetInput("Enter any additional notes:");
-
-            contactList.Add(new Contact(name, phone, email, notes));
         }
 
         private static void EditContact(List<Contact> contactList)
@@ -154,28 +128,6 @@ namespace Assignments
             }
 
             Console.WriteLine("Name not found.");
-        }
-
-        private static void DeleteContact(List<Contact> contactList)
-        {
-            if (contactList.Count == 0)
-            {
-                Console.WriteLine("Contact list is empty.");
-                return;
-            }
-
-            string name = GetInput("Enter name:");
-            for (int i = 0; i < contactList.Count; ++i)
-            {
-                if (string.Equals(contactList[i].Name, name, StringComparison.OrdinalIgnoreCase))
-                {
-                    contactList.RemoveAt(i);
-                    Console.WriteLine("Contact deleted successfully.");
-                    return;
-                }
-            }
-
-            Console.WriteLine("Contact not found.");
         }
     }
 }

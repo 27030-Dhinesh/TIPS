@@ -16,6 +16,15 @@ namespace AssignmentOne.Repository
         private List<ContactInfo> _contacts = new List<ContactInfo>();
 
         /// <summary>
+        /// Check if Contacts List is empty or not.
+        /// </summary>
+        /// <returns>true if Contacts list is empty, false otherwise.</returns>
+        public bool IsEmpty()
+        {
+            return _contacts.Count == 0;
+        }
+
+        /// <summary>
         /// Add new ContactInfo to Repo
         /// </summary>
         /// <param name="contact">ContactInfo instance</param>
@@ -27,12 +36,13 @@ namespace AssignmentOne.Repository
         /// <summary>
         /// Edit a ContactInfo.
         /// </summary>
-        /// <param name="oldContactInfo">Old contact info to update.</param>
+        /// <param name="id">Guid of Contact to delete.</param>
         /// <param name="newContactInfo">New contact info to replace with.</param>
         /// <returns>true if edit successful, false otherwise.</returns>
-        public bool EditContactInfo(ContactInfo oldContactInfo, ContactInfo newContactInfo)
+        public bool EditContactInfo(Guid id, ContactInfo newContactInfo)
         {
-            if (_contacts.Contains(oldContactInfo))
+            ContactInfo oldContactInfo = _contacts.Find(c => c.Id == id);
+            if (oldContactInfo != null)
             {
                 _contacts.Remove(oldContactInfo);
                 _contacts.Add(newContactInfo);
@@ -63,8 +73,13 @@ namespace AssignmentOne.Repository
         /// Get all saved contacts
         /// </summary>
         /// <returns>List of Contacts saved</returns>
-        public List<ContactInfo> GetContacts()
+        public List<ContactInfo>? GetContacts()
         {
+            if (_contacts == null || _contacts.Count == 0)
+            {
+                return null;
+            }
+
             return new List<ContactInfo>(_contacts);
         }
     }

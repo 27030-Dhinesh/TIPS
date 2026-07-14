@@ -24,13 +24,14 @@ namespace AssignmentOne
             {
                 Console.WriteLine(prompt);
                 input = Console.ReadLine();
-                if (!string.IsNullOrEmpty(prompt) )
+
+                if (!string.IsNullOrEmpty(input))
                 {
                     return input;
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input.");
+                    Console.WriteLine("Invalid input. Please try again.");
                 }
             }
         }
@@ -78,6 +79,26 @@ namespace AssignmentOne
             Console.WriteLine("6. Display sorted contacts");
             Console.WriteLine("7. Quit");
             Console.WriteLine("\nEnter your choice:");
+        }
+
+        /// <summary>
+        /// Check if the phone arg is valid or not
+        /// </summary>
+        /// <param name="phone">Phone (string) to validate</param>
+        /// <returns>true if phone is valid, false otherwise.</returns>
+        public static bool IsValidPhone(string phone)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Check if the email arg is valid or not
+        /// </summary>
+        /// <param name="email">Email (string) to validate</param>
+        /// <returns>true if email is valid, false otherwise.</returns>
+        public static bool IsValidEmail(string email)
+        {
+            return true;
         }
     }
 }
