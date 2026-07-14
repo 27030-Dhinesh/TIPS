@@ -1,4 +1,6 @@
-﻿namespace Assignments
+﻿using AssignmentOne.Services;
+
+namespace Assignments
 {
     /// <summary>
     /// Program Class - Entry Point
@@ -13,7 +15,7 @@
         {
             string? userChoice;
 
-            List<Contact> contactList = new List<Contact>();
+            ContactManager manager = new ContactManager();
 
             while (true)
             {
@@ -90,22 +92,6 @@
                     Console.WriteLine("*********************************\n");
                 }
             }
-        }
-
-        /// <summary>
-        /// Print app functionalities.
-        /// </summary>
-        private static void DisplayInfo()
-        {
-            Console.WriteLine();
-            Console.WriteLine("1. Add a new contact.");
-            Console.WriteLine("2. Edit a contact.");
-            Console.WriteLine("3. Delete a contact");
-            Console.WriteLine("4. Show all contacts");
-            Console.WriteLine("5. Search contact");
-            Console.WriteLine("6. Display sorted contacts");
-            Console.WriteLine("7. Quit");
-            Console.WriteLine("\nEnter your choice:");
         }
 
         private static void AddNewContact(List<Contact> contactList)
@@ -191,105 +177,5 @@
 
             Console.WriteLine("Contact not found.");
         }
-
-        private static void DisplayContacts(List<Contact> contactList)
-        {
-            if (contactList.Count == 0)
-            {
-                Console.WriteLine("Contact Book is empty.");
-                return;
-            }
-
-            foreach (Contact contact in contactList)
-            {
-                PrintContact(contact);
-                Console.WriteLine("\n***********************************\n");
-            }
-        }
-
-        private static string GetInput(string prompt)
-        {
-            string? input;
-            do
-            {
-                Console.WriteLine(prompt);
-                input = Console.ReadLine();
-                if (!string.IsNullOrEmpty(input))
-                {
-                    return input;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input.\n");
-                }
-            }
-            while (true);
-        }
-
-        private static void PrintContact(Contact contact)
-        {
-            Console.WriteLine($"Name: {contact.Name}");
-            Console.WriteLine($"Phone: {contact.Phone}");
-            Console.WriteLine($"Email: {contact.Email}");
-            Console.WriteLine($"Notes: {contact.Notes}");
-        }
-
-        private static void EditMsg(string category)
-        {
-            Console.WriteLine($"Do you want to edit {category} [Y]? (empty to leave as it is)");
-        }
-    }
-
-    /// <summary>
-    /// Contact Model class
-    /// </summary>
-    internal class Contact
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Contact"/> class.
-        /// </summary>
-        /// <param name="name">Name of the Contact</param>
-        /// <param name="phone">Phone number of Contact</param>
-        /// <param name="email">Email address of Contact</param>
-        /// <param name="notes">Additional notes for Contact</param>
-        public Contact(string name, string phone, string email, string notes)
-        {
-            this.Name = name;
-            this.Phone = phone;
-            this.Email = email;
-            this.Notes = notes;
-        }
-
-        /// <summary>
-        /// Gets or sets Name property
-        /// </summary>
-        /// <value>
-        /// Name of the Contact
-        /// </value>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets Phone property
-        /// </summary>
-        /// <value>
-        /// Phone number of the Contact
-        /// </value>
-        public string Phone { get; set; }
-
-        /// <summary>
-        /// Gets or sets Email property
-        /// </summary>
-        /// <value>
-        /// Email address of the Contact
-        /// </value>
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Gets or sets Notes property
-        /// </summary>
-        /// <value>
-        /// Additional notes for the Contact
-        /// </value>
-        public string? Notes { get; set; }
     }
 }
