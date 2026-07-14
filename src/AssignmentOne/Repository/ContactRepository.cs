@@ -11,7 +11,7 @@ namespace AssignmentOne.Repository
     /// <summary>
     /// Repository for ContactInfo
     /// </summary>
-    internal class Repository
+    internal class ContactRepository
     {
         private List<ContactInfo> _contacts = new List<ContactInfo>();
 

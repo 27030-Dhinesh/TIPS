@@ -4,14 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AssignmentOne.Models;
+using AssignmentOne.Repository;
 
 namespace AssignmentOne.Services
 {
+    /// <summary>
+    /// Contact Manager class
+    /// </summary>
     internal class ContactManager
     {
-
-
-
+        private readonly ContactRepository _repository;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactManager"/> class.
+        /// </summary>
+        public ContactManager()
+        { 
+            _repository = new ContactRepository();
+        }
 
         /// <summary>
         /// Display all available Contacts
