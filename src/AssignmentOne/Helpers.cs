@@ -42,6 +42,7 @@ namespace AssignmentOne
         /// <param name="contact">ContactInfo instance to print</param>
         public static void PrintContact(ContactInfo contact)
         {
+            Console.WriteLine($"ID: {contact.Id}");
             Console.WriteLine($"Name: {contact.Name}");
             Console.WriteLine($"Phone: {contact.Phone}");
             Console.WriteLine($"Email: {contact.Email}");
@@ -78,7 +79,6 @@ namespace AssignmentOne
             Console.WriteLine("5. Search contact");
             Console.WriteLine("6. Display sorted contacts");
             Console.WriteLine("7. Quit");
-            Console.WriteLine("\nEnter your choice:");
         }
 
         /// <summary>

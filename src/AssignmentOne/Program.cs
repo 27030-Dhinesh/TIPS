@@ -43,18 +43,19 @@ namespace Assignments
 
                         if (Guid.TryParse(input, out Guid id))
                         {
-                            manager.EditContact(id, newContact);
+                            manager.Edit(id, newContact);
                         }
                         break;
                     case "3": // Delete contact by name
-                        manager.Delete(name);
+                        string? deleteName = GetInput("Enter the name:");
+                        manager.Delete(deleteName);
                         break;
                     case "4": // Show all contacts
                         manager.DisplayContacts();
                         break;
                     case "5": // Search contact by name
-                        string? name = GetInput("Enter name to search:");
-                        ContactInfo? c = manager.SearchContact(name);
+                        string? searchName = GetInput("Enter name to search:");
+                        ContactInfo? c = manager.SearchContact(searchName);
                         if (c == null)
                         {
                             Console.WriteLine("Contact not found.");
@@ -76,58 +77,6 @@ namespace Assignments
                         break;
                 }
             }
-        }
-
-        private static void EditContact(List<Contact> contactList)
-        {
-            if (contactList.Count == 0)
-            {
-                Console.WriteLine("Contact Book is empty.");
-                return;
-            }
-
-            string name = GetInput("Enter name to find:");
-            for (int i = 0; i < contactList.Count; ++i)
-            {
-                if (string.Equals(contactList[i].Name, name, StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine("Found a match. Enter new details:\n");
-                    Contact c = contactList[i];
-
-                    Dictionary<string, string> categories = new ()
-                    {
-                        { "name", c.Name }, { "phone", c.Phone }, { "email", c.Email }, { "notes", c.Notes },
-                    };
-
-                    string? edit = string.Empty;
-                    foreach (var key in categories.Keys)
-                    {
-                        EditMsg(key);
-                        edit = Console.ReadLine();
-                        if (string.IsNullOrEmpty(edit))
-                        {
-                            Console.WriteLine("Invalid input.\n");
-                            continue;
-                        }
-
-                        if (string.Equals(edit, "Y", StringComparison.OrdinalIgnoreCase))
-                        {
-                            categories[key] = GetInput($"Enter {key}");
-                        }
-                    }
-
-                    contactList[i] = new Contact(
-                        categories["name"],
-                        categories["phone"],
-                        categories["email"],
-                        categories["notes"]);
-
-                    Console.WriteLine("Update successful.");
-                    return;
-                }
-            }
-
-            Console.WriteLine("Name not found.");
         }
     }
 }
