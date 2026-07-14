@@ -23,24 +23,53 @@
 
                 switch (userChoice.ToUpper())
                 {
-                    case "A":
+                    case "1":
                         AddNewContact(contactList);
                         break;
-                    case "E":
+                    case "2":
                         EditContact(contactList);
                         break;
-                    case "D":
+                    case "3":
                         DeleteContact(contactList);
                         break;
-                    case "S":
+                    case "4":
                         DisplayContacts(contactList);
                         break;
-                    case "Q":
+                    case "5":
+                        SearchContact(contactList);
+                        break;
+                    case "6":
+                        DisplayContacts(contactList);
+                        break;
+                    case "7":
                         Console.WriteLine("Exiting application...");
                         return;
                     default:
                         Console.WriteLine("Invalid choice.");
                         break;
+                }
+            }
+        }
+
+        private static void SearchContact(List<Contact> contactList)
+        {
+            if (contactList.Count == 0)
+            {
+                Console.WriteLine("Contact Book is empty.");
+                return;
+            }
+
+            string name = GetInput("Enter name to search:");
+            foreach (Contact contact in contactList)
+            {
+                if (string.Equals(contact.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("\nContact found.");
+                    Console.WriteLine($"Name: {contact.Name}");
+                    Console.WriteLine($"Phone: {contact.Phone}");
+                    Console.WriteLine($"Email: {contact.Email}");
+                    Console.WriteLine($"Notes: {contact.Notes}");
+                    Console.WriteLine("*******************************\n");
                 }
             }
         }
@@ -51,11 +80,13 @@
         private static void DisplayInfo()
         {
             Console.WriteLine();
-            Console.WriteLine("[A]dd a new contact.");
-            Console.WriteLine("[E]dit a contact.");
-            Console.WriteLine("[D]elete a contact");
-            Console.WriteLine("[S]how all contacts");
-            Console.WriteLine("[Q]uit");
+            Console.WriteLine("1. Add a new contact.");
+            Console.WriteLine("2. Edit a contact.");
+            Console.WriteLine("3. Delete a contact");
+            Console.WriteLine("4. Show all contacts");
+            Console.WriteLine("5. Search contact");
+            Console.WriteLine("6. Display sorted contacts");
+            Console.WriteLine("7. Quit");
             Console.WriteLine("\nEnter your choice:");
         }
 
