@@ -39,7 +39,7 @@
                         SearchContact(contactList);
                         break;
                     case "6":
-                        DisplayContacts(contactList);
+                        DisplaySortedContacts(contactList);
                         break;
                     case "7":
                         Console.WriteLine("Exiting application...");
@@ -48,6 +48,21 @@
                         Console.WriteLine("Invalid choice.");
                         break;
                 }
+            }
+        }
+
+        private static void DisplaySortedContacts(List<Contact> contactList)
+        {
+            if (contactList.Count == 0)
+            {
+                Console.WriteLine("Contact Book is empty.");
+                return;
+            }
+
+            foreach (Contact contact in contactList.OrderBy(c => c.Name))
+            {
+                PrintContact(contact);
+                Console.WriteLine("*********************************\n");
             }
         }
 
@@ -65,11 +80,8 @@
                 if (string.Equals(contact.Name, name, StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("\nContact found.");
-                    Console.WriteLine($"Name: {contact.Name}");
-                    Console.WriteLine($"Phone: {contact.Phone}");
-                    Console.WriteLine($"Email: {contact.Email}");
-                    Console.WriteLine($"Notes: {contact.Notes}");
-                    Console.WriteLine("*******************************\n");
+                    PrintContact(contact);
+                    Console.WriteLine("*********************************\n");
                 }
             }
         }
@@ -146,11 +158,6 @@
             Console.WriteLine("Name not found.");
         }
 
-        private static void EditMsg(string category)
-        {
-            Console.WriteLine($"Do you want to edit {category} [Y]? (empty to leave as it is)");
-        }
-
         private static void DeleteContact(List<Contact> contactList)
         {
             if (contactList.Count == 0)
@@ -182,10 +189,7 @@
 
             foreach (Contact contact in contactList)
             {
-                Console.WriteLine($"Name: {contact.Name}");
-                Console.WriteLine($"Email: {contact.Email}");
-                Console.WriteLine($"Phone: {contact.Phone}");
-                Console.WriteLine($"Notes: {contact.Notes}");
+                PrintContact(contact);
                 Console.WriteLine("\n***********************************\n");
             }
         }
@@ -197,6 +201,19 @@
             input = Console.ReadLine();
 
             return input;
+        }
+
+        private static void PrintContact(Contact contact)
+        {
+            Console.WriteLine($"Name: {contact.Name}");
+            Console.WriteLine($"Phone: {contact.Phone}");
+            Console.WriteLine($"Email: {contact.Email}");
+            Console.WriteLine($"Notes: {contact.Notes}");
+        }
+
+        private static void EditMsg(string category)
+        {
+            Console.WriteLine($"Do you want to edit {category} [Y]? (empty to leave as it is)");
         }
     }
 
