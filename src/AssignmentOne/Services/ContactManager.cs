@@ -120,42 +120,12 @@ namespace AssignmentOne.Services
         }
 
         /// <summary>
-        /// Display all available Contacts
+        /// Get all contacts from Contact Book
         /// </summary>
-        public void DisplayContacts()
+        /// <returns>List<ContactInfo> all contacts</returns>
+        public List<ContactInfo>? GetContacts()
         {
-            List<ContactInfo>? contacts = _repository.GetContacts();
-
-            if (contacts == null)
-            {
-                DisplayEmpty();
-                return;
-            }
-
-            foreach (ContactInfo contact in contacts)
-            {
-                PrintContact(contact);
-                Console.WriteLine("******************************");
-            }
-        }
-
-        /// <summary>
-        /// Display all contacts sorted by name
-        /// </summary>
-        public void DisplayByName()
-        {
-            List<ContactInfo>? contacts = _repository.GetContacts();
-
-            if (contacts == null)
-            {
-                DisplayEmpty();
-                return;
-            }
-
-            foreach (ContactInfo contact in contacts.OrderBy(c => c.Name))
-            {
-                PrintContact(contact);
-            }
+            return _repository.GetContacts();
         }
     }
 }

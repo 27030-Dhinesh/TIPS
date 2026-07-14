@@ -51,7 +51,8 @@ namespace Assignments
                         manager.Delete(deleteName);
                         break;
                     case "4": // Show all contacts
-                        manager.DisplayContacts();
+                        List<ContactInfo> contacts = manager.GetContacts();
+                        DisplayContacts(contacts);
                         break;
                     case "5": // Search contact by name
                         string? searchName = GetInput("Enter name to search:");
@@ -67,7 +68,8 @@ namespace Assignments
 
                         break;
                     case "6": // Show all contacts by name
-                        manager.DisplayByName();
+                        List<ContactInfo>? allContacts = manager.GetContacts();
+                        DisplayByName(allContacts);
                         break;
                     case "7": // Exit the app
                         Console.WriteLine("Exiting application...");
@@ -76,6 +78,43 @@ namespace Assignments
                         Console.WriteLine("Invalid choice.");
                         break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Display all available Contacts
+        /// </summary>
+        /// <param name="contacts">List of all contacts</param>
+        public static void DisplayContacts(List<ContactInfo>? contacts)
+        {
+            if (contacts == null)
+            {
+                DisplayEmpty();
+                return;
+            }
+
+            foreach (ContactInfo contact in contacts)
+            {
+                PrintContact(contact);
+                Console.WriteLine("******************************");
+            }
+        }
+
+        /// <summary>
+        /// Display all contacts sorted by name
+        /// </summary>
+        /// <param name="contacts">List of all contacts</param>
+        public static void DisplayByName(List<ContactInfo>? contacts)
+        {
+            if (contacts == null)
+            {
+                DisplayEmpty();
+                return;
+            }
+
+            foreach (ContactInfo contact in contacts.OrderBy(c => c.Name))
+            {
+                PrintContact(contact);
             }
         }
     }
