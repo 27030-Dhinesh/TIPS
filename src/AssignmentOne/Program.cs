@@ -11,7 +11,7 @@
         /// <param name="args">CLI arguments</param>
         public static void Main(string[] args)
         {
-            string userChoice;
+            string? userChoice;
 
             List<Contact> contactList = new List<Contact>();
 
@@ -19,6 +19,12 @@
             {
                 DisplayInfo();
                 userChoice = Console.ReadLine();
+                if (string.IsNullOrEmpty(userChoice))
+                {
+                    Console.WriteLine("Invalid input.\n");
+                    continue;
+                }
+
                 Console.WriteLine("\n\n");
 
                 switch (userChoice.ToUpper())
@@ -128,16 +134,22 @@
                     Console.WriteLine("Found a match. Enter new details:\n");
                     Contact c = contactList[i];
 
-                    Dictionary<string, string> categories = new Dictionary<string, string>()
+                    Dictionary<string, string> categories = new ()
                     {
-                        {"name", c.Name}, { "phone", c.Phone }, { "email", c.Email }, { "notes", c.Notes },
+                        { "name", c.Name }, { "phone", c.Phone }, { "email", c.Email }, { "notes", c.Notes },
                     };
 
-                    string edit = string.Empty;
+                    string? edit = string.Empty;
                     foreach (var key in categories.Keys)
                     {
                         EditMsg(key);
                         edit = Console.ReadLine();
+                        if (string.IsNullOrEmpty(edit))
+                        {
+                            Console.WriteLine("Invalid input.\n");
+                            continue;
+                        }
+
                         if (string.Equals(edit, "Y", StringComparison.OrdinalIgnoreCase))
                         {
                             categories[key] = GetInput($"Enter {key}");
@@ -165,6 +177,7 @@
                 Console.WriteLine("Contact list is empty.");
                 return;
             }
+
             string name = GetInput("Enter name:");
             for (int i = 0; i < contactList.Count; ++i)
             {
@@ -196,11 +209,21 @@
 
         private static string GetInput(string prompt)
         {
-            string input;
-            Console.WriteLine(prompt);
-            input = Console.ReadLine();
-
-            return input;
+            string? input;
+            do
+            {
+                Console.WriteLine(prompt);
+                input = Console.ReadLine();
+                if (!string.IsNullOrEmpty(input))
+                {
+                    return input;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input.\n");
+                }
+            }
+            while (true);
         }
 
         private static void PrintContact(Contact contact)
@@ -231,10 +254,10 @@
         /// <param name="notes">Additional notes for Contact</param>
         public Contact(string name, string phone, string email, string notes)
         {
-            Name = name;
-            Phone = phone;
-            Email = email;
-            Notes = notes;
+            this.Name = name;
+            this.Phone = phone;
+            this.Email = email;
+            this.Notes = notes;
         }
 
         /// <summary>
