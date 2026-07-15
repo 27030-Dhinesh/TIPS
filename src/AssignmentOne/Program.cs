@@ -2,7 +2,7 @@
 using AssignmentOne.Services;
 using static AssignmentOne.Helpers;
 
-namespace Assignments
+namespace AssignmentOne
 {
     /// <summary>
     /// Program Class - Entry Point
