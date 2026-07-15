@@ -50,5 +50,20 @@ namespace AssignmentOne.Models
         /// Additional notes for the Contact
         /// </value>
         public string? Notes { get; set; }
+
+        /// <summary>
+        /// Return a deep copy of the ContactInfo object.
+        /// </summary>
+        /// <returns>ContactInfo deep copy object.</returns>
+        public ContactInfo Clone()
+        {
+            return new ContactInfo
+            {
+                Name = this.Name,
+                Phone = this.Phone,
+                Email = this.Email,
+                Notes = this.Notes,
+            };
+        }
     }
 }
