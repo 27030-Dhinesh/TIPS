@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using AssignmentOne.Models;
@@ -15,12 +16,13 @@ namespace AssignmentOne.Services
     internal class ContactManager
     {
         private readonly ContactRepository _repository;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactManager"/> class.
         /// </summary>
         public ContactManager()
-        { 
-            _repository = new ContactRepository();
+        {
+            this._repository = new ContactRepository();
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace AssignmentOne.Services
                 return false;
             }
 
-            ContactInfo contactInfo = new ContactInfo()
+            ContactInfo contactInfo = new ()
             {
                 Id = Guid.NewGuid(),
                 Name = name,
@@ -47,7 +49,7 @@ namespace AssignmentOne.Services
                 Notes = notes,
             };
 
-            _repository.AddContactInfo(contactInfo);
+            this._repository.AddContactInfo(contactInfo);
             return true;
         }
 
@@ -59,7 +61,17 @@ namespace AssignmentOne.Services
         /// <returns>true if edit successful, false otherwise.</returns>
         public bool Edit(Guid id, ContactInfo contact)
         {
-            return _repository.EditContactInfo(id, contact);
+            if (string.IsNullOrWhiteSpace(contact.Phone) || string.IsNullOrWhiteSpace(contact.Email))
+            {
+                return false;
+            }
+
+            if (!IsValidPhone(contact.Phone) || !IsValidEmail(contact.Email))
+            {
+                return false;
+            }
+
+            return this._repository.EditContactInfo(id, contact);
         }
 
         /// <summary>
@@ -69,27 +81,25 @@ namespace AssignmentOne.Services
         /// <returns>rue if delete successful, false otherwise.</returns>
         public bool Delete(string name)
         {
-            if (_repository.IsEmpty())
+            if (this._repository.IsEmpty())
             {
                 return false;
             }
-
-            string delName = GetInput("Enter name:");
 
             try
             {
                 foreach (ContactInfo contact in _repository.GetContacts())
                 {
-                    if (contact.Name == delName)
+                    if (contact.Name == name)
                     {
-                        _repository.DeleteContactInfo(contact);
+                        this._repository.DeleteContactInfo(contact);
                         return true;
                     }
                 }
 
                 return false;
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return false;
             }
@@ -102,21 +112,21 @@ namespace AssignmentOne.Services
         /// <returns>ContactInfo if found, null otherwise.</returns>
         public ContactInfo? SearchContact(string name)
         {
-            try
+            List<ContactInfo>? contacts = this._repository.GetContacts();
+
+            contacts ??= new List<ContactInfo>();
+
+            ContactInfo contact;
+            for (int i = 0; i < contacts.Count; ++i)
             {
-                foreach (ContactInfo contact in _repository.GetContacts())
+                contact = contacts[i];
+                if (contact.Name == name)
                 {
-                    if (contact.Name == name)
-                    {
-                        return contact; // if ContactInfo found
-                    }
+                    return contact; // ContactInfo found
                 }
-                return null; // if ContactInfo not found and ContactRepo is non-empty.
             }
-            catch (NullReferenceException e)
-            {
-                return null; // if ContactRepo is empty
-            }
+
+            return null; // ContactInfo not found
         }
 
         /// <summary>
@@ -125,7 +135,16 @@ namespace AssignmentOne.Services
         /// <returns>List<ContactInfo> all contacts</returns>
         public List<ContactInfo>? GetContacts()
         {
-            return _repository.GetContacts();
+            return this._repository.GetContacts();
+        }
+
+        /// <summary>
+        /// Check if Contact Book is empty or not.
+        /// </summary>
+        /// <returns>true if ContactRepository is empty, false otherwise.</returns>
+        public bool IsContactBookEmpty()
+        {
+            return this._repository.IsEmpty();
         }
     }
 }

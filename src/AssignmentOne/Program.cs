@@ -16,8 +16,9 @@ namespace Assignments
         public static void Main(string[] args)
         {
             string? userChoice, name, email, phone, notes;
+            bool operationResult;
 
-            ContactManager manager = new ContactManager();
+            ContactManager manager = new ();
 
             while (true)
             {
@@ -34,28 +35,92 @@ namespace Assignments
                         phone = GetInput("Ener the phone no.:");
                         notes = GetInput("Enter additional notes:");
 
-                        manager.Save(name, email, phone, notes);
-                        break;
-                    case "2": // Edit an existing contact
-                        string? input = GetInput("Enter Guid:");
+                        operationResult = manager.Save(name, email, phone, notes);
+                        if (operationResult)
+                        {
+                            Console.WriteLine("New contact saved successful.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to save contact.");
+                        }
 
-                        ContactInfo newContact = new ContactInfo();
+                        break;
+
+                    case "2": // Edit an existing contact
+                        if (manager.IsContactBookEmpty())
+                        {
+                            Console.WriteLine("Contact Book empty; cannot edit non-existent Contact");
+                            break;
+                        }
+
+                        string? input = GetInput("Enter Guid:");
 
                         if (Guid.TryParse(input, out Guid id))
                         {
+                            name = GetInput("Enter the name:");
+                            email = GetInput("Enter the email: ");
+                            phone = GetInput("Ener the phone no.:");
+                            notes = GetInput("Enter additional notes:");
+
+                            ContactInfo newContact = new ()
+                            {
+                                Id = id,
+                                Name = name,
+                                Email = email,
+                                Phone = phone,
+                                Notes = notes,
+                            };
                             manager.Edit(id, newContact);
                         }
+                        else
+                        {
+                            Console.WriteLine("Invalid input.");
+                        }
+
                         break;
+
                     case "3": // Delete contact by name
-                        string? deleteName = GetInput("Enter the name:");
-                        manager.Delete(deleteName);
+                        if (manager.IsContactBookEmpty())
+                        {
+                            Console.WriteLine("Contact Book empty; cannot delete non-existent Contact");
+                            break;
+                        }
+
+                        string? deleteName = GetInput("Enter the name to delete:");
+                        operationResult = manager.Delete(deleteName);
+                        if (operationResult)
+                        {
+                            Console.WriteLine("Deletion successful.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Deletion unsuccessful.");
+                        }
+
                         break;
+
                     case "4": // Show all contacts
-                        List<ContactInfo> contacts = manager.GetContacts();
+                        List<ContactInfo>? contacts = manager.GetContacts();
+
+                        if (contacts == null)
+                        {
+                            Console.WriteLine("Contact Book is empty.");
+                            break;
+                        }
+
                         DisplayContacts(contacts);
+
                         break;
+
                     case "5": // Search contact by name
-                        string? searchName = GetInput("Enter name to search:");
+                        if (manager.IsContactBookEmpty())
+                        {
+                            Console.WriteLine("Contact Book is empty; cannot search.");
+                            break;
+                        }
+
+                        string searchName = GetInput("Enter name to search:");
                         ContactInfo? c = manager.SearchContact(searchName);
                         if (c == null)
                         {
@@ -67,13 +132,24 @@ namespace Assignments
                         }
 
                         break;
+
                     case "6": // Show all contacts by name
                         List<ContactInfo>? allContacts = manager.GetContacts();
-                        DisplayByName(allContacts);
+                        if (allContacts == null)
+                        {
+                            Console.WriteLine("Contact Book is empty.");
+                        }
+                        else
+                        {
+                            DisplayByName(allContacts);
+                        }
+
                         break;
+
                     case "7": // Exit the app
                         Console.WriteLine("Exiting application...");
                         return;
+
                     default:
                         Console.WriteLine("Invalid choice.");
                         break;
@@ -96,7 +172,7 @@ namespace Assignments
             foreach (ContactInfo contact in contacts)
             {
                 PrintContact(contact);
-                Console.WriteLine("******************************");
+                Console.WriteLine("******************************\n");
             }
         }
 
@@ -115,6 +191,7 @@ namespace Assignments
             foreach (ContactInfo contact in contacts.OrderBy(c => c.Name))
             {
                 PrintContact(contact);
+                Console.WriteLine("******************************\n");
             }
         }
     }

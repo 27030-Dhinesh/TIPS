@@ -13,7 +13,7 @@ namespace AssignmentOne.Repository
     /// </summary>
     internal class ContactRepository
     {
-        private List<ContactInfo> _contacts = new List<ContactInfo>();
+        private readonly List<ContactInfo> _contacts = new ();
 
         /// <summary>
         /// Check if Contacts List is empty or not.
@@ -21,7 +21,7 @@ namespace AssignmentOne.Repository
         /// <returns>true if Contacts list is empty, false otherwise.</returns>
         public bool IsEmpty()
         {
-            return _contacts.Count == 0;
+            return this._contacts.Count == 0;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace AssignmentOne.Repository
         /// <param name="contact">ContactInfo instance</param>
         public void AddContactInfo(ContactInfo contact)
         {
-            _contacts.Add(contact);
+            this._contacts.Add(contact);
         }
 
         /// <summary>
@@ -41,11 +41,11 @@ namespace AssignmentOne.Repository
         /// <returns>true if edit successful, false otherwise.</returns>
         public bool EditContactInfo(Guid id, ContactInfo newContactInfo)
         {
-            ContactInfo oldContactInfo = _contacts.Find(c => c.Id == id);
+            ContactInfo? oldContactInfo = this._contacts.Find(c => c.Id == id);
             if (oldContactInfo != null)
             {
-                _contacts.Remove(oldContactInfo);
-                _contacts.Add(newContactInfo);
+                this._contacts.Remove(oldContactInfo);
+                this._contacts.Add(newContactInfo);
 
                 return true;
             }
@@ -60,13 +60,7 @@ namespace AssignmentOne.Repository
         /// <returns>true if deleted successfully, false otherwise</returns>
         public bool DeleteContactInfo(ContactInfo contact)
         {
-            if (_contacts.Contains(contact))
-            {
-                _contacts.Remove(contact);
-                return true;
-            }
-
-            return false;
+            return this._contacts.Remove(contact);
         }
 
         /// <summary>
@@ -75,12 +69,12 @@ namespace AssignmentOne.Repository
         /// <returns>List of Contacts saved</returns>
         public List<ContactInfo>? GetContacts()
         {
-            if (_contacts == null || _contacts.Count == 0)
+            if (this._contacts == null || this._contacts.Count == 0)
             {
                 return null;
             }
 
-            return new List<ContactInfo>(_contacts);
+            return new List<ContactInfo>(this._contacts);
         }
     }
 }

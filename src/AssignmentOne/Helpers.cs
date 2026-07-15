@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AssignmentOne.Models;
 
@@ -19,7 +20,7 @@ namespace AssignmentOne
         /// <returns>String</returns>
         public static string GetInput(string prompt)
         {
-            string? input = string.Empty;
+            string? input;
             while (true)
             {
                 Console.WriteLine(prompt);
@@ -88,7 +89,7 @@ namespace AssignmentOne
         /// <returns>true if phone is valid, false otherwise.</returns>
         public static bool IsValidPhone(string phone)
         {
-            return true;
+            return Regex.IsMatch(phone.Trim(), @"^(?:\+91|0)?[6-9]\d{9}$");
         }
 
         /// <summary>
@@ -98,7 +99,7 @@ namespace AssignmentOne
         /// <returns>true if email is valid, false otherwise.</returns>
         public static bool IsValidEmail(string email)
         {
-            return true;
+            return Regex.IsMatch(email.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase);
         }
     }
 }
