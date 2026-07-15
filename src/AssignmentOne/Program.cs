@@ -25,7 +25,7 @@ namespace AssignmentOne
                 DisplayAppInfo();
 
                 userChoice = GetInput("Enter your choice:");
-                Console.WriteLine("\n");
+                Console.WriteLine();
 
                 switch (userChoice)
                 {
@@ -103,7 +103,7 @@ namespace AssignmentOne
                     case "4": // Show all contacts
                         List<ContactInfo> contacts = manager.GetContacts();
 
-                        if (contacts == null)
+                        if (contacts.Count == 0)
                         {
                             Console.WriteLine("Contact Book is empty.");
                             break;
@@ -121,21 +121,24 @@ namespace AssignmentOne
                         }
 
                         string searchName = GetInput("Enter name to search:");
-                        ContactInfo? c = manager.SearchContact(searchName);
-                        if (c == null)
+                        List<ContactInfo> result = manager.SearchContact(searchName);
+                        if (result.Count == 0)
                         {
                             Console.WriteLine("Contact not found.");
                         }
                         else
                         {
-                            PrintContact(c);
+                            foreach (ContactInfo c in result)
+                            {
+                                PrintContact(c);
+                            }
                         }
 
                         break;
 
                     case "6": // Show all contacts by name
                         List<ContactInfo> allContacts = manager.GetContacts();
-                        if (allContacts == null)
+                        if (allContacts.Count == 0)
                         {
                             Console.WriteLine("Contact Book is empty.");
                         }

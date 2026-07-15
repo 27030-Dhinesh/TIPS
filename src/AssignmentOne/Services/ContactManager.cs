@@ -110,23 +110,20 @@ namespace AssignmentOne.Services
         /// </summary>
         /// <param name="name">Name of the person to search across Contacts</param>
         /// <returns>ContactInfo if found, null otherwise.</returns>
-        public ContactInfo? SearchContact(string name)
+        public List<ContactInfo> SearchContact(string name)
         {
-            List<ContactInfo>? contacts = this._repository.GetContacts();
+            List<ContactInfo> contacts = this._repository.GetContacts();
+            List<ContactInfo> result = new ();
 
-            contacts ??= new List<ContactInfo>();
-
-            ContactInfo contact;
-            for (int i = 0; i < contacts.Count; ++i)
+            foreach (ContactInfo contact in contacts)
             {
-                contact = contacts[i];
-                if (contact.Name == name)
+                if (contact.Name.Contains(name))
                 {
-                    return contact; // ContactInfo found
+                    result.Add(contact);
                 }
             }
 
-            return null; // ContactInfo not found
+            return result;
         }
 
         /// <summary>

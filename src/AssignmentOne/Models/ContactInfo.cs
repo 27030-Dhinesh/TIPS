@@ -59,6 +59,7 @@ namespace AssignmentOne.Models
         {
             return new ContactInfo
             {
+                Id = this.Id,
                 Name = this.Name,
                 Phone = this.Phone,
                 Email = this.Email,

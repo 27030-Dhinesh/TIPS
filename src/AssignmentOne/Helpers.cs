@@ -72,7 +72,7 @@ namespace AssignmentOne
         /// </summary>
         public static void DisplayAppInfo()
         {
-            Console.WriteLine();
+            Console.WriteLine("======Contact Manager======");
             Console.WriteLine("1. Add a new contact.");
             Console.WriteLine("2. Edit a contact.");
             Console.WriteLine("3. Delete a contact");
