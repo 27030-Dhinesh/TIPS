@@ -15,7 +15,7 @@ namespace Assignments
         /// <param name="args">CLI arguments</param>
         public static void Main(string[] args)
         {
-            string? userChoice, name, email, phone, notes;
+            string userChoice, name, email, phone, notes;
             bool operationResult;
 
             ContactManager manager = new ();
@@ -25,7 +25,7 @@ namespace Assignments
                 DisplayAppInfo();
 
                 userChoice = GetInput("Enter your choice:");
-                Console.WriteLine("\n\n");
+                Console.WriteLine("\n");
 
                 switch (userChoice)
                 {
@@ -54,7 +54,7 @@ namespace Assignments
                             break;
                         }
 
-                        string? input = GetInput("Enter Guid:");
+                        string input = GetInput("Enter Guid:");
 
                         if (Guid.TryParse(input, out Guid id))
                         {
@@ -87,7 +87,7 @@ namespace Assignments
                             break;
                         }
 
-                        string? deleteName = GetInput("Enter the name to delete:");
+                        string deleteName = GetInput("Enter the name to delete:");
                         operationResult = manager.Delete(deleteName);
                         if (operationResult)
                         {
@@ -101,7 +101,7 @@ namespace Assignments
                         break;
 
                     case "4": // Show all contacts
-                        List<ContactInfo>? contacts = manager.GetContacts();
+                        List<ContactInfo> contacts = manager.GetContacts();
 
                         if (contacts == null)
                         {
@@ -134,7 +134,7 @@ namespace Assignments
                         break;
 
                     case "6": // Show all contacts by name
-                        List<ContactInfo>? allContacts = manager.GetContacts();
+                        List<ContactInfo> allContacts = manager.GetContacts();
                         if (allContacts == null)
                         {
                             Console.WriteLine("Contact Book is empty.");

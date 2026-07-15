@@ -88,7 +88,7 @@ namespace AssignmentOne.Services
 
             try
             {
-                foreach (ContactInfo contact in _repository.GetContacts())
+                foreach (ContactInfo contact in this._repository.GetContacts())
                 {
                     if (contact.Name == name)
                     {
@@ -133,7 +133,7 @@ namespace AssignmentOne.Services
         /// Get all contacts from Contact Book
         /// </summary>
         /// <returns>List<ContactInfo> all contacts</returns>
-        public List<ContactInfo>? GetContacts()
+        public List<ContactInfo> GetContacts()
         {
             return this._repository.GetContacts();
         }

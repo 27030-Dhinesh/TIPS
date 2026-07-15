@@ -66,15 +66,15 @@ namespace AssignmentOne.Repository
         /// <summary>
         /// Get all saved contacts
         /// </summary>
-        /// <returns>List of Contacts saved</returns>
-        public List<ContactInfo>? GetContacts()
+        /// <returns>List of Contacts saved. Empty List<Contact> if Contact Book is empty.</returns>
+        public List<ContactInfo> GetContacts()
         {
             if (this._contacts == null || this._contacts.Count == 0)
             {
-                return null;
+                return new List<ContactInfo>();
             }
 
-            return new List<ContactInfo>(this._contacts);
+            return this._contacts.Select(contact => contact.Clone()).ToList();
         }
     }
 }

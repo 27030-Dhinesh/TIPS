@@ -25,7 +25,7 @@ namespace AssignmentOne.Models
         /// <value>
         /// Name of the Contact
         /// </value>
-        public string? Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Phone property
@@ -33,7 +33,7 @@ namespace AssignmentOne.Models
         /// <value>
         /// Phone number of the Contact
         /// </value>
-        public string? Phone { get; set; }
+        public string Phone { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Email property
@@ -41,7 +41,7 @@ namespace AssignmentOne.Models
         /// <value>
         /// Email address of the Contact
         /// </value>
-        public string? Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Notes property
