@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AssignmentOne.Models;
-using static AssignmentOne.Helpers;
+using static AssignmentOne.ConsoleHelper;
 
 namespace AssignmentOne.Repository
 {
     /// <summary>
-    /// Repository for ContactInfo
+    /// Repository for ContactInfo.
     /// </summary>
     internal class ContactRepository
     {
@@ -25,9 +25,9 @@ namespace AssignmentOne.Repository
         }
 
         /// <summary>
-        /// Add new ContactInfo to Repo
+        /// Add new ContactInfo to Repo.
         /// </summary>
-        /// <param name="contact">ContactInfo instance</param>
+        /// <param name="contact">ContactInfo instance.</param>
         public void AddContactInfo(ContactInfo contact)
         {
             this._contacts.Add(contact);
@@ -56,10 +56,10 @@ namespace AssignmentOne.Repository
         }
 
         /// <summary>
-        /// Delete a contact from Contact Book
+        /// Delete a contact from Contact Book.
         /// </summary>
-        /// <param name="contact">Contact to delete</param>
-        /// <returns>true if deleted successfully, false otherwise</returns>
+        /// <param name="contact">Contact to delete.</param>
+        /// <returns>true if deleted successfully, false otherwise.</returns>
         public bool DeleteContactInfo(ContactInfo contact)
         {
             ContactInfo remove = this._contacts.First(c => c.Id == contact.Id);
@@ -67,7 +67,7 @@ namespace AssignmentOne.Repository
         }
 
         /// <summary>
-        /// Get all saved contacts
+        /// Get all saved contacts.
         /// </summary>
         /// <returns>List of Contacts saved. Empty List<Contact> if Contact Book is empty.</returns>
         public List<ContactInfo> GetContacts()

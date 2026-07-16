@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using AssignmentOne.Models;
 using AssignmentOne.Repository;
-using static AssignmentOne.Helpers;
+using static AssignmentOne.ValidationHelper;
 
 namespace AssignmentOne.Services
 {
     /// <summary>
-    /// Contact Manager class
+    /// Contact Manager class.
     /// </summary>
     internal class ContactManager
     {
@@ -26,34 +26,23 @@ namespace AssignmentOne.Services
         }
 
         /// <summary>
-        /// Validate a save a new Contact
+        /// Validate a save a new Contact.
         /// </summary>
-        /// <param name="name">Name of the contact</param>
-        /// <param name="email">Email of the contact</param>
-        /// <param name="phone">Phone of the contact</param>
-        /// <param name="notes">Notes for the contact</param>
+        /// <param name="newContact">ContactInfo object to be saved.</param>
         /// <returns>true if save successful, false otherwise.</returns>
-        public bool Save(string name, string email, string phone, string notes)
+        public bool Save(ContactInfo newContact)
         {
-            if (!IsValidPhone(phone) || !IsValidEmail(email))
+            if (!IsValidPhone(newContact.Phone) || !IsValidEmail(newContact.Email))
             {
                 return false;
             }
 
-            ContactInfo contactInfo = new (Guid.NewGuid())
-            {
-                Name = name,
-                Email = email,
-                Phone = phone,
-                Notes = notes,
-            };
-
-            this._repository.AddContactInfo(contactInfo);
+            this._repository.AddContactInfo(newContact);
             return true;
         }
 
         /// <summary>
-        /// Edit ContactInfo
+        /// Edit ContactInfo.
         /// </summary>
         /// <param name="id">Guid of Contact to edit.</param>
         /// <param name="contact">ContactInfo with edited fields.</param>
@@ -74,7 +63,7 @@ namespace AssignmentOne.Services
         }
 
         /// <summary>
-        /// Delete a ContactInfo by name
+        /// Delete a ContactInfo by name.
         /// </summary>
         /// <param name="id">Guid id of the contact to delete.</param>
         /// <returns>true if delete successful, false otherwise.</returns>
@@ -101,7 +90,7 @@ namespace AssignmentOne.Services
         /// <summary>
         /// Search for a ContactInfo by name.
         /// </summary>
-        /// <param name="name">Name of the person to search across Contacts</param>
+        /// <param name="name">Name of the person to search across Contacts.</param>
         /// <returns>ContactInfo if found, null otherwise.</returns>
         public List<ContactInfo> SearchContact(string name)
         {
@@ -120,9 +109,9 @@ namespace AssignmentOne.Services
         }
 
         /// <summary>
-        /// Get all contacts from Contact Book
+        /// Get all contacts from Contact Book.
         /// </summary>
-        /// <returns>List<ContactInfo> all contacts</returns>
+        /// <returns>List<ContactInfo> all contacts.</returns>
         public List<ContactInfo> GetContacts()
         {
             return this._repository.GetContacts();

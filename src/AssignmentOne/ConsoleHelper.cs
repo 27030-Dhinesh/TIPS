@@ -9,15 +9,15 @@ using AssignmentOne.Models;
 namespace AssignmentOne
 {
     /// <summary>
-    /// Helper methods
+    /// Helper methods for Console operations.
     /// </summary>
-    internal static class Helpers
+    internal static class ConsoleHelper
     {
         /// <summary>
         /// Get valid string input from user.
         /// </summary>
-        /// <param name="prompt">Text to display before input</param>
-        /// <returns>String</returns>
+        /// <param name="prompt">Text to display before input.</param>
+        /// <returns>Valid string value.</returns>
         public static string GetInput(string prompt)
         {
             string? input;
@@ -38,9 +38,9 @@ namespace AssignmentOne
         }
 
         /// <summary>
-        /// Print a contact object legibly
+        /// Print a contact object legibly.
         /// </summary>
-        /// <param name="contact">ContactInfo instance to print</param>
+        /// <param name="contact">ContactInfo instance to print.</param>
         public static void PrintContact(ContactInfo contact)
         {
             Console.WriteLine($"ID: {contact.Id}");
@@ -51,16 +51,16 @@ namespace AssignmentOne
         }
 
         /// <summary>
-        /// Print edit message for given category
+        /// Print edit message for given category.
         /// </summary>
-        /// <param name="category">Category of Edit Message display</param>
+        /// <param name="category">Category of Edit Message display.</param>
         public static void EditMessage(string category)
         {
             Console.WriteLine($"Do you want to edit {category} [Y]? (empty to leave as it is)");
         }
 
         /// <summary>
-        /// Print data not found
+        /// Print data not found.
         /// </summary>
         public static void DisplayEmpty()
         {
@@ -80,26 +80,6 @@ namespace AssignmentOne
             Console.WriteLine("5. Search contact");
             Console.WriteLine("6. Display sorted contacts");
             Console.WriteLine("7. Quit");
-        }
-
-        /// <summary>
-        /// Check if the phone arg is valid or not
-        /// </summary>
-        /// <param name="phone">Phone (string) to validate</param>
-        /// <returns>true if phone is valid, false otherwise.</returns>
-        public static bool IsValidPhone(string phone)
-        {
-            return Regex.IsMatch(phone.Trim(), @"^(?:\+91|0)?[6-9]\d{9}$");
-        }
-
-        /// <summary>
-        /// Check if the email arg is valid or not
-        /// </summary>
-        /// <param name="email">Email (string) to validate</param>
-        /// <returns>true if email is valid, false otherwise.</returns>
-        public static bool IsValidEmail(string email)
-        {
-            return Regex.IsMatch(email.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase);
         }
     }
 }

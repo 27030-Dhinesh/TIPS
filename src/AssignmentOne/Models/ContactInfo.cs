@@ -7,56 +7,56 @@ using System.Threading.Tasks;
 namespace AssignmentOne.Models
 {
     /// <summary>
-    /// Contact Model class
+    /// Contact Model class.
     /// </summary>
     internal class ContactInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactInfo"/> class.
         /// </summary>
-        /// <param name="id">Guid ID</param>
+        /// <param name="id">Guid ID for the new ContactInfo object.</param>
         public ContactInfo(Guid id)
         {
             this.Id = id;
         }
 
         /// <summary>
-        /// Gets Unique ID of ContactInfo instance
+        /// Gets Unique ID of ContactInfo instance.
         /// </summary>
         /// <value>
-        /// Unique ID for ContactInfo instance
+        /// Unique ID for ContactInfo instance.
         /// </value>
         public Guid Id { get; } = Guid.NewGuid();
 
         /// <summary>
-        /// Gets or sets Name property
+        /// Gets or sets Name property.
         /// </summary>
         /// <value>
-        /// Name of the Contact
+        /// Name of the Contact.
         /// </value>
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Phone property
+        /// Gets or sets Phone property.
         /// </summary>
         /// <value>
-        /// Phone number of the Contact
+        /// Phone number of the Contact.
         /// </value>
         public string Phone { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Email property
+        /// Gets or sets Email property.
         /// </summary>
         /// <value>
-        /// Email address of the Contact
+        /// Email address of the Contact.
         /// </value>
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Notes property
+        /// Gets or sets Notes property.
         /// </summary>
         /// <value>
-        /// Additional notes for the Contact
+        /// Additional notes for the Contact.
         /// </value>
         public string Notes { get; set; } = string.Empty;
 

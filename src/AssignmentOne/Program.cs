@@ -1,19 +1,19 @@
 ﻿using System.Threading;
 using AssignmentOne.Models;
 using AssignmentOne.Services;
-using static AssignmentOne.Helpers;
+using static AssignmentOne.ConsoleHelper;
 
 namespace AssignmentOne
 {
     /// <summary>
-    /// Program Class - Entry Point
+    /// Program Class - Entry Point.
     /// </summary>
     internal class Program
     {
         /// <summary>
-        /// Main method
+        /// Main method.
         /// </summary>
-        /// <param name="args">CLI arguments</param>
+        /// <param name="args">CLI arguments.</param>
         public static void Main(string[] args)
         {
             string userChoice, name, email, phone, notes;
@@ -38,7 +38,14 @@ namespace AssignmentOne
                         phone = GetInput("Enter the phone no.:");
                         notes = GetInput("Enter additional notes:");
 
-                        operationResult = manager.Save(name, email, phone, notes);
+                        ContactInfo newContact = new (Guid.NewGuid())
+                        {
+                            Name = name,
+                            Email = email,
+                            Phone = phone,
+                            Notes = notes,
+                        };
+                        operationResult = manager.Save(newContact);
                         if (operationResult)
                         {
                             Console.WriteLine("New contact saved successful.");
@@ -66,14 +73,14 @@ namespace AssignmentOne
                             phone = GetInput("Enter the phone no.:");
                             notes = GetInput("Enter additional notes:");
 
-                            ContactInfo newContact = new (Guid.Empty)
+                            ContactInfo contactToEdit = new (Guid.Empty)
                             {
                                 Name = name,
                                 Email = email,
                                 Phone = phone,
                                 Notes = notes,
                             };
-                            operationResult = manager.Edit(id, newContact);
+                            operationResult = manager.Edit(id, contactToEdit);
                             if (operationResult)
                             {
                                 Console.WriteLine("Edit successful.");
@@ -187,10 +194,10 @@ namespace AssignmentOne
         }
 
         /// <summary>
-        /// Display all available Contacts
+        /// Display all available Contacts.
         /// </summary>
-        /// <param name="contacts">List of all contacts</param>
-        public static void DisplayContacts(List<ContactInfo>? contacts)
+        /// <param name="contacts">List of all contacts.</param>
+        private static void DisplayContacts(List<ContactInfo>? contacts)
         {
             if (contacts == null)
             {
@@ -206,10 +213,10 @@ namespace AssignmentOne
         }
 
         /// <summary>
-        /// Display all contacts sorted by name
+        /// Display all contacts sorted by name.
         /// </summary>
-        /// <param name="contacts">List of all contacts</param>
-        public static void DisplayByName(List<ContactInfo>? contacts)
+        /// <param name="contacts">List of all contacts.</param>
+        private static void DisplayByName(List<ContactInfo>? contacts)
         {
             if (contacts == null)
             {
