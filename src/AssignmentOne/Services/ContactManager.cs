@@ -40,7 +40,7 @@ namespace AssignmentOne.Services
                 return false;
             }
 
-            ContactInfo contactInfo = new ()
+            ContactInfo contactInfo = new (Guid.NewGuid())
             {
                 Name = name,
                 Email = email,
@@ -80,19 +80,13 @@ namespace AssignmentOne.Services
         /// <returns>true if delete successful, false otherwise.</returns>
         public bool Delete(Guid id)
         {
-            if (this._repository.IsEmpty())
-            {
-                return false;
-            }
-
             try
             {
                 foreach (ContactInfo contact in this._repository.GetContacts())
                 {
                     if (contact.Id == id)
                     {
-                        this._repository.DeleteContactInfo(contact);
-                        return true;
+                        return this._repository.DeleteContactInfo(contact);
                     }
                 }
 
@@ -116,7 +110,7 @@ namespace AssignmentOne.Services
 
             foreach (ContactInfo contact in contacts)
             {
-                if (contact.Name.Contains(name))
+                if (contact.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
                 {
                     result.Add(contact);
                 }

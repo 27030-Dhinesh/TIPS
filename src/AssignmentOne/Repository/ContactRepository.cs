@@ -62,7 +62,8 @@ namespace AssignmentOne.Repository
         /// <returns>true if deleted successfully, false otherwise</returns>
         public bool DeleteContactInfo(ContactInfo contact)
         {
-            return this._contacts.Remove(contact);
+            ContactInfo remove = this._contacts.First(c => c.Id == contact.Id);
+            return this._contacts.Remove(remove);
         }
 
         /// <summary>

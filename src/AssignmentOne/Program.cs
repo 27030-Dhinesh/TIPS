@@ -35,7 +35,7 @@ namespace AssignmentOne
                     case "1": // Add a new contact
                         name = GetInput("Enter the name:");
                         email = GetInput("Enter the email: ");
-                        phone = GetInput("Ener the phone no.:");
+                        phone = GetInput("Enter the phone no.:");
                         notes = GetInput("Enter additional notes:");
 
                         operationResult = manager.Save(name, email, phone, notes);
@@ -63,17 +63,25 @@ namespace AssignmentOne
                         {
                             name = GetInput("Enter the name:");
                             email = GetInput("Enter the email: ");
-                            phone = GetInput("Ener the phone no.:");
+                            phone = GetInput("Enter the phone no.:");
                             notes = GetInput("Enter additional notes:");
 
-                            ContactInfo newContact = new ()
+                            ContactInfo newContact = new (Guid.Empty)
                             {
                                 Name = name,
                                 Email = email,
                                 Phone = phone,
                                 Notes = notes,
                             };
-                            manager.Edit(id, newContact);
+                            operationResult = manager.Edit(id, newContact);
+                            if (operationResult)
+                            {
+                                Console.WriteLine("Edit successful.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Edit unsuccessful.");
+                            }
                         }
                         else
                         {
@@ -82,7 +90,7 @@ namespace AssignmentOne
 
                         break;
 
-                    case "3": // Delete contact by name
+                    case "3": // Delete contact by Guid
                         if (manager.IsContactBookEmpty())
                         {
                             Console.WriteLine("Contact Book empty; cannot delete non-existent Contact");
@@ -120,6 +128,7 @@ namespace AssignmentOne
                         }
 
                         DisplayContacts(contacts);
+                        Thread.Sleep(2000);
 
                         break;
 
@@ -144,6 +153,8 @@ namespace AssignmentOne
                             }
                         }
 
+                        Thread.Sleep(2000);
+
                         break;
 
                     case "6": // Show all contacts by name
@@ -156,6 +167,8 @@ namespace AssignmentOne
                         {
                             DisplayByName(allContacts);
                         }
+
+                        Thread.Sleep(2000);
 
                         break;
 

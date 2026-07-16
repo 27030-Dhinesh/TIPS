@@ -12,6 +12,15 @@ namespace AssignmentOne.Models
     internal class ContactInfo
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="ContactInfo"/> class.
+        /// </summary>
+        /// <param name="id">Guid ID</param>
+        public ContactInfo(Guid id)
+        {
+            this.Id = id;
+        }
+
+        /// <summary>
         /// Gets Unique ID of ContactInfo instance
         /// </summary>
         /// <value>
@@ -57,7 +66,7 @@ namespace AssignmentOne.Models
         /// <returns>ContactInfo deep copy object.</returns>
         public ContactInfo Clone()
         {
-            return new ContactInfo
+            return new (this.Id)
             {
                 Name = this.Name,
                 Phone = this.Phone,
