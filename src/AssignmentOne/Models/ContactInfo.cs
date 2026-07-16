@@ -12,12 +12,12 @@ namespace AssignmentOne.Models
     internal class ContactInfo
     {
         /// <summary>
-        /// Gets or sets Unique ID of ContactInfo instance
+        /// Gets Unique ID of ContactInfo instance
         /// </summary>
         /// <value>
         /// Unique ID for ContactInfo instance
         /// </value>
-        public Guid Id { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
 
         /// <summary>
         /// Gets or sets Name property
@@ -49,7 +49,7 @@ namespace AssignmentOne.Models
         /// <value>
         /// Additional notes for the Contact
         /// </value>
-        public string? Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
 
         /// <summary>
         /// Return a deep copy of the ContactInfo object.
@@ -59,7 +59,6 @@ namespace AssignmentOne.Models
         {
             return new ContactInfo
             {
-                Id = this.Id,
                 Name = this.Name,
                 Phone = this.Phone,
                 Email = this.Email,

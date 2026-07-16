@@ -44,8 +44,10 @@ namespace AssignmentOne.Repository
             ContactInfo? oldContactInfo = this._contacts.Find(c => c.Id == id);
             if (oldContactInfo != null)
             {
-                this._contacts.Remove(oldContactInfo);
-                this._contacts.Add(newContactInfo);
+                oldContactInfo.Name = newContactInfo.Name;
+                oldContactInfo.Phone = newContactInfo.Phone;
+                oldContactInfo.Email = newContactInfo.Email;
+                oldContactInfo.Notes = newContactInfo.Notes;
 
                 return true;
             }

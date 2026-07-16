@@ -42,7 +42,6 @@ namespace AssignmentOne.Services
 
             ContactInfo contactInfo = new ()
             {
-                Id = Guid.NewGuid(),
                 Name = name,
                 Email = email,
                 Phone = phone,
@@ -77,9 +76,9 @@ namespace AssignmentOne.Services
         /// <summary>
         /// Delete a ContactInfo by name
         /// </summary>
-        /// <param name="name">Name of the contact to delete</param>
-        /// <returns>rue if delete successful, false otherwise.</returns>
-        public bool Delete(string name)
+        /// <param name="id">Guid id of the contact to delete.</param>
+        /// <returns>true if delete successful, false otherwise.</returns>
+        public bool Delete(Guid id)
         {
             if (this._repository.IsEmpty())
             {
@@ -90,7 +89,7 @@ namespace AssignmentOne.Services
             {
                 foreach (ContactInfo contact in this._repository.GetContacts())
                 {
-                    if (contact.Name == name)
+                    if (contact.Id == id)
                     {
                         this._repository.DeleteContactInfo(contact);
                         return true;

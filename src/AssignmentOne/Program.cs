@@ -1,4 +1,5 @@
-﻿using AssignmentOne.Models;
+﻿using System.Threading;
+using AssignmentOne.Models;
 using AssignmentOne.Services;
 using static AssignmentOne.Helpers;
 
@@ -26,6 +27,8 @@ namespace AssignmentOne
 
                 userChoice = GetInput("Enter your choice:");
                 Console.WriteLine();
+
+                Console.Clear();
 
                 switch (userChoice)
                 {
@@ -65,7 +68,6 @@ namespace AssignmentOne
 
                             ContactInfo newContact = new ()
                             {
-                                Id = id,
                                 Name = name,
                                 Email = email,
                                 Phone = phone,
@@ -87,15 +89,23 @@ namespace AssignmentOne
                             break;
                         }
 
-                        string deleteName = GetInput("Enter the name to delete:");
-                        operationResult = manager.Delete(deleteName);
-                        if (operationResult)
+                        string deleteId = GetInput("Enter GUID to delete: ");
+
+                        if (Guid.TryParse(deleteId, out Guid delId))
                         {
-                            Console.WriteLine("Deletion successful.");
+                            operationResult = manager.Delete(delId);
+                            if (operationResult)
+                            {
+                                Console.WriteLine("Deletion successful.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Deletion unsuccessful.");
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("Deletion unsuccessful.");
+                            Console.WriteLine("Invalid input.");
                         }
 
                         break;
@@ -157,6 +167,9 @@ namespace AssignmentOne
                         Console.WriteLine("Invalid choice.");
                         break;
                 }
+
+                Thread.Sleep(1500);
+                Console.Clear();
             }
         }
 
