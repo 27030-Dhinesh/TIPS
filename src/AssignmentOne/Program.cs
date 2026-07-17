@@ -16,8 +16,7 @@ namespace AssignmentOne
         /// <param name="args">CLI arguments.</param>
         public static void Main(string[] args)
         {
-            string userChoice, name, email, phone, notes;
-            bool operationResult;
+            string userChoice;
 
             ContactManager manager = new ();
 
@@ -33,150 +32,27 @@ namespace AssignmentOne
                 switch (userChoice)
                 {
                     case "1": // Add a new contact
-                        name = GetInput("Enter the name:");
-                        email = GetInput("Enter the email: ");
-                        phone = GetInput("Enter the phone no.:");
-                        notes = GetInput("Enter additional notes:");
-
-                        ContactInfo newContact = new (Guid.NewGuid())
-                        {
-                            Name = name,
-                            Email = email,
-                            Phone = phone,
-                            Notes = notes,
-                        };
-                        operationResult = manager.Save(newContact);
-                        if (operationResult)
-                        {
-                            Console.WriteLine("New contact saved successful.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Failed to save contact.");
-                        }
-
+                        AddNewContact(manager);
                         break;
 
                     case "2": // Edit an existing contact
-                        if (manager.IsContactBookEmpty())
-                        {
-                            Console.WriteLine("Contact Book empty; cannot edit non-existent Contact");
-                            break;
-                        }
-
-                        string input = GetInput("Enter Guid:");
-
-                        if (Guid.TryParse(input, out Guid id))
-                        {
-                            name = GetInput("Enter the name:");
-                            email = GetInput("Enter the email: ");
-                            phone = GetInput("Enter the phone no.:");
-                            notes = GetInput("Enter additional notes:");
-
-                            ContactInfo contactToEdit = new (Guid.Empty)
-                            {
-                                Name = name,
-                                Email = email,
-                                Phone = phone,
-                                Notes = notes,
-                            };
-                            operationResult = manager.Edit(id, contactToEdit);
-                            if (operationResult)
-                            {
-                                Console.WriteLine("Edit successful.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Edit unsuccessful.");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid input.");
-                        }
-
+                        EditExistingContact(manager);
                         break;
 
                     case "3": // Delete contact by Guid
-                        if (manager.IsContactBookEmpty())
-                        {
-                            Console.WriteLine("Contact Book empty; cannot delete non-existent Contact");
-                            break;
-                        }
-
-                        string deleteId = GetInput("Enter GUID to delete: ");
-
-                        if (Guid.TryParse(deleteId, out Guid delId))
-                        {
-                            operationResult = manager.Delete(delId);
-                            if (operationResult)
-                            {
-                                Console.WriteLine("Deletion successful.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Deletion unsuccessful.");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid input.");
-                        }
-
+                        DeleteByGuid(manager);
                         break;
 
                     case "4": // Show all contacts
-                        List<ContactInfo> contacts = manager.GetContacts();
-
-                        if (contacts.Count == 0)
-                        {
-                            Console.WriteLine("Contact Book is empty.");
-                            break;
-                        }
-
-                        DisplayContacts(contacts);
-                        Thread.Sleep(2000);
-
+                        ShowAllContacts(manager);
                         break;
 
                     case "5": // Search contact by name
-                        if (manager.IsContactBookEmpty())
-                        {
-                            Console.WriteLine("Contact Book is empty; cannot search.");
-                            break;
-                        }
-
-                        string searchName = GetInput("Enter name to search:");
-                        List<ContactInfo> result = manager.SearchContact(searchName);
-                        if (result.Count == 0)
-                        {
-                            Console.WriteLine("Contact not found.");
-                        }
-                        else
-                        {
-                            foreach (ContactInfo c in result)
-                            {
-                                PrintContact(c);
-                            }
-                        }
-
-                        Thread.Sleep(2000);
-
+                        SearchByName(manager);
                         break;
 
-                    case "6": // Show all contacts by name
-                        List<ContactInfo> allContacts = manager.GetContacts();
-                        if (allContacts.Count == 0)
-                        {
-                            Console.WriteLine("Contact Book is empty.");
-                        }
-                        else
-                        {
-                            DisplayByName(allContacts);
-                        }
-
-                        Thread.Sleep(2000);
-
+                    case "6": // Show all contacts ordered by name
+                        DisplayOrderByName(manager);
                         break;
 
                     case "7": // Exit the app
@@ -193,10 +69,154 @@ namespace AssignmentOne
             }
         }
 
-        /// <summary>
-        /// Display all available Contacts.
-        /// </summary>
-        /// <param name="contacts">List of all contacts.</param>
+        private static void AddNewContact(ContactManager manager)
+        {
+            string name = GetInput("Enter the name:");
+            string email = GetInput("Enter the email: ");
+            string phone = GetInput("Enter the phone no.:");
+            string notes = GetInput("Enter additional notes:");
+
+            ContactInfo newContact = new (Guid.NewGuid())
+            {
+                Name = name,
+                Email = email,
+                Phone = phone,
+                Notes = notes,
+            };
+            bool operationResult = manager.Save(newContact);
+            if (operationResult)
+            {
+                Console.WriteLine("New contact saved successful.");
+            }
+            else
+            {
+                Console.WriteLine("Failed to save contact.");
+            }
+        }
+
+        private static void EditExistingContact(ContactManager manager)
+        {
+            if (manager.IsContactBookEmpty())
+            {
+                Console.WriteLine("Contact Book empty; cannot edit non-existent Contact");
+                return;
+            }
+
+            string input = GetInput("Enter Guid:");
+            string name, email, phone, notes;
+
+            if (Guid.TryParse(input, out Guid id))
+            {
+                name = GetInput("Enter the name:");
+                email = GetInput("Enter the email: ");
+                phone = GetInput("Enter the phone no.:");
+                notes = GetInput("Enter additional notes:");
+
+                ContactInfo contactToEdit = new (Guid.Empty)
+                {
+                    Name = name,
+                    Email = email,
+                    Phone = phone,
+                    Notes = notes,
+                };
+                bool operationResult = manager.Edit(id, contactToEdit);
+                if (operationResult)
+                {
+                    Console.WriteLine("Edit successful.");
+                }
+                else
+                {
+                    Console.WriteLine("Edit unsuccessful.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input.");
+            }
+        }
+
+        private static void ShowAllContacts(ContactManager manager)
+        {
+            List<ContactInfo> contacts = manager.GetContacts();
+
+            if (contacts.Count == 0)
+            {
+                Console.WriteLine("Contact Book is empty.");
+                return;
+            }
+
+            DisplayContacts(contacts);
+            Thread.Sleep(2000);
+        }
+
+        private static void DeleteByGuid(ContactManager manager)
+        {
+            if (manager.IsContactBookEmpty())
+            {
+                Console.WriteLine("Contact Book empty; cannot delete non-existent Contact");
+                return;
+            }
+
+            string deleteId = GetInput("Enter GUID to delete: ");
+
+            if (Guid.TryParse(deleteId, out Guid delId))
+            {
+                bool operationResult = manager.Delete(delId);
+                if (operationResult)
+                {
+                    Console.WriteLine("Deletion successful.");
+                }
+                else
+                {
+                    Console.WriteLine("Deletion unsuccessful.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input.");
+            }
+        }
+
+        private static void DisplayOrderByName(ContactManager manager)
+        {
+            List<ContactInfo> allContacts = manager.GetContacts();
+            if (allContacts.Count == 0)
+            {
+                Console.WriteLine("Contact Book is empty.");
+            }
+            else
+            {
+                DisplayByName(allContacts);
+            }
+
+            Thread.Sleep(2000);
+        }
+
+        private static void SearchByName(ContactManager manager)
+        {
+            if (manager.IsContactBookEmpty())
+            {
+                Console.WriteLine("Contact Book is empty; cannot search.");
+                return;
+            }
+
+            string searchName = GetInput("Enter name to search:");
+            List<ContactInfo> result = manager.SearchContact(searchName);
+            if (result.Count == 0)
+            {
+                Console.WriteLine("Contact not found.");
+            }
+            else
+            {
+                foreach (ContactInfo c in result)
+                {
+                    PrintContact(c);
+                }
+            }
+
+            Thread.Sleep(2000);
+        }
+
         private static void DisplayContacts(List<ContactInfo>? contacts)
         {
             if (contacts == null)
@@ -212,10 +232,6 @@ namespace AssignmentOne
             }
         }
 
-        /// <summary>
-        /// Display all contacts sorted by name.
-        /// </summary>
-        /// <param name="contacts">List of all contacts.</param>
         private static void DisplayByName(List<ContactInfo>? contacts)
         {
             if (contacts == null)
