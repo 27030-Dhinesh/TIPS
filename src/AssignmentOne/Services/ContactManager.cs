@@ -69,22 +69,7 @@ namespace AssignmentOne.Services
         /// <returns>true if delete successful, false otherwise.</returns>
         public bool Delete(Guid id)
         {
-            try
-            {
-                foreach (ContactInfo contact in this._repository.GetContacts())
-                {
-                    if (contact.Id == id)
-                    {
-                        return this._repository.DeleteContactInfo(contact);
-                    }
-                }
-
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return this._repository.DeleteContactInfo(id);
         }
 
         /// <summary>

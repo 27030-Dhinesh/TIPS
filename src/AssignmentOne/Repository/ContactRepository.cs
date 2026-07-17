@@ -58,12 +58,27 @@ namespace AssignmentOne.Repository
         /// <summary>
         /// Delete a contact from Contact Book.
         /// </summary>
-        /// <param name="contact">Contact to delete.</param>
-        /// <returns>true if deleted successfully, false otherwise.</returns>
-        public bool DeleteContactInfo(ContactInfo contact)
+        /// <param name="id">Guid id of the contact to delete.</param>
+        /// <returns>True if deleted successfully, False otherwise.</returns>
+        public bool DeleteContactInfo(Guid id)
         {
-            ContactInfo remove = this._contacts.First(c => c.Id == contact.Id);
-            return this._contacts.Remove(remove);
+            bool foundContact = this.FindContact(id);
+
+            if (foundContact)
+            {
+                for (int i = this._contacts.Count - 1; i >= 0; --i)
+                {
+                    if (this._contacts[i].Id == id)
+                    {
+                        this._contacts.RemoveAt(i);
+                        return true;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -78,6 +93,22 @@ namespace AssignmentOne.Repository
             }
 
             return this._contacts.Select(contact => contact.Clone()).ToList();
+        }
+
+        /// <summary>
+        /// Find a ContactInfo object based on Guid id.
+        /// </summary>
+        /// <param name="id">Guid id of the object to find.</param>
+        /// <returns>True if Contact found in ContactRepository, false otherwise.</returns>
+        public bool FindContact(Guid id)
+        {
+            ContactInfo? c = this._contacts.Find(c => c.Id == id);
+            if (c != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
