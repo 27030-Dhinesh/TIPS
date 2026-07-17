@@ -81,7 +81,7 @@ namespace AssignmentOne.Services
 
                 return false;
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return false;
             }
