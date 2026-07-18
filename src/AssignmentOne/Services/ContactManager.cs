@@ -32,7 +32,7 @@ namespace AssignmentOne.Services
         /// <returns>true if save successful, false otherwise.</returns>
         public bool Save(ContactInfo newContact)
         {
-            if (!IsValidPhone(newContact.Phone) || !IsValidEmail(newContact.Email))
+            if (!IsValidName(newContact.Name) || !IsValidPhone(newContact.Phone) || !IsValidEmail(newContact.Email))
             {
                 return false;
             }

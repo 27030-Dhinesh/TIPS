@@ -31,5 +31,20 @@ namespace AssignmentOne
         {
             return Regex.IsMatch(email.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase);
         }
+
+        /// <summary>
+        /// Check whether the name is valid or not.
+        /// </summary>
+        /// <param name="name">Name of the contact to validate.</param>
+        /// <returns>True if the name is valid, false otherwise.</returns>
+        public static bool IsValidName(string name)
+        {
+            if (name.Length < 2 || name.Length > 30 || !name.All(char.IsLetter))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
