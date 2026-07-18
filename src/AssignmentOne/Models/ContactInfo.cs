@@ -12,21 +12,12 @@ namespace AssignmentOne.Models
     internal class ContactInfo
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContactInfo"/> class.
-        /// </summary>
-        /// <param name="id">Guid ID for the new ContactInfo object.</param>
-        public ContactInfo(Guid id)
-        {
-            this.Id = id;
-        }
-
-        /// <summary>
         /// Gets Unique ID of ContactInfo instance.
         /// </summary>
         /// <value>
         /// Unique ID for ContactInfo instance.
         /// </value>
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; private set;  } = Guid.NewGuid();
 
         /// <summary>
         /// Gets or sets Name property.
@@ -66,8 +57,9 @@ namespace AssignmentOne.Models
         /// <returns>ContactInfo deep copy object.</returns>
         public ContactInfo Clone()
         {
-            return new (this.Id)
+            return new ()
             {
+                Id = this.Id,
                 Name = this.Name,
                 Phone = this.Phone,
                 Email = this.Email,

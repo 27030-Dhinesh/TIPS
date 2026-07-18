@@ -76,7 +76,7 @@ namespace AssignmentOne
             string phone = GetInput("Enter the phone no.:");
             string notes = GetInput("Enter additional notes:");
 
-            ContactInfo newContact = new (Guid.NewGuid())
+            ContactInfo newContact = new ()
             {
                 Name = name,
                 Email = email,
@@ -112,7 +112,7 @@ namespace AssignmentOne
                 phone = GetInput("Enter the phone no.:");
                 notes = GetInput("Enter additional notes:");
 
-                ContactInfo contactToEdit = new (Guid.Empty)
+                ContactInfo contactToEdit = new ()
                 {
                     Name = name,
                     Email = email,
