@@ -39,12 +39,7 @@ namespace AssignmentOne
         /// <returns>True if the name is valid, false otherwise.</returns>
         public static bool IsValidName(string name)
         {
-            if (name.Length < 2 || name.Length > 30 || !name.All(char.IsLetter))
-            {
-                return false;
-            }
-
-            return true;
+            return Regex.IsMatch(name.Trim(), @"^(?=.{2,30}$)\p{L}+(?: \p{L}+)*$");
         }
     }
 }
