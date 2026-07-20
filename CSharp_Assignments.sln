@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{C778E127-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "acceptance", "acceptance", "{93EBAE55-A8BA-40FF-93AA-7D9E4359B6B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShapeHierarchy", "src\ShapeHierarchyTask\ShapeHierarchy.csproj", "{EA6B899D-D979-4179-8BA0-FEAA7D0D3656}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeHierarchy", "src\EmployeeHierarchyTask\EmployeeHierarchy.csproj", "{978CADBF-28B3-45BA-92DF-774B1CC3BD10}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem", "src\BankingSystem\BankingSystem.csproj", "{925246DC-A7B0-460F-9C29-336B96A023AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShapeHierarchy", "src\ShapeHierarchy\ShapeHierarchy.csproj", "{38A9BA79-61C9-AA2D-AC7B-47938A397DFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeHierarchy", "src\EmployeeHierarchy\EmployeeHierarchy.csproj", "{A2232C99-92DE-54AB-A595-BA2CB2636B9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,18 +23,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EA6B899D-D979-4179-8BA0-FEAA7D0D3656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA6B899D-D979-4179-8BA0-FEAA7D0D3656}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA6B899D-D979-4179-8BA0-FEAA7D0D3656}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA6B899D-D979-4179-8BA0-FEAA7D0D3656}.Release|Any CPU.Build.0 = Release|Any CPU
-		{978CADBF-28B3-45BA-92DF-774B1CC3BD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{978CADBF-28B3-45BA-92DF-774B1CC3BD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{978CADBF-28B3-45BA-92DF-774B1CC3BD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{978CADBF-28B3-45BA-92DF-774B1CC3BD10}.Release|Any CPU.Build.0 = Release|Any CPU
 		{925246DC-A7B0-460F-9C29-336B96A023AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{925246DC-A7B0-460F-9C29-336B96A023AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{925246DC-A7B0-460F-9C29-336B96A023AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{925246DC-A7B0-460F-9C29-336B96A023AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38A9BA79-61C9-AA2D-AC7B-47938A397DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38A9BA79-61C9-AA2D-AC7B-47938A397DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38A9BA79-61C9-AA2D-AC7B-47938A397DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38A9BA79-61C9-AA2D-AC7B-47938A397DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2232C99-92DE-54AB-A595-BA2CB2636B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2232C99-92DE-54AB-A595-BA2CB2636B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2232C99-92DE-54AB-A595-BA2CB2636B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2232C99-92DE-54AB-A595-BA2CB2636B9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
