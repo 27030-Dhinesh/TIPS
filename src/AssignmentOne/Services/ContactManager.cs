@@ -76,7 +76,7 @@ namespace AssignmentOne.Services
         /// Search for a ContactInfo by name.
         /// </summary>
         /// <param name="name">Name of the person to search across Contacts.</param>
-        /// <returns>ContactInfo if found, null otherwise.</returns>
+        /// <returns>List of ContactInfo matching the search name.</returns>
         public List<ContactInfo> SearchContact(string name)
         {
             List<ContactInfo> contacts = this._repository.GetContacts();
