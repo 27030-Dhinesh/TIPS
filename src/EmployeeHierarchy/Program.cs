@@ -47,9 +47,16 @@ namespace Assignments
             string name = GetName("Enter the name of the Developer:", "Invalid name, try again.");
             decimal salary = GetSalary("Enter the salary of the Developer:", "Invalid input, try again.");
 
-            Developer developer = service.CreateDeveloper(name, salary);
+            Employee? employee = service.CreateEmployee(name, salary, EmployeeType.Developer);
 
-            Console.WriteLine(developer.PrintDetails());
+            if (employee is Developer developer)
+            {
+                Console.WriteLine(developer.PrintDetails());
+            }
+            else
+            {
+                Console.WriteLine("Developer registration failed.");
+            }
         }
 
         private static void OperateManager(EmployeeService service)
@@ -57,9 +64,16 @@ namespace Assignments
             string name = GetName("Enter the name of the Manager:", "Invalid name, try again.");
             decimal salary = GetSalary("Enter the salary of the Manager:", "Invalid input, try again.");
 
-            Manager manager = service.CreateManager(name, salary);
+            Employee? employee = service.CreateEmployee(name, salary, EmployeeType.Manager);
 
-            Console.WriteLine(manager.PrintDetails());
+            if (employee is Manager manager)
+            {
+                Console.WriteLine(manager.PrintDetails());
+            }
+            else
+            {
+                Console.WriteLine("Manager registration failed.");
+            }
         }
     }
 }
