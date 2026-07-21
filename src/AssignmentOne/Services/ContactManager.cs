@@ -20,9 +20,10 @@ namespace AssignmentOne.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactManager"/> class.
         /// </summary>
-        public ContactManager()
+        /// <param name="repository">Repository to store all Contacts.</param>
+        public ContactManager(ContactRepository repository)
         {
-            this._repository = new ContactRepository();
+            this._repository = repository;
         }
 
         /// <summary>

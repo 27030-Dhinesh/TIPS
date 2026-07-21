@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using AssignmentOne.Models;
+using AssignmentOne.Repository;
 using AssignmentOne.Services;
 using static AssignmentOne.ConsoleHelper;
 
@@ -17,8 +18,8 @@ namespace AssignmentOne
         public static void Main(string[] args)
         {
             string userChoice;
-
-            ContactManager manager = new ();
+            ContactRepository repository = new ContactRepository();
+            ContactManager manager = new (repository);
 
             while (true)
             {
