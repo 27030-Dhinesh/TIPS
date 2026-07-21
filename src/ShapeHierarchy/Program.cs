@@ -26,10 +26,10 @@ namespace ShapeHierarchy
                 switch (userChoice)
                 {
                     case "1":
-                        OperateRectangle(service);
+                        HandleRectangle(service);
                         break;
                     case "2":
-                        OperationCircle(service);
+                        HandleCircle(service);
                         break;
                     case "3":
                         Console.WriteLine("Exiting application...");
@@ -41,7 +41,7 @@ namespace ShapeHierarchy
             }
         }
 
-        private static void OperationCircle(ShapeService shapeService)
+        private static void HandleCircle(ShapeService shapeService)
         {
             double radius = GetRadius("Enter radius of the circle: ", "Invalid input, try again.");
 
@@ -52,7 +52,7 @@ namespace ShapeHierarchy
             Console.WriteLine($"Area of the Circle: {circle.CalculateArea()}");
         }
 
-        private static void OperateRectangle(ShapeService shapeService)
+        private static void HandleRectangle(ShapeService shapeService)
         {
             double width = GetWidth("Enter width of the rectangle: ", "Invalid input, try again.");
             double height = GetWidth("Enter height of the rectangle: ", "Invalid input, try again.");
