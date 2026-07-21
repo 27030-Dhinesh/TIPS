@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShapeHierarchy.Models;
+﻿using ShapeHierarchy.Models;
 
 namespace ShapeHierarchy.Services
 {
     /// <summary>
-    /// Service layer to support.
+    /// Service layer to support Shape Hierarchy task.
     /// </summary>
     internal class ShapeService
     {

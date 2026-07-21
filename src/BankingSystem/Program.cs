@@ -1,4 +1,4 @@
-﻿using BankingSystem;
+﻿using BankingSystem.Models;
 
 namespace Assignments
 {

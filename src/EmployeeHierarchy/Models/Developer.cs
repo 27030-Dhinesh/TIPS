@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmployeeHierarchy
+namespace EmployeeHierarchy.Models
 {
     /// <summary>
     /// Model to represent the details for a Developer.

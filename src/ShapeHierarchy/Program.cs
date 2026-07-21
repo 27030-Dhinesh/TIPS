@@ -1,5 +1,6 @@
 ﻿using ShapeHierarchy.Models;
 using ShapeHierarchy.Services;
+using static ShapeHierarchy.ConsoleOperation;
 
 namespace ShapeHierarchy
 {
@@ -19,8 +20,8 @@ namespace ShapeHierarchy
 
             while (true)
             {
-                ConsoleOperation.DisplayAppInfo();
-                userChoice = ConsoleOperation.GetInput("Enter your Choice:", "Invalid choice, try again.");
+                DisplayAppInfo();
+                userChoice = GetInput("Enter your Choice:", "Invalid choice, try again.");
 
                 switch (userChoice)
                 {
@@ -42,7 +43,7 @@ namespace ShapeHierarchy
 
         private static void OperationCircle(ShapeService shapeService)
         {
-            double radius = ConsoleOperation.GetRadius("Enter radius of the circle: ", "Invalid input, try again.");
+            double radius = GetRadius("Enter radius of the circle: ", "Invalid input, try again.");
 
             Circle circle = shapeService.CreateCircle(radius);
 
@@ -53,8 +54,8 @@ namespace ShapeHierarchy
 
         private static void OperateRectangle(ShapeService shapeService)
         {
-            double width = ConsoleOperation.GetWidth("Enter width of the rectangle: ", "Invalid input, try again.");
-            double height = ConsoleOperation.GetWidth("Enter height of the rectangle: ", "Invalid input, try again.");
+            double width = GetWidth("Enter width of the rectangle: ", "Invalid input, try again.");
+            double height = GetWidth("Enter height of the rectangle: ", "Invalid input, try again.");
 
             Rectangle rectangle = shapeService.CreateRectangle(width, height);
 

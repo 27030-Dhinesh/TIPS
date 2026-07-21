@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankingSystem
+namespace BankingSystem.Models
 {
     /// <summary>
     /// Class representing the Checking Account of an user.
@@ -30,7 +30,7 @@ namespace BankingSystem
         /// <returns>True if deposit successful, false otherwise.</returns>
         public override bool Deposit(decimal amount)
         {
-            this.Balance += amount;
+            Balance += amount;
             return true;
         }
 
@@ -41,7 +41,7 @@ namespace BankingSystem
         /// <returns>True if withdraw successful, false otherwise.</returns>
         public override bool Withdraw(decimal amount)
         {
-            this.Balance -= amount;
+            Balance -= amount;
             return true;
         }
     }

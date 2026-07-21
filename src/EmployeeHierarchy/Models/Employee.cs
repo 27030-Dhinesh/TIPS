@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmployeeHierarchy
+namespace EmployeeHierarchy.Models
 {
     /// <summary>
     /// Abstract model to represent Employee details.
