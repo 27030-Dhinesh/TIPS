@@ -11,11 +11,32 @@ namespace ShapeHierarchy.Models
     /// </summary>
     internal class Circle : Shape
     {
+        private double _radius;
+
         /// <summary>
         /// Gets or sets the Radius of the Circle.
         /// </summary>
         /// <value>Radius of the Circle; defaults to 1.</value>
-        public double Radius { get; set; } = 1.0;
+        public double Radius
+        {
+            get
+            {
+                return this._radius;
+            }
+
+            set
+            {
+                if (value > 0)
+                {
+                    this._radius = value;
+                }
+                else
+                {
+                    this._radius = 1.0;
+                }
+            }
+        }
+
         /// <summary>
         /// Gets or sets the color of the Circle Shape.
         /// </summary>

@@ -26,9 +26,10 @@ namespace ShapeHierarchy.Models
         /// <summary>
         /// Display the Color and Area of the Shape.
         /// </summary>
-        public void PrintDetails()
+        /// <returns>Description of the Shape.</returns>
+        public string PrintDetails()
         {
-            Console.WriteLine($@"This is a {this.GetType().Name} of {this.Color} color with {this.CalculateArea()} sq. units.");
+            return $@"This is a {this.GetType().Name} of {this.Color} color with {this.CalculateArea()} sq. units.";
         }
     }
 }

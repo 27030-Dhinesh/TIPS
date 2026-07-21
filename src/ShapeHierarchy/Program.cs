@@ -1,4 +1,5 @@
 ﻿using ShapeHierarchy.Models;
+using ShapeHierarchy.Services;
 
 namespace ShapeHierarchy
 {
@@ -13,19 +14,53 @@ namespace ShapeHierarchy
         /// <param name="args">Arguments from the CLI.</param>
         public static void Main(string[] args)
         {
-            Rectangle rectangle = new ()
+            string userChoice;
+            ShapeService service = new ();
+
+            while (true)
             {
-                Width = 5,
-                Height = 7,
-            };
+                ConsoleOperation.DisplayAppInfo();
+                userChoice = ConsoleOperation.GetInput("Enter your Choice:", "Invalid choice, try again.");
 
-            double area = rectangle.CalculateArea();
+                switch (userChoice)
+                {
+                    case "1":
+                        OperateRectangle(service);
+                        break;
+                    case "2":
+                        OperationCircle(service);
+                        break;
+                    case "3":
+                        Console.WriteLine("Exiting application...");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid Choice.");
+                        break;
+                }
+            }
+        }
 
-            Console.WriteLine(area);
+        private static void OperationCircle(ShapeService shapeService)
+        {
+            double radius = ConsoleOperation.GetRadius("Enter radius of the circle: ", "Invalid input, try again.");
 
-            rectangle.PrintDetails();
+            Circle circle = shapeService.CreateCircle(radius);
 
-            Console.ReadKey();
+            Console.WriteLine(circle.PrintDetails());
+
+            Console.WriteLine($"Area of the Circle: {circle.CalculateArea()}");
+        }
+
+        private static void OperateRectangle(ShapeService shapeService)
+        {
+            double width = ConsoleOperation.GetWidth("Enter width of the rectangle: ", "Invalid input, try again.");
+            double height = ConsoleOperation.GetWidth("Enter height of the rectangle: ", "Invalid input, try again.");
+
+            Rectangle rectangle = shapeService.CreateRectangle(width, height);
+
+            Console.WriteLine(rectangle.PrintDetails());
+
+            Console.WriteLine($"Area of the Rectangle: {rectangle.CalculateArea()}");
         }
     }
 }
