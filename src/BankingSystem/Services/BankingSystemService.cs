@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BankingSystem.Services
 {
+    /// <summary>
+    /// Service layer to support Banking System task.
+    /// </summary>
     internal class BankingSystemService
     {
     }

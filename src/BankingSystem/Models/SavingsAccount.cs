@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 namespace BankingSystem.Models
 {
     /// <summary>
-    /// Class representing the Savings Account of an user.
+    /// Class representing the Savings Account of an customer.
     /// </summary>
     internal class SavingsAccount : BankAccount
     {
         /// <summary>
-        /// Gets or sets the Account Number for the user's savings account.
+        /// Gets or sets the Account Number for the customer's savings account.
         /// </summary>
-        /// <value>Account number of the user's bank account.</value>
+        /// <value>Account number of the customer's bank account.</value>
         public override string AccountNumber { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the Balance of the user's bank account initially.
+        /// Gets or sets the Balance of the customer's bank account initially.
         /// </summary>
-        /// <value>Account balance of the user's bank account.</value>
+        /// <value>Account balance of the customer's bank account.</value>
         public override decimal Balance { get; set; } = decimal.Zero;
 
         /// <summary>
-        /// Withdraw money from the user's bank account.
+        /// Withdraw money from the customer's bank account.
         /// </summary>
-        /// <param name="amount">Amount to withdraw into the user's bank account.</param>
+        /// <param name="amount">Amount to withdraw into the customer's bank account.</param>
         /// <returns>True if withdraw successful, false otherwise.</returns>
         public override bool Withdraw(decimal amount)
         {
-            if (Balance - amount > 0)
+            if (this.Balance - amount > 0)
             {
-                Balance -= amount;
+                this.Balance -= amount;
                 return true;
             }
 
@@ -40,13 +40,13 @@ namespace BankingSystem.Models
         }
 
         /// <summary>
-        /// Deposit money to the user's bank account.
+        /// Deposit money to the customer's bank account.
         /// </summary>
-        /// <param name="amount">Amount to deposit into the user's bank account.</param>
+        /// <param name="amount">Amount to deposit into the customer's bank account.</param>
         /// <returns>True if deposit successful, false otherwise.</returns>
         public override bool Deposit(decimal amount)
         {
-            Balance += amount;
+            this.Balance += amount;
             return true;
         }
     }
