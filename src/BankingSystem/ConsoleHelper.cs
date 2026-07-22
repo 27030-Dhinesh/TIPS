@@ -1,18 +1,22 @@
-﻿namespace BankingSystem
+﻿using BankingSystem.Models;
+
+namespace BankingSystem
 {
     /// <summary>
     /// Console Operations to support the View layer.
     /// </summary>
-    internal class ConsoleOperation
+    internal static class ConsoleHelper
     {
         /// <summary>
         /// Display app menu for user choices.
         /// </summary>
-        public static void DisplayAppInfo()
+        /// <param name="type">The type of Bank Account for which info needs to be shown to user.</param>
+        public static void DisplayAppInfo(AccountType type)
         {
-            Console.WriteLine($@"1. Create a Savings Account
-2. Create a Checking Account
-3. Exit");
+            Console.WriteLine($@"1. Create a {type} Account
+2. Deposit to {type} Account
+3. Withdraw from {type} Account
+4. Exit");
         }
 
         /// <summary>
