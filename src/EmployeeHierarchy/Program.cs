@@ -27,10 +27,10 @@ namespace Assignments
                 switch (userChoice)
                 {
                     case "1":
-                        OperateManager(service);
+                        HandleEmployeeRegistration(service, EmployeeType.Manager);
                         break;
                     case "2":
-                        OperationDeveloper(service);
+                        HandleEmployeeRegistration(service, EmployeeType.Developer);
                         break;
                     case "3":
                         Console.WriteLine("Exiting application...");
@@ -39,6 +39,27 @@ namespace Assignments
                         Console.WriteLine("Invalid Choice.");
                         break;
                 }
+            }
+        }
+
+        private static void HandleEmployeeRegistration(EmployeeService service, EmployeeType type)
+        {
+            string name = GetName($"Enter the name of the {type}:", "Invalid name, try again.");
+            decimal salary = GetSalary($"Enter the salary of the {type}:", "Invalid input, try again.");
+
+            Employee? employee = service.CreateEmployee(name, salary, type);
+
+            if (employee is Developer developer)
+            {
+                Console.WriteLine(developer.PrintDetails());
+            }
+            else if (employee is Manager manager)
+            {
+                Console.WriteLine(manager.PrintDetails());
+            }
+            else
+            {
+                Console.WriteLine("Employee registration failed.");
             }
         }
 
