@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BankingSystem.Models;
+﻿using BankingSystem.Models;
 
 namespace BankingSystem.Repository
 {
@@ -30,40 +25,62 @@ namespace BankingSystem.Repository
         }
 
         /// <summary>
+        /// Retrieve Bank Account using the account number.
+        /// </summary>
+        /// <param name="accountNumber">Account number of the Account to retrieve.</param>
+        /// <returns>Bank Account if found, null otherwise.</returns>
+        public BankAccount? GetAccount(string accountNumber)
+        {
+            (bool foundAccount, int index) = this.FindAccount(accountNumber);
+
+            if (foundAccount)
+            {
+                return this.Clone(this._bankAccounts[index]);
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Delete a Bank Account from the Repository with the Account Number.
         /// </summary>
         /// <param name="accountNumber">Account Number of the Bank Account to delete.</param>
         /// <returns>True if Bank Account deletion successful, false otherwise. </returns>
         public bool RemoveAccount(string accountNumber)
         {
-            bool foundAccount = this.FindAccount(accountNumber);
+            (bool foundAccount, int index) = this.FindAccount(accountNumber);
 
             if (foundAccount)
             {
-                for (int i = this._bankAccounts.Count - 1; i >= 0; --i)
-                {
-                    if (this._bankAccounts[i].AccountNumber.Equals(accountNumber))
-                    {
-                        this._bankAccounts.RemoveAt(i);
-                        return true;
-                    }
-                }
+                this._bankAccounts.RemoveAt(index);
             }
 
             return false;
         }
 
-        private bool FindAccount(string accountNumber)
+        private (bool isFound, int index) FindAccount(string accountNumber)
         {
-            foreach (BankAccount bankAccount in this._bankAccounts)
+            for (int i = 0; i < this._bankAccounts.Count; ++i)
             {
-                if (bankAccount.AccountNumber == accountNumber)
+                if (this._bankAccounts[i].AccountNumber.Equals(accountNumber.Trim()))
                 {
-                    return true;
+                    return (true, i);
                 }
             }
 
-            return false;
+            return (false, -1);
+        }
+
+        private BankAccount Clone(BankAccount account)
+        {
+            if (account is SavingsAccount savingsAccount)
+            {
+                return new SavingsAccount(account.AccountNumber, account.Balance);
+            }
+            else
+            {
+                return new CheckingAccount(account.AccountNumber, account.Balance);
+            }
         }
     }
 }

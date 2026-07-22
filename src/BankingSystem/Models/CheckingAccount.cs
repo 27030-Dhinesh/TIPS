@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BankingSystem.Models
+﻿namespace BankingSystem.Models
 {
     /// <summary>
     /// Class representing the Checking Account of an customer.
@@ -12,16 +6,15 @@ namespace BankingSystem.Models
     internal class CheckingAccount : BankAccount
     {
         /// <summary>
-        /// Gets or sets the Account Number for the customer's savings account.
+        /// Initializes a new instance of the <see cref="CheckingAccount"/> class.
         /// </summary>
-        /// <value>Account number of the customer's bank account.</value>
-        public override string AccountNumber { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the Balance of the customer's bank account initially.
-        /// </summary>
-        /// <value>Account balance of the customer's bank account.</value>
-        public override decimal Balance { get; set; }
+        /// <param name="accountNumber">Account number for the Checking Account.</param>
+        /// <param name="balance">Initial Balance for when creating a new Checking Account.</param>
+        public CheckingAccount(string accountNumber, decimal balance)
+        {
+            this.AccountNumber = accountNumber;
+            this.Balance = balance;
+        }
 
         /// <summary>
         /// Gets the Debt amount for the customer's checking account.

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BankingSystem.Models
+﻿namespace BankingSystem.Models
 {
     /// <summary>
     /// Model class representing the Bank Account of an customer.
@@ -15,13 +9,13 @@ namespace BankingSystem.Models
         /// Gets or sets the Account Number for the customer's bank account.
         /// </summary>
         /// <value>Account number of the customer's bank account.</value>
-        public abstract string AccountNumber { get; set; }
+        public string AccountNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Balance of the customer's bank account initially.
         /// </summary>
         /// <value>Account balance of the customer's bank account.</value>
-        public abstract decimal Balance { get; set; }
+        public decimal Balance { get; protected set; } = decimal.Zero;
 
         /// <summary>
         /// Withdraw money from the customer's bank account.
