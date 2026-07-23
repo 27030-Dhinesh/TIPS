@@ -3,7 +3,7 @@ using BankingSystem.Repository;
 using BankingSystem.Services;
 using static BankingSystem.ConsoleHelper;
 
-namespace Assignments
+namespace BankingSystem
 {
     /// <summary>
     /// Main Program class for the Shape Hierarchy Task.
@@ -23,7 +23,7 @@ namespace Assignments
 
             while (true)
             {
-                DisplayAppInfo(AccountType.Savings);
+                DisplayAppInfo();
                 userChoice = GetInput("Enter your Choice:", "Invalid choice, try again.");
 
                 switch (userChoice)
@@ -32,26 +32,44 @@ namespace Assignments
                         HandleAccountCreation(service, AccountType.Savings);
                         break;
                     case "2":
-                        HandleAccountDeposit(service, AccountType.Savings);
+                        HandleDeposit(service, AccountType.Savings);
                         break;
                     case "3":
+                        HandleWithdraw(service, AccountType.Savings);
+                        break;
+                    case "4":
+                        HandleAccountCreation(service, AccountType.Checking);
+                        break;
+                    case "5":
+                        HandleDeposit(service, AccountType.Checking);
+                        break;
+                    case "6":
+                        HandleWithdraw(service, AccountType.Checking);
+                        break;
+                    case "7":
                         Console.WriteLine("Exiting application...");
                         return;
                     default:
-                        Console.WriteLine("Invalid Choice.");
+                        Console.WriteLine("Invalid Choice, try again.");
                         break;
                 }
             }
-
-            Console.ReadKey();
         }
 
-        private static void HandleAccountDeposit(BankingSystemService service, AccountType savings)
+        private static void HandleAccountCreation(BankingSystemService service, AccountType type)
         {
+            // string accountNumber = Console.ReadLine();
+            Console.WriteLine($"Handle Creation for {type}");
         }
 
-        private static void HandleAccountCreation(BankingSystemService service, AccountType savings)
+        private static void HandleWithdraw(BankingSystemService service, AccountType type)
         {
+            Console.WriteLine($"Handle withdraw for {type}");
+        }
+
+        private static void HandleDeposit(BankingSystemService service, AccountType type)
+        {
+            Console.WriteLine($"Handle deposit for {type}");
         }
     }
 }
