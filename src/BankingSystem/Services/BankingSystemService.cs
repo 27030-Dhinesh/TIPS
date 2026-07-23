@@ -29,10 +29,10 @@ namespace BankingSystem.Services
         }
 
         /// <summary>
-        /// Retrieve bank account using the account number.
+        /// Retrieve bank account clone using the account number.
         /// </summary>
         /// <param name="accountNumber">Account number to search account from the repository.</param>
-        /// <returns>BankAccount if account found, null otherwise.</returns>
+        /// <returns>BankAccount clone if account found, null otherwise.</returns>
         public BankAccount? GetAccount(string accountNumber)
         {
             return this._accountRepository.GetAccount(accountNumber);
@@ -46,6 +46,45 @@ namespace BankingSystem.Services
         public bool DeleteAccount(string accountNumber)
         {
             return this._accountRepository.RemoveAccount(accountNumber);
+        }
+
+        /// <summary>
+        /// Withdraw or Deposit amount in Bank Account.
+        /// </summary>
+        /// <param name="accountNumber">Account Number of the Bank Account to withdraw/deposit.</param>
+        /// <param name="type">Transaction type [ Deposit, Withdraw ]</param>
+        /// <param name="amount">Amount to either deposit or withdraw.</param>
+        /// <returns>True if transaction successful, false otherwise.</returns>
+        public bool Transaction(string accountNumber, TransactionType type, decimal amount)
+        {
+            BankAccount? account = this.GetAccount(accountNumber);
+            if (account == null)
+            {
+                return false;
+            }
+
+            if (type == TransactionType.Withdraw)
+            {
+                bool status = account.Withdraw(amount);
+                if (status)
+                {
+                    this._accountRepository.Update(account);
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                bool status = account.Deposit(amount);
+                if (status)
+                {
+                    this._accountRepository.Update(account);
+                    return true;
+                }
+
+                return false;
+            }
         }
     }
 }

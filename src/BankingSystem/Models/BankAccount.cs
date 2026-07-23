@@ -6,6 +6,12 @@
     internal abstract class BankAccount
     {
         /// <summary>
+        /// Gets or sets the Name of the Acccount holder.
+        /// </summary>
+        /// <value>Name of the account holder.</value>
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the Account Number for the customer's bank account.
         /// </summary>
         /// <value>Account number of the customer's bank account.</value>
@@ -30,5 +36,18 @@
         /// <param name="amount">Amount to deposit into the customer's bank account.</param>
         /// <returns>True if deposit successful, false otherwise.</returns>
         public abstract bool Deposit(decimal amount);
+
+        /// <summary>
+        /// Details of the Bank Account.
+        /// </summary>
+        /// <returns>Account details.</returns>
+        public override string ToString()
+        {
+            return $@"This is a {this.GetType().Name} account.
+Account Holder Name: {this.Name}
+Account Number: {this.AccountNumber}
+Account Balance: {this.Balance}
+";
+        }
     }
 }

@@ -25,10 +25,10 @@ namespace BankingSystem.Repository
         }
 
         /// <summary>
-        /// Retrieve Bank Account using the account number.
+        /// Retrieve Bank Account clone using the account number.
         /// </summary>
         /// <param name="accountNumber">Account number of the Account to retrieve.</param>
-        /// <returns>Bank Account if found, null otherwise.</returns>
+        /// <returns>Bank Account clone if found, null otherwise.</returns>
         public BankAccount? GetAccount(string accountNumber)
         {
             (bool foundAccount, int index) = this.FindAccount(accountNumber);
@@ -58,6 +58,23 @@ namespace BankingSystem.Repository
             return false;
         }
 
+        /// <summary>
+        /// Update bank account after transactions.
+        /// </summary>
+        /// <param name="updatedAccount">Updated bank account object.</param>
+        /// <returns>True if updation successful, false otherwise.</returns>
+        public bool Update(BankAccount updatedAccount)
+        {
+            (bool isFound, int index) = this.FindAccount(updatedAccount.AccountNumber);
+            if (isFound)
+            {
+                this._bankAccounts[index] = this.Clone(updatedAccount);
+                return true;
+            }
+
+            return false;
+        }
+
         private (bool isFound, int index) FindAccount(string accountNumber)
         {
             for (int i = 0; i < this._bankAccounts.Count; ++i)
@@ -75,11 +92,11 @@ namespace BankingSystem.Repository
         {
             if (account is SavingsAccount savingsAccount)
             {
-                return new SavingsAccount(account.AccountNumber, account.Balance);
+                return new SavingsAccount(account.Name, account.AccountNumber, account.Balance);
             }
             else
             {
-                return new CheckingAccount(account.AccountNumber, account.Balance);
+                return new CheckingAccount(account.Name, account.AccountNumber, account.Balance);
             }
         }
     }

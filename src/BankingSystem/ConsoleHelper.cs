@@ -14,12 +14,11 @@ namespace BankingSystem
         public static void DisplayAppInfo()
         {
             Console.WriteLine($@"1. Create a Savings Account
-2. Deposit to Savings Account
-3. Withdraw from Savings Account
-4. Create a Checking Account
-5. Deposit to Checking Account
-6. Withdraw from Checking Account
-7. Exit");
+2. Create a Checking Account
+3. Withdraw Money from Account
+4. Deposit Money to Account
+5. Display Account details
+6. Exit");
         }
 
         /// <summary>
@@ -61,6 +60,53 @@ namespace BankingSystem
                 if (IsValidName(name))
                 {
                     return name;
+                }
+                else
+                {
+                    Console.WriteLine(errorMessage);
+                }
+            }
+            while (true);
+        }
+
+        /// <summary>
+        /// Get a valid account number from the user.
+        /// </summary>
+        /// <param name="prompt">Prompt to display when asking input.</param>
+        /// <param name="errorMessage">Message to display when user input is invalid.</param>
+        /// <returns>A valid account number.</returns>
+        public static string GetAccountNumber(string prompt, string errorMessage)
+        {
+            do
+            {
+                string accountNumber = GetInput(prompt, errorMessage);
+                if (IsValidAccountNumber(accountNumber))
+                {
+                    return accountNumber;
+                }
+                else
+                {
+                    Console.WriteLine(errorMessage);
+                }
+            }
+            while (true);
+        }
+
+        /// <summary>
+        /// Get a valid amount input from the user.
+        /// </summary>
+        /// <param name="prompt">Prompt to display when asking input.</param>
+        /// <param name="errorMessage">Message to display when user input is invalid.</param>
+        /// <returns>A valid amount.</returns>
+        public static decimal GetAmount(string prompt, string errorMessage)
+        {
+            do
+            {
+                Console.WriteLine(prompt);
+                decimal amount;
+                if (decimal.TryParse(Console.ReadLine(), out amount))
+                {
+                    return amount;
                 }
                 else
                 {

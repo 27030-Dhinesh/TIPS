@@ -32,21 +32,18 @@ namespace BankingSystem
                         HandleAccountCreation(service, AccountType.Savings);
                         break;
                     case "2":
-                        HandleDeposit(service, AccountType.Savings);
-                        break;
-                    case "3":
-                        HandleWithdraw(service, AccountType.Savings);
-                        break;
-                    case "4":
                         HandleAccountCreation(service, AccountType.Checking);
                         break;
+                    case "3":
+                        HandleTransaction(service, TransactionType.Withdraw);
+                        break;
+                    case "4":
+                        HandleTransaction(service, TransactionType.Deposit);
+                        break;
                     case "5":
-                        HandleDeposit(service, AccountType.Checking);
+                        HandleDisplay(service);
                         break;
                     case "6":
-                        HandleWithdraw(service, AccountType.Checking);
-                        break;
-                    case "7":
                         Console.WriteLine("Exiting application...");
                         return;
                     default:
@@ -58,18 +55,56 @@ namespace BankingSystem
 
         private static void HandleAccountCreation(BankingSystemService service, AccountType type)
         {
-            // string accountNumber = Console.ReadLine();
-            Console.WriteLine($"Handle Creation for {type}");
+            string name = GetName("Enter the name:", "Invalid input for name, try again.");
+            string accountNumber = GetAccountNumber("Enter the account number:", "Invalid input for account number, try again.");
+            BankAccount account;
+            switch (type)
+            {
+                case AccountType.Savings:
+                    account = new SavingsAccount(name, accountNumber, 500m);
+                    service.AddAccount(account);
+                    Console.WriteLine("Creation successful, with intial balance Rs.500/-");
+                    break;
+
+                case AccountType.Checking:
+                    account = new CheckingAccount(name, accountNumber, 1000m);
+                    service.AddAccount(account);
+                    Console.WriteLine("Creation successful, with intial balance Rs.1000/-");
+                    break;
+            }
         }
 
-        private static void HandleWithdraw(BankingSystemService service, AccountType type)
+        private static void HandleTransaction(BankingSystemService service, TransactionType type)
         {
-            Console.WriteLine($"Handle withdraw for {type}");
+            string accountNumber = GetAccountNumber("Enter account no:", "Invalid account number, try again.");
+            decimal amount = GetAmount($"Enter amount to {type}:", "Invalid amount, try again.");
+
+            bool status = service.Transaction(accountNumber, type, amount);
+
+            if (status)
+            {
+                Console.WriteLine($"{type} successful.");
+            }
+            else
+            {
+                Console.WriteLine($"{type} failed, try again later.");
+            }
         }
 
-        private static void HandleDeposit(BankingSystemService service, AccountType type)
+        private static void HandleDisplay(BankingSystemService service)
         {
-            Console.WriteLine($"Handle deposit for {type}");
+            string accountNumber = GetAccountNumber("Enter the account number:", "Invalid input for account number, try again.");
+
+            BankAccount? account = service.GetAccount(accountNumber);
+
+            if (account != null)
+            {
+                Console.WriteLine(account);
+            }
+            else
+            {
+                Console.WriteLine("Failed to fetch account, invalid account number.");
+            }
         }
     }
 }

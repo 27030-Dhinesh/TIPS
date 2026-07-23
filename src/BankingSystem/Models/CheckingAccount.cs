@@ -8,10 +8,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckingAccount"/> class.
         /// </summary>
+        /// <param name="name">Name of the Account holder.</param>
         /// <param name="accountNumber">Account number for the Checking Account.</param>
         /// <param name="balance">Initial Balance for when creating a new Checking Account.</param>
-        public CheckingAccount(string accountNumber, decimal balance)
+        public CheckingAccount(string name, string accountNumber, decimal balance)
         {
+            this.Name = name;
             this.AccountNumber = accountNumber;
             this.Balance = balance;
         }
@@ -52,6 +54,15 @@
 
             this.Balance -= amount;
             return true;
+        }
+
+        /// <summary>
+        /// Details of the Bank Account.
+        /// </summary>
+        /// <returns>Account details.</returns>
+        public override string ToString()
+        {
+            return base.ToString() + $"Debt Amount: {this.Debt}";
         }
     }
 }
