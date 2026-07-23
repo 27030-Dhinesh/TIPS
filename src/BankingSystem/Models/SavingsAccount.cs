@@ -23,13 +23,13 @@
         /// <returns>True if withdraw successful, false otherwise.</returns>
         public override bool Withdraw(decimal amount)
         {
-            if (this.Balance - amount > 0)
+            if (amount < 0 || this.Balance - amount < 0)
             {
-                this.Balance -= amount;
-                return true;
+                return false;
             }
 
-            return false;
+            this.Balance -= amount;
+            return true;
         }
 
         /// <summary>
@@ -39,6 +39,11 @@
         /// <returns>True if deposit successful, false otherwise.</returns>
         public override bool Deposit(decimal amount)
         {
+            if (amount < 0)
+            {
+                return false;
+            }
+
             this.Balance += amount;
             return true;
         }

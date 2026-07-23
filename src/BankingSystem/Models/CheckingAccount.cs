@@ -20,7 +20,7 @@
         /// Gets the Debt amount for the customer's checking account.
         /// </summary>
         /// <value>Debt amount borrowed by the customer.</value>
-        public decimal Debt { get; private set; }
+        public decimal Debt => this.Balance < 0 ? Math.Abs(this.Balance) : 0;
 
         /// <summary>
         /// Deposit money to the customer's bank account.
@@ -29,6 +29,11 @@
         /// <returns>True if deposit successful, false otherwise.</returns>
         public override bool Deposit(decimal amount)
         {
+            if (amount <= 0)
+            {
+                return false;
+            }
+
             this.Balance += amount;
             return true;
         }
@@ -40,6 +45,11 @@
         /// <returns>True if withdraw successful, false otherwise.</returns>
         public override bool Withdraw(decimal amount)
         {
+            if (amount <= 0)
+            {
+                return false;
+            }
+
             this.Balance -= amount;
             return true;
         }
