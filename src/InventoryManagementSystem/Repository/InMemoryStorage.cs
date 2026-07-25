@@ -39,27 +39,29 @@ namespace InventoryManagementSystem.Repository
         /// <inheritdoc/>
         public bool Update(string productId, Product newProduct)
         {
-            return true;
+            if (this.Contains(productId))
+            {
+                Product product = this._products[productId];
+                product.Id = newProduct.Id;
+                product.Name = newProduct.Name;
+                product.Price = newProduct.Price;
+                product.Quantity = newProduct.Quantity;
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <inheritdoc/>
         public bool Delete(string productId)
         {
-            if (this.IsEmpty())
-            {
-                throw new InvalidOperationException("Cannot delete product from empty inventory.");
-            }
-
-            if (!this.Contains(productId))
-            {
-                throw new 
-            }
+            return this._products.Remove(productId);
         }
 
         /// <inheritdoc/>
         public List<Product> GetAll()
         {
-
             return this._products.Values.ToList();
         }
 
