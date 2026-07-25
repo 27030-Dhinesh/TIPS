@@ -14,12 +14,13 @@ namespace InventoryManagementSystem
         /// <returns>True if name is valid; otherwise, false.</returns>
         public static bool IsValidName(string name)
         {
+            name = name.Trim();
             if (string.IsNullOrWhiteSpace(name))
             {
                 return false;
             }
 
-            return Regex.IsMatch(name.Trim(), @"^[a-zA-Z0-9\s'-]{2,30}$", RegexOptions.Compiled);
+            return name.Length >= 2 && name.Length <= 30 && Regex.IsMatch(name, @"^[a-zA-Z0-9'-]+(?:\s[a-zA-Z0-9'-]+)*$", RegexOptions.Compiled);
         }
 
         /// <summary>
