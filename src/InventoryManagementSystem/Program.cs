@@ -11,7 +11,12 @@
         /// <param name="args">An array of command-line arguments passed to the application.</param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            float a = 0.2F;
+            double b = 0.2;
+            bool c = a == b;
+            Console.WriteLine(c);
+
+            Console.ReadKey();
         }
     }
 }
