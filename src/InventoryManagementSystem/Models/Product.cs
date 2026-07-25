@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManagementSystem.Models
+﻿namespace InventoryManagementSystem.Models
 {
     /// <summary>
     /// This is a model class to represent Product items.
