@@ -19,7 +19,7 @@ namespace InventoryManagementSystem
                 return false;
             }
 
-            return Regex.IsMatch(name, @"^[a-zA-Z0-9\s'-]{2,30}$", RegexOptions.Compiled);
+            return Regex.IsMatch(name.Trim(), @"^[a-zA-Z0-9\s'-]{2,30}$", RegexOptions.Compiled);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace InventoryManagementSystem
                 return false;
             }
 
-            return Regex.IsMatch(productID, @"^[a-zA-Z]{2,3}-\d{3}$", RegexOptions.Compiled);
+            return Regex.IsMatch(productID.Trim(), @"^[a-zA-Z]{2,3}-\d{3}$", RegexOptions.Compiled);
         }
     }
 }
