@@ -1,0 +1,67 @@
+﻿namespace InventoryManagementSystem
+{
+    /// <summary>
+    /// Provides reusable utility methods for managing user interaction in console applications.
+    /// </summary>
+    internal static class ConsoleHelper
+    {
+        /// <summary>
+        /// Prompts the user via the console and repeatedly reads input until a non-empty, non-whitespace string is provided.
+        /// </summary>
+        /// <param name="prompt">The message displayed to the user before requesting input.</param>
+        /// <param name="errorMessage">The error message displayed when the user enters an invalid (empty or whitespace) string.</param>
+        /// <returns>A valid, non-empty <see cref="string"/> entered by the user.</returns>
+        public static string GetInput(string prompt, string errorMessage)
+        {
+            string? choice;
+            do
+            {
+                Console.WriteLine(prompt);
+                choice = Console.ReadLine();
+                if (string.IsNullOrEmpty(choice) || string.IsNullOrWhiteSpace(choice))
+                {
+                    Console.WriteLine(errorMessage);
+                }
+                else
+                {
+                    return choice;
+                }
+            }
+            while (true);
+        }
+
+        /// <summary>
+        /// Prompts the user via the console to enter a price and validates the input.
+        /// </summary>
+        /// <param name="prompt">The text message displayed to request price input from the user.</param>
+        /// <param name="formatErrorMessage">The text message displayed when the input cannot be parsed as a decimal.</param>
+        /// <returns>The valid <see cref="decimal"/> price value entered by the user.</returns>
+        /// <remarks>
+        /// This method repeats the prompt indefinitely until the user inputs a valid decimal formatting string.
+        /// </remarks>
+        public static decimal GetPrice(string prompt, string formatErrorMessage)
+        {
+            do
+            {
+                Console.WriteLine(prompt);
+                decimal amount;
+                if (decimal.TryParse(Console.ReadLine(), out amount))
+                {
+                    if (amount >= 0)
+                    {
+                        return amount;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Price of the product should be positive.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(formatErrorMessage);
+                }
+            }
+            while (true);
+        }
+    }
+}
