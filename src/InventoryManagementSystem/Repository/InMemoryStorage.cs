@@ -26,14 +26,7 @@ namespace InventoryManagementSystem.Repository
         /// <inheritdoc/>
         public void Add(Product product)
         {
-            try
-            {
-                this._products.Add(product.Id, product);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException($"Another product with ID {product.Id} already exists.", ex);
-            }
+            this._products.Add(product.Id, product);
         }
 
         /// <inheritdoc/>
