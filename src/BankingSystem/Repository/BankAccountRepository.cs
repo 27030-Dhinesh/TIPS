@@ -53,6 +53,7 @@ namespace BankingSystem.Repository
             if (foundAccount)
             {
                 this._bankAccounts.RemoveAt(index);
+                return true;
             }
 
             return false;

@@ -58,6 +58,7 @@ namespace BankingSystem.Services
         public bool Transaction(string accountNumber, TransactionType type, decimal amount)
         {
             BankAccount? account = this.GetAccount(accountNumber);
+
             if (account == null)
             {
                 return false;
