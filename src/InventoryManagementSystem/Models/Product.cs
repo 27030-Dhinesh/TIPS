@@ -74,5 +74,17 @@
                 }
             }
         }
+
+        /// <summary>
+        /// Returns a string that represent the current Product.
+        /// </summary>
+        /// <returns>A <see cref="string"/> that represents the current Product.</returns>
+        public override string ToString()
+        {
+            return $@"Product ID: {this.Id}
+Product Name: {this.Name}
+Product Price: {this.Price}
+Product Quantity: {this.Quantity}";
+        }
     }
 }
