@@ -76,11 +76,21 @@ namespace BankingSystem.Repository
             return false;
         }
 
+        /// <summary>
+        /// Checks whether an account exists in the system based on the provided account number.
+        /// </summary>
+        /// <param name="accountNumber">The unique identifier of the account to check.></param>
+        /// <returns>True if the account exists; otherwise, false.</returns>
+        public bool AccountExists(string accountNumber)
+        {
+            return this.FindAccount(accountNumber).isFound;
+        }
+
         private (bool isFound, int index) FindAccount(string accountNumber)
         {
             for (int i = 0; i < this._bankAccounts.Count; ++i)
             {
-                if (this._bankAccounts[i].AccountNumber.Equals(accountNumber.Trim()))
+                if (this._bankAccounts[i].AccountNumber == accountNumber)
                 {
                     return (true, i);
                 }

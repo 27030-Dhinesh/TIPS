@@ -1,4 +1,6 @@
-﻿using BankingSystem.Models;
+﻿using System.Security.Cryptography;
+using System.Text;
+using BankingSystem.Models;
 using BankingSystem.Repository;
 
 namespace BankingSystem.Services
@@ -23,9 +25,24 @@ namespace BankingSystem.Services
         /// Add a new Bank Account to the account repository.
         /// </summary>
         /// <param name="account">Bank Account to be added to the account repository.</param>
-        public void AddAccount(BankAccount account)
+        /// <returns>The unique account number of the newly generated bank account.</returns>
+        public string AddAccount(BankAccount account)
         {
+            string accountNumber;
+            do
+            {
+                accountNumber = this.GenerateAccountNumber();
+                if (!this._accountRepository.AccountExists(accountNumber))
+                {
+                    break;
+                }
+            }
+            while (true);
+
+            account.AccountNumber = accountNumber;
             this._accountRepository.AddAccount(account);
+
+            return accountNumber;
         }
 
         /// <summary>
@@ -64,28 +81,51 @@ namespace BankingSystem.Services
                 return false;
             }
 
-            if (type == TransactionType.Withdraw)
+            switch (type)
             {
-                bool status = account.Withdraw(amount);
-                if (status)
-                {
-                    this._accountRepository.Update(account);
-                    return true;
-                }
+                case TransactionType.Withdraw:
+                    if (account.Withdraw(amount))
+                    {
+                        return this._accountRepository.Update(account);
+                    }
 
-                return false;
+                    break;
+
+                case TransactionType.Deposit:
+                    if (account.Deposit(amount))
+                    {
+                        return this._accountRepository.Update(account);
+                    }
+
+                    break;
             }
-            else
+
+            return false;
+        }
+
+        private string GenerateAccountNumber()
+        {
+            const int LENGTH = 12;
+            const string CHARS = "0123456789";
+            StringBuilder result = new StringBuilder(LENGTH);
+
+            // Use the cryptographic random number generator
+            using (var rng = RandomNumberGenerator.Create())
             {
-                bool status = account.Deposit(amount);
-                if (status)
-                {
-                    this._accountRepository.Update(account);
-                    return true;
-                }
+                byte[] buffer = new byte[sizeof(uint)];
 
-                return false;
+                while (result.Length < LENGTH)
+                {
+                    rng.GetBytes(buffer);
+                    uint num = BitConverter.ToUInt32(buffer, 0);
+
+                    // Map the random number to a valid digit index
+                    int index = (int)(num % (uint)CHARS.Length);
+                    result.Append(CHARS[index]);
+                }
             }
+
+            return result.ToString();
         }
     }
 }

@@ -44,6 +44,9 @@ namespace BankingSystem
                         HandleDisplay(service);
                         break;
                     case "6":
+                        HandleDeletion(service);
+                        break;
+                    case "7":
                         Console.WriteLine("Exiting application...");
                         return;
                     default:
@@ -56,20 +59,20 @@ namespace BankingSystem
         private static void HandleAccountCreation(BankingSystemService service, AccountType type)
         {
             string name = GetName("Enter the name:", "Invalid input for name, try again.");
-            string accountNumber = GetAccountNumber("Enter the account number:", "Invalid input for account number, try again.");
+            string accountNumber;
             BankAccount account;
             switch (type)
             {
                 case AccountType.Savings:
-                    account = new SavingsAccount(name, accountNumber, 500m);
-                    service.AddAccount(account);
-                    Console.WriteLine("Creation successful, with intial balance Rs.500/-");
+                    account = new SavingsAccount(name, 500m);
+                    accountNumber = service.AddAccount(account);
+                    Console.WriteLine($"Your account number is {accountNumber}\nCreation successful, with initial balance Rs.500/-");
                     break;
 
                 case AccountType.Checking:
-                    account = new CheckingAccount(name, accountNumber, 1000m);
-                    service.AddAccount(account);
-                    Console.WriteLine("Creation successful, with intial balance Rs.1000/-");
+                    account = new CheckingAccount(name, 1000m);
+                    accountNumber = service.AddAccount(account);
+                    Console.WriteLine($"Your account number is {accountNumber}\nCreation successful, with initial balance Rs.1000/-");
                     break;
             }
         }
@@ -104,6 +107,20 @@ namespace BankingSystem
             else
             {
                 Console.WriteLine("Failed to fetch account, invalid account number.");
+            }
+        }
+
+        private static void HandleDeletion(BankingSystemService service)
+        {
+            string accountNumber = GetAccountNumber("Enter the account number:", "Invalid input for account number, try again.");
+
+            if(service.DeleteAccount(accountNumber))
+            {
+                Console.WriteLine("Account closed successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Failed to close account.");
             }
         }
     }

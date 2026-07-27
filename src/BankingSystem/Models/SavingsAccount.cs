@@ -9,13 +9,23 @@
         /// Initializes a new instance of the <see cref="SavingsAccount"/> class.
         /// </summary>
         /// <param name="name">Name of the Account holder.</param>
+        /// <param name="balance">Initial Balance for when creating a new Savings Account.</param>
+        public SavingsAccount(string name, decimal balance)
+        {
+            this.Name = name;
+            this.Balance = balance;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SavingsAccount"/> class.
+        /// </summary>
+        /// <param name="name">Name of the Account holder.</param>
         /// <param name="accountNumber">Account number for the Savings Account.</param>
         /// <param name="balance">Initial Balance for when creating a new Savings Account.</param>
         public SavingsAccount(string name, string accountNumber, decimal balance)
+            : this(name, balance)
         {
-            this.Name = name;
             this.AccountNumber = accountNumber;
-            this.Balance = balance;
         }
 
         /// <summary>

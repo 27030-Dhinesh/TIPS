@@ -43,7 +43,7 @@
         /// <returns>Account details.</returns>
         public override string ToString()
         {
-            return $@"This is a {this.GetType().Name} account.
+            return $@"This is a {this.GetType().Name}.
 Account Holder Name: {this.Name}
 Account Number: {this.AccountNumber}
 Account Balance: {this.Balance}

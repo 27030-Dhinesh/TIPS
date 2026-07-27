@@ -18,7 +18,8 @@ namespace BankingSystem
 3. Withdraw Money from Account
 4. Deposit Money to Account
 5. Display Account details
-6. Exit");
+6. Close Account
+7. Exit");
         }
 
         /// <summary>
