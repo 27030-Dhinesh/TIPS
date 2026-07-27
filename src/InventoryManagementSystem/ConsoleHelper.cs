@@ -52,7 +52,7 @@ namespace InventoryManagementSystem
         /// Prompts the user via the console to enter a price and validates the input.
         /// </summary>
         /// <param name="prompt">The text message displayed to request price input from the user.</param>
-        /// <param name="formatErrorMessage">The text message displayed when the input cannot be parsed as a decimal.</param>
+        /// <param name="formatErrorMessage">The text message displayed when the input cannot be parsed as a positive decimal.</param>
         /// <returns>The valid <see cref="decimal"/> price value entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid decimal formatting string.
@@ -62,21 +62,12 @@ namespace InventoryManagementSystem
             do
             {
                 Console.WriteLine(prompt);
-                if (decimal.TryParse(Console.ReadLine(), out decimal amount))
+                if (decimal.TryParse(Console.ReadLine(), out decimal amount) && amount >= 0)
                 {
-                    if (amount >= 0)
-                    {
-                        return amount;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Price of the product should be positive.");
-                    }
+                    return amount;
                 }
-                else
-                {
-                    Console.WriteLine(formatErrorMessage);
-                }
+
+                Console.WriteLine(formatErrorMessage + " Price of the product should be positive.");
             }
             while (true);
         }
@@ -85,8 +76,8 @@ namespace InventoryManagementSystem
         /// Prompts the user via the console to enter a product ID and validates the input.
         /// </summary>
         /// <param name="prompt">The text message displayed to request ID input from the user.</param>
-        /// <param name="formatErrorMessage">The error message displayed when the user enters an invalid string.</param>
-        /// <returns>The valid <see cref="string"/> product id entered by the user.</returns>
+        /// <param name="formatErrorMessage">The error message displayed when the user enters an invalid ID.</param>
+        /// <returns>The valid <see cref="string"/> product ID entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid product ID string.
         /// </remarks>
@@ -130,6 +121,30 @@ namespace InventoryManagementSystem
                 }
 
                 return name;
+            }
+            while (true);
+        }
+
+        /// <summary>
+        /// Prompts the user via the console to enter a product quantity and validates the input.
+        /// </summary>
+        /// <param name="prompt">The text message displayed to request quantity input from the user.</param>
+        /// <param name="formatErrorMessage">The text message displayed when the input is invalid.</param>
+        /// <returns>The valid <see cref="int"/> quantity value entered by the user.</returns>
+        /// <remarks>
+        /// This method repeats the prompt indefinitely until the user inputs a valid quantity is provided.
+        /// </remarks>
+        public static int GetQuantity(string prompt, string formatErrorMessage)
+        {
+            do
+            {
+                Console.WriteLine(prompt);
+                if (int.TryParse(Console.ReadLine(), out int quantity) && quantity > 0)
+                {
+                    return quantity;
+                }
+
+                Console.WriteLine(formatErrorMessage + " Quantity of the product should be natural number.");
             }
             while (true);
         }
