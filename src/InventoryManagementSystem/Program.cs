@@ -83,6 +83,35 @@ namespace Assignments
 
         private static void HandleProductSearch(InventoryManager manager, bool useId = false)
         {
+            if (manager.IsEmpty())
+            {
+                Console.WriteLine("Inventory is empty, cannot perform search operation.");
+                Thread.Sleep(1000);
+                Console.Clear();
+                return;
+            }
+
+            string searchParam;
+            if (useId)
+            {
+                searchParam = GetProductID("Enter product ID to search:", "Invalid input for ID, try again.");
+            }
+            else
+            {
+                searchParam = GetProductName("Enter product name to search:", "Invalid input for name, try again.");
+            }
+
+            List<Product> searchResult = manager.SearchProduct(searchParam, useId);
+
+            Console.WriteLine("==============================");
+            foreach (Product product in searchResult)
+            {
+                Console.WriteLine(product);
+                Console.WriteLine("==============================");
+            }
+
+            Thread.Sleep(3000);
+            Console.Clear();
         }
 
         private static void HandleProductDisplay(InventoryManager manager)
@@ -110,6 +139,14 @@ namespace Assignments
 
         private static void HandleProductDeletion(InventoryManager manager)
         {
+            if (manager.IsEmpty())
+            {
+                Console.WriteLine("Inventory is empty; cannot perform deletion operation.");
+                Thread.Sleep(1000);
+                Console.Clear();
+                return;
+            }
+
             string id = GetProductID("Enter the product ID to delete:", "Invalid input for ID, try again.");
             if (manager.DeleteProduct(id))
             {
