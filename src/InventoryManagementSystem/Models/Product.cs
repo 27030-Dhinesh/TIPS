@@ -5,6 +5,9 @@
     /// </summary>
     internal class Product
     {
+        private decimal _price;
+        private int _quantity;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class.
         /// </summary>
@@ -36,12 +39,40 @@
         /// Gets or sets the price of the Product item.
         /// </summary>
         /// <value>Price of the Product item.</value>
-        public decimal Price { get; set; }
+        public decimal Price
+        {
+            get => this._price;
+            set
+            {
+                if (value < 0)
+                {
+                    this._price = 0m;
+                }
+                else
+                {
+                    this._price = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the quantity of the Product item.
         /// </summary>
         /// <value>Quantity of the Product item.</value>
-        public int Quantity { get; set; }
+        public int Quantity
+        {
+            get => this._quantity;
+            set
+            {
+                if (value < 0)
+                {
+                    this._quantity = 0;
+                }
+                else
+                {
+                    this._quantity = value;
+                }
+            }
+        }
     }
 }
