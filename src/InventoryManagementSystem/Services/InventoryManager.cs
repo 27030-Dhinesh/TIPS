@@ -67,6 +67,43 @@ namespace InventoryManagementSystem.Services
         }
 
         /// <summary>
+        /// Searches the product collection for matches based on either the product ID or name.
+        /// </summary>
+        /// <param name="searchParam">The search term to match against (a specific ID or product name).</param>
+        /// <param name="isId">
+        /// Set to <see langword="true"/> to search by product ID;
+        /// set to <see langword="false"/> to search by product name. The default is <see langword="false"/>.</param>
+        /// <returns>A <see cref="List{Product}"/> containing all matching products, or an empty list if no matches are found.</returns>
+        public List<Product> SearchProduct(string searchParam, bool isId = false)
+        {
+            List<Product> products = this.GetAllProducts();
+            List<Product> searchResult = new ();
+
+            if (isId)
+            {
+                foreach (Product prod in products)
+                {
+                    if (searchParam.Equals(prod.Id))
+                    {
+                        searchResult.Add(prod);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Product prod in products)
+                {
+                    if (searchParam.Contains(prod.Name, StringComparison.OrdinalIgnoreCase)) ;
+                    {
+                        searchResult.Add(prod);
+                    }
+                }
+            }
+
+            return searchResult;
+        }
+
+        /// <summary>
         /// Retrieves all products from the storage system.
         /// </summary>
         /// <returns>List of all products from the storage system.</returns>
