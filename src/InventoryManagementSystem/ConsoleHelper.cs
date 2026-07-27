@@ -1,4 +1,6 @@
-﻿namespace InventoryManagementSystem
+﻿using static InventoryManagementSystem.ValidationHelper;
+
+namespace InventoryManagementSystem
 {
     /// <summary>
     /// Provides reusable utility methods for managing user interaction in console applications.
@@ -73,6 +75,33 @@
                 {
                     Console.WriteLine(formatErrorMessage);
                 }
+            }
+            while (true);
+        }
+
+        /// <summary>
+        /// Prompts the user via the console to enter a product ID and validates the input.
+        /// </summary>
+        /// <param name="prompt">The text message displayed to request ID input from the user.</param>
+        /// <param name="formatErrorMessage">The error message displayed when the user enters an invalid string.</param>
+        /// <returns>The valid <see cref="string"/> price value entered by the user.</returns>
+        /// <remarks>
+        /// This method repeats the prompt indefinitely until the user inputs a valid product ID string.
+        /// </remarks>
+        public static string GetProductID(string prompt, string formatErrorMessage)
+        {
+            string? id;
+            do
+            {
+                Console.WriteLine(prompt);
+                id = Console.ReadLine();
+                if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || !IsValidId(id))
+                {
+                    Console.WriteLine(formatErrorMessage);
+                    continue;
+                }
+
+                return id;
             }
             while (true);
         }
