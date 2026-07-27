@@ -1,4 +1,5 @@
-﻿using InventoryManagementSystem.Models;
+﻿using System.Runtime.CompilerServices;
+using InventoryManagementSystem.Models;
 using InventoryManagementSystem.Repository;
 using InventoryManagementSystem.Services;
 using static InventoryManagementSystem.ConsoleHelper;
@@ -79,6 +80,36 @@ namespace Assignments
 
         private static void HandleProductEdit(InventoryManager manager)
         {
+            string oldId = GetProductID("Enter product ID to update:", "Invalid input for id, try again.");
+            if (!manager.ContainsProduct(oldId))
+            {
+                Console.WriteLine($"No product found for id {oldId}.");
+                return;
+            }
+
+            Console.WriteLine("Edit details:");
+
+            string id = GetProductID("Product ID:", "Invalid input for ID, try again.");
+            if (manager.ContainsProduct(id))
+            {
+                Console.WriteLine($"Product with ID {id} already exists. Switching to main menu.");
+                return;
+            }
+
+            string name = GetProductName("Name of the product:", "Invalid input for Name, try again.");
+            decimal price = GetPrice("Price of the product:", "Invalid input for price, try again.");
+            int quantity = GetQuantity("Quantity of the product:", "Invalid input for quantity, try again.");
+
+            Product product = new Product(id, name, price, quantity);
+
+            if (manager.UpdateProduct(oldId, product))
+            {
+                Console.WriteLine("Product updation successful.");
+            }
+            else
+            {
+                Console.WriteLine($"Product updation failed; product with ID {id} already exists.");
+            }
         }
 
         private static void HandleProductSearch(InventoryManager manager, bool useId = false)

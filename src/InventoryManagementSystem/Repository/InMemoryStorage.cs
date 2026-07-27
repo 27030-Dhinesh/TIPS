@@ -32,14 +32,9 @@ namespace InventoryManagementSystem.Repository
         /// <inheritdoc/>
         public bool Update(string productId, Product newProduct)
         {
-            if (this.Contains(productId))
+            if (this._products.Remove(productId))
             {
-                Product product = this._products[productId];
-                product.Id = newProduct.Id;
-                product.Name = newProduct.Name;
-                product.Price = newProduct.Price;
-                product.Quantity = newProduct.Quantity;
-
+                this.Add(newProduct);
                 return true;
             }
 
