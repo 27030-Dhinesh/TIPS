@@ -27,21 +27,23 @@ namespace InventoryManagementSystem
         /// <param name="prompt">The message displayed to the user before requesting input.</param>
         /// <param name="errorMessage">The error message displayed when the user enters an invalid (empty or whitespace) string.</param>
         /// <returns>A valid, non-empty <see cref="string"/> entered by the user.</returns>
+        /// <remarks>
+        /// This method repeats the prompt indefinitely until the user inputs a valid string.
+        /// </remarks>
         public static string GetInput(string prompt, string errorMessage)
         {
-            string? choice;
+            string? input;
             do
             {
                 Console.WriteLine(prompt);
-                choice = Console.ReadLine();
-                if (string.IsNullOrEmpty(choice) || string.IsNullOrWhiteSpace(choice))
+                input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
                 {
                     Console.WriteLine(errorMessage);
+                    continue;
                 }
-                else
-                {
-                    return choice;
-                }
+
+                return input;
             }
             while (true);
         }
@@ -84,7 +86,7 @@ namespace InventoryManagementSystem
         /// </summary>
         /// <param name="prompt">The text message displayed to request ID input from the user.</param>
         /// <param name="formatErrorMessage">The error message displayed when the user enters an invalid string.</param>
-        /// <returns>The valid <see cref="string"/> price value entered by the user.</returns>
+        /// <returns>The valid <see cref="string"/> product id entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid product ID string.
         /// </remarks>
@@ -102,6 +104,32 @@ namespace InventoryManagementSystem
                 }
 
                 return id;
+            }
+            while (true);
+        }
+
+        /// <summary>
+        /// Prompts the user via the console to enter a product name and validates the input.
+        /// </summary>
+        /// <param name="prompt">The text message displayed to request name input from the user.</param>
+        /// <param name="formatErrorMessage">The error message displayed when the user enters an invalid string.</param>
+        /// <returns>The valid <see cref="string"/> product name entered by the user.</returns>
+        /// <remarks>
+        /// This method repeats the prompt indefinitely until the user inputs a valid product name string.
+        /// </remarks>
+        public static string GetProductName(string prompt, string formatErrorMessage)
+        {
+            string name;
+            do
+            {
+                name = GetInput(prompt, formatErrorMessage);
+
+                if (!IsValidName(name))
+                {
+                    Console.WriteLine("Name is invalid, try again.");
+                }
+
+                return name;
             }
             while (true);
         }
