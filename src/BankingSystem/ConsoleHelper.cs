@@ -10,7 +10,6 @@ namespace BankingSystem
         /// <summary>
         /// Display app menu for user choices.
         /// </summary>
-        /// <param name="type">The type of Bank Account for which info needs to be shown to user.</param>
         public static void DisplayAppInfo()
         {
             Console.WriteLine($@"1. Create a Savings Account
