@@ -6,6 +6,20 @@
     internal static class ConsoleHelper
     {
         /// <summary>
+        /// Display app menu for user choices.
+        /// </summary>
+        public static void DisplayAppInfo()
+        {
+            Console.WriteLine($@"1. Add new product
+2. Edit product
+3. Search product by name
+4. Search product by product ID
+5. Display all products
+6. Delete a product by product ID
+7. Exit");
+        }
+
+        /// <summary>
         /// Prompts the user via the console and repeatedly reads input until a non-empty, non-whitespace string is provided.
         /// </summary>
         /// <param name="prompt">The message displayed to the user before requesting input.</param>
@@ -44,8 +58,7 @@
             do
             {
                 Console.WriteLine(prompt);
-                decimal amount;
-                if (decimal.TryParse(Console.ReadLine(), out amount))
+                if (decimal.TryParse(Console.ReadLine(), out decimal amount))
                 {
                     if (amount >= 0)
                     {
