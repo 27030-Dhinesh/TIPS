@@ -110,6 +110,18 @@ namespace Assignments
 
         private static void HandleProductDeletion(InventoryManager manager)
         {
+            string id = GetProductID("Enter the product ID to delete:", "Invalid input for ID, try again.");
+            if (manager.DeleteProduct(id))
+            {
+                Console.WriteLine("Product deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"Deletion failed, product with ID {id} not found.");
+            }
+
+            Thread.Sleep(1500);
+            Console.Clear();
         }
     }
 }
