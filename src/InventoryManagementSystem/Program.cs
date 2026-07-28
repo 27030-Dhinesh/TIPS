@@ -43,9 +43,12 @@ namespace InventoryManagementSystem
                         HandleProductDisplay(manager);
                         break;
                     case "6":
-                        HandleProductDeletion(manager);
+                        HandleProductDisplay(manager, true);
                         break;
                     case "7":
+                        HandleProductDeletion(manager);
+                        break;
+                    case "8":
                         Console.WriteLine("Exiting application...");
                         Thread.Sleep(1000);
                         return;
@@ -81,6 +84,13 @@ namespace InventoryManagementSystem
 
         private static void HandleProductEdit(InventoryManager manager)
         {
+            if (manager.IsEmpty())
+            {
+                Console.WriteLine("Inventory is empty, cannot perform edit operation.");
+                UICleanup();
+                return;
+            }
+
             string oldId = GetProductID("Enter product ID to update:", "Invalid input for id, try again.");
             if (!manager.ContainsProduct(oldId))
             {
@@ -149,7 +159,7 @@ namespace InventoryManagementSystem
             UICleanup(3000);
         }
 
-        private static void HandleProductDisplay(InventoryManager manager)
+        private static void HandleProductDisplay(InventoryManager manager, bool useName = false)
         {
             List<Product> products = manager.GetAllProducts();
 
@@ -159,6 +169,8 @@ namespace InventoryManagementSystem
                 UICleanup();
                 return;
             }
+
+            products = products.OrderBy(prod => useName ? prod.Name : prod.Id).ToList();
 
             Table table = PrepareTable(products);
             AnsiConsole.Write(table);
