@@ -63,6 +63,13 @@ namespace InventoryManagementSystem
         private static void HandleProductCreation(InventoryManager manager)
         {
             string id = GetProductID("Enter the product ID:", "Invalid input for ID, try again.");
+            if (manager.ContainsProduct(id))
+            {
+                Console.WriteLine($"Another product with ID {id} exists. Aborting operation...");
+                UICleanup(1500);
+                return;
+            }
+
             string name = GetProductName("Enter the name of the product:", "Invalid input for Name, try again.");
             decimal price = GetPrice("Enter the price of the product:", "Invalid input for price, try again.");
             int quantity = GetQuantity("Enter the quantity of the product:", "Invalid input for quantity, try again.");
@@ -123,6 +130,7 @@ namespace InventoryManagementSystem
             {
                 Console.WriteLine($"Product updation failed; product with ID {id} already exists.");
             }
+
             UICleanup();
         }
 
