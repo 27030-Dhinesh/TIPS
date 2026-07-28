@@ -19,9 +19,10 @@ namespace InventoryManagementSystem
 2. Edit product
 3. Search product by name
 4. Search product by product ID
-5. Display all products
-6. Delete a product by product ID
-7. Exit");
+5. Display all products by id
+6. Display all products by name
+7. Delete a product by product ID
+8. Exit");
         }
 
         /// <summary>
