@@ -83,7 +83,7 @@ namespace InventoryManagementSystem.Services
             {
                 foreach (Product prod in products)
                 {
-                    if (searchParam.Equals(prod.Id))
+                    if (searchParam.Equals(prod.Id, StringComparison.OrdinalIgnoreCase))
                     {
                         searchResult.Add(prod);
                     }

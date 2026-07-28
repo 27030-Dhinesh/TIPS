@@ -1,4 +1,7 @@
-﻿using static InventoryManagementSystem.ValidationHelper;
+﻿using System.Text;
+using InventoryManagementSystem.Models;
+using Spectre.Console;
+using static InventoryManagementSystem.ValidationHelper;
 
 namespace InventoryManagementSystem
 {
@@ -94,7 +97,7 @@ namespace InventoryManagementSystem
                     continue;
                 }
 
-                return id;
+                return id.ToUpper();
             }
             while (true);
         }
@@ -147,6 +150,45 @@ namespace InventoryManagementSystem
                 Console.WriteLine(formatErrorMessage + " Quantity of the product should be natural number.");
             }
             while (true);
+        }
+
+        /// <summary>
+        /// Generates a stylized, rounded console table displaying a list of products.
+        /// </summary>
+        /// <param name="products">The list of <see cref="Product"/> items to include in the table.</param>
+        /// <returns>A configured <see cref="Table"/> instance ready to be rendered to the console.</returns>
+        /// <remarks>
+        /// The table features blue rounded borders, an 'Inventory Listings' title,
+        /// and formatted columns for Product ID, Name, Price, and Quantity.
+        /// </remarks>
+        public static Table PrepareTable(List<Product> products)
+        {
+            Encoding originalEncoding = Console.OutputEncoding;
+            Console.OutputEncoding = Encoding.UTF8;
+
+            // Initialize a stylized table
+            var table = new Table()
+                .Border(TableBorder.Rounded)
+                .BorderColor(Color.Blue)
+                .Title("[yellow bold]Inventory Listings[/]\n");
+
+            // Define column layouts and headers
+            table.AddColumn(new TableColumn("[cyan bold]Product ID[/]").Centered());
+            table.AddColumn(new TableColumn("[green bold]Product Name[/]"));
+            table.AddColumn(new TableColumn("[magenta bold]Price[/]").RightAligned());
+            table.AddColumn(new TableColumn("[yellow bold]Quantity[/]").Centered());
+
+            foreach (Product product in products)
+            {
+                table.AddRow(
+                    product.Id,
+                    product.Name,
+                    product.Price.ToString("C"),
+                    product.Quantity.ToString());
+            }
+
+            Console.OutputEncoding = originalEncoding;
+            return table;
         }
     }
 }
