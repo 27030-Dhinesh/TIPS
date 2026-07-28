@@ -1,10 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using InventoryManagementSystem.Models;
+﻿using InventoryManagementSystem.Models;
 using InventoryManagementSystem.Repository;
 using InventoryManagementSystem.Services;
+using Spectre.Console;
 using static InventoryManagementSystem.ConsoleHelper;
 
-namespace Assignments
+namespace InventoryManagementSystem
 {
     /// <summary>
     /// Contains the main entry point and core initialization logic for the application.
@@ -51,8 +51,7 @@ namespace Assignments
                         return;
                     default:
                         Console.WriteLine("Invalid input, try again.");
-                        Thread.Sleep(1000);
-                        Console.Clear();
+                        UICleanup();
                         break;
                 }
             }
@@ -76,6 +75,8 @@ namespace Assignments
             {
                 Console.WriteLine("Failed to add product; another product with same ID exists.");
             }
+
+            UICleanup();
         }
 
         private static void HandleProductEdit(InventoryManager manager)
@@ -84,6 +85,7 @@ namespace Assignments
             if (!manager.ContainsProduct(oldId))
             {
                 Console.WriteLine($"No product found for id {oldId}.");
+                UICleanup();
                 return;
             }
 
@@ -93,6 +95,7 @@ namespace Assignments
             if (manager.ContainsProduct(id))
             {
                 Console.WriteLine($"Product with ID {id} already exists. Switching to main menu.");
+                UICleanup();
                 return;
             }
 
@@ -110,6 +113,7 @@ namespace Assignments
             {
                 Console.WriteLine($"Product updation failed; product with ID {id} already exists.");
             }
+            UICleanup();
         }
 
         private static void HandleProductSearch(InventoryManager manager, bool useId = false)
@@ -117,8 +121,7 @@ namespace Assignments
             if (manager.IsEmpty())
             {
                 Console.WriteLine("Inventory is empty, cannot perform search operation.");
-                Thread.Sleep(1000);
-                Console.Clear();
+                UICleanup();
                 return;
             }
 
@@ -126,6 +129,12 @@ namespace Assignments
             if (useId)
             {
                 searchParam = GetProductID("Enter product ID to search:", "Invalid input for ID, try again.");
+                if (!manager.ContainsProduct(searchParam))
+                {
+                    Console.WriteLine($"Product with ID {searchParam} not found.");
+                    UICleanup();
+                    return;
+                }
             }
             else
             {
@@ -134,15 +143,10 @@ namespace Assignments
 
             List<Product> searchResult = manager.SearchProduct(searchParam, useId);
 
-            Console.WriteLine("==============================");
-            foreach (Product product in searchResult)
-            {
-                Console.WriteLine(product);
-                Console.WriteLine("==============================");
-            }
+            Table table = PrepareTable(searchResult);
+            AnsiConsole.Write(table);
 
-            Thread.Sleep(3000);
-            Console.Clear();
+            UICleanup(3000);
         }
 
         private static void HandleProductDisplay(InventoryManager manager)
@@ -152,20 +156,14 @@ namespace Assignments
             if (products.Count == 0)
             {
                 Console.WriteLine("Inventory is empty.");
-                Thread.Sleep(1000);
-                Console.Clear();
+                UICleanup();
                 return;
             }
 
-            Console.WriteLine("==============================");
-            foreach (Product product in products)
-            {
-                Console.WriteLine(product);
-                Console.WriteLine("==============================");
-            }
+            Table table = PrepareTable(products);
+            AnsiConsole.Write(table);
 
-            Thread.Sleep(3000);
-            Console.Clear();
+            UICleanup(3000);
         }
 
         private static void HandleProductDeletion(InventoryManager manager)
@@ -173,8 +171,7 @@ namespace Assignments
             if (manager.IsEmpty())
             {
                 Console.WriteLine("Inventory is empty; cannot perform deletion operation.");
-                Thread.Sleep(1000);
-                Console.Clear();
+                UICleanup();
                 return;
             }
 
@@ -188,7 +185,12 @@ namespace Assignments
                 Console.WriteLine($"Deletion failed, product with ID {id} not found.");
             }
 
-            Thread.Sleep(1500);
+            UICleanup(1500);
+        }
+
+        private static void UICleanup(int ms = 1000)
+        {
+            Thread.Sleep(ms);
             Console.Clear();
         }
     }
