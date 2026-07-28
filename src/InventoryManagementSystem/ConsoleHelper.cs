@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using InventoryManagementSystem.Models;
 using Spectre.Console;
+using static InventoryManagementSystem.ColorConstants;
 using static InventoryManagementSystem.ValidationHelper;
 
 namespace InventoryManagementSystem
@@ -15,6 +16,7 @@ namespace InventoryManagementSystem
         /// </summary>
         public static void DisplayAppInfo()
         {
+            Console.ForegroundColor = GREEN;
             Console.WriteLine($@"1. Add new product
 2. Edit product
 3. Search product by name
@@ -22,7 +24,9 @@ namespace InventoryManagementSystem
 5. Display all products by id
 6. Display all products by name
 7. Delete a product by product ID
-8. Exit");
+8. Exit
+");
+            Console.ResetColor();
         }
 
         /// <summary>
@@ -30,23 +34,33 @@ namespace InventoryManagementSystem
         /// </summary>
         /// <param name="prompt">The message displayed to the user before requesting input.</param>
         /// <param name="errorMessage">The error message displayed when the user enters an invalid (empty or whitespace) string.</param>
+        /// <param name="promptColor">The color used for prompt foreground.</param>
+        /// <param name="errorColor">The color used for error message foreground.</param>
         /// <returns>A valid, non-empty <see cref="string"/> entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid string.
         /// </remarks>
-        public static string GetInput(string prompt, string errorMessage)
+        public static string GetInput(
+            string prompt,
+            string errorMessage,
+            ConsoleColor promptColor = BLUE,
+            ConsoleColor errorColor = RED)
         {
             string? input;
             do
             {
-                Console.WriteLine(prompt);
+                Console.ForegroundColor = promptColor;
+                Console.Write(prompt);
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
                 {
+                    Console.ForegroundColor = errorColor;
                     Console.WriteLine(errorMessage);
+                    Console.ResetColor();
                     continue;
                 }
 
+                Console.ResetColor();
                 return input;
             }
             while (true);
@@ -57,20 +71,29 @@ namespace InventoryManagementSystem
         /// </summary>
         /// <param name="prompt">The text message displayed to request price input from the user.</param>
         /// <param name="formatErrorMessage">The text message displayed when the input cannot be parsed as a positive decimal.</param>
+        /// <param name="promptColor">The color used for prompt foreground.</param>
+        /// <param name="errorColor">The color used for error message foreground.</param>
         /// <returns>The valid <see cref="decimal"/> price value entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid decimal formatting string.
         /// </remarks>
-        public static decimal GetPrice(string prompt, string formatErrorMessage)
+        public static decimal GetPrice(
+            string prompt,
+            string formatErrorMessage,
+            ConsoleColor promptColor = BLUE,
+            ConsoleColor errorColor = RED)
         {
             do
             {
-                Console.WriteLine(prompt);
+                Console.ForegroundColor = promptColor;
+                Console.Write(prompt);
                 if (decimal.TryParse(Console.ReadLine(), out decimal amount) && amount >= 0)
                 {
+                    Console.ResetColor();
                     return amount;
                 }
 
+                Console.ForegroundColor = errorColor;
                 Console.WriteLine(formatErrorMessage + " Price of the product should be positive.");
             }
             while (true);
@@ -81,20 +104,29 @@ namespace InventoryManagementSystem
         /// </summary>
         /// <param name="prompt">The text message displayed to request ID input from the user.</param>
         /// <param name="formatErrorMessage">The error message displayed when the user enters an invalid ID.</param>
+        /// <param name="promptColor">The color used for prompt foreground.</param>
+        /// <param name="errorColor">The color used for error message foreground.</param>
         /// <returns>The valid <see cref="string"/> product ID entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid product ID string.
         /// </remarks>
-        public static string GetProductID(string prompt, string formatErrorMessage)
+        public static string GetProductID(
+            string prompt,
+            string formatErrorMessage,
+            ConsoleColor promptColor = BLUE,
+            ConsoleColor errorColor = RED)
         {
             string? id;
             do
             {
-                Console.WriteLine(prompt);
+                Console.ForegroundColor = promptColor;
+                Console.Write(prompt);
                 id = Console.ReadLine();
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || !IsValidId(id))
                 {
+                    Console.ForegroundColor = errorColor;
                     Console.WriteLine(formatErrorMessage);
+                    Console.ResetColor();
                     continue;
                 }
 
@@ -108,11 +140,17 @@ namespace InventoryManagementSystem
         /// </summary>
         /// <param name="prompt">The text message displayed to request name input from the user.</param>
         /// <param name="formatErrorMessage">The error message displayed when the user enters an invalid string.</param>
+        /// <param name="promptColor">The color used for prompt foreground.</param>
+        /// <param name="errorColor">The color used for error message foreground.</param>
         /// <returns>The valid <see cref="string"/> product name entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid product name string.
         /// </remarks>
-        public static string GetProductName(string prompt, string formatErrorMessage)
+        public static string GetProductName(
+            string prompt,
+            string formatErrorMessage,
+            ConsoleColor promptColor = BLUE,
+            ConsoleColor errorColor = RED)
         {
             string name;
             do
@@ -121,7 +159,10 @@ namespace InventoryManagementSystem
 
                 if (!IsValidName(name))
                 {
+                    Console.ForegroundColor = errorColor;
                     Console.WriteLine("Name is invalid, try again.");
+                    Console.ResetColor();
+                    continue;
                 }
 
                 return name;
@@ -134,21 +175,31 @@ namespace InventoryManagementSystem
         /// </summary>
         /// <param name="prompt">The text message displayed to request quantity input from the user.</param>
         /// <param name="formatErrorMessage">The text message displayed when the input is invalid.</param>
+        /// <param name="promptColor">The color used for prompt foreground.</param>
+        /// <param name="errorColor">The color used for error message foreground.</param>
         /// <returns>The valid <see cref="int"/> quantity value entered by the user.</returns>
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid quantity is provided.
         /// </remarks>
-        public static int GetQuantity(string prompt, string formatErrorMessage)
+        public static int GetQuantity(
+            string prompt,
+            string formatErrorMessage,
+            ConsoleColor promptColor = BLUE,
+            ConsoleColor errorColor = RED)
         {
             do
             {
-                Console.WriteLine(prompt);
+                Console.ForegroundColor = promptColor;
+                Console.Write(prompt);
                 if (int.TryParse(Console.ReadLine(), out int quantity) && quantity > 0)
                 {
+                    Console.ResetColor();
                     return quantity;
                 }
 
+                Console.ForegroundColor = errorColor;
                 Console.WriteLine(formatErrorMessage + " Quantity of the product should be natural number.");
+                Console.ResetColor();
             }
             while (true);
         }
