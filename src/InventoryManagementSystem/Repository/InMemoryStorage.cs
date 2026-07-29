@@ -1,4 +1,5 @@
-﻿using InventoryManagementSystem.Models;
+﻿using InventoryManagementSystem.Interfaces;
+using InventoryManagementSystem.Models;
 
 namespace InventoryManagementSystem.Repository
 {
