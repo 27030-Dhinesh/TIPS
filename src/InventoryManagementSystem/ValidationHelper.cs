@@ -20,7 +20,9 @@ namespace InventoryManagementSystem
             }
 
             name = name.Trim();
-            return name.Length >= 2 && name.Length <= 30 && Regex.IsMatch(name, @"^[a-zA-Z0-9'-]+(?:\s[a-zA-Z0-9'-]+)*$", RegexOptions.Compiled);
+            return name.Length >= 2
+                && name.Length <= 30
+                && Regex.IsMatch(name, @"^[a-zA-Z0-9'-]+(?:\s[a-zA-Z0-9'-]+)*$", RegexOptions.Compiled);
         }
 
         /// <summary>
