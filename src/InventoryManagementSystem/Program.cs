@@ -109,10 +109,10 @@ namespace InventoryManagementSystem
 
             Console.WriteLine("Edit details:");
 
-            string id = GetProductID("Product ID: ", "Invalid input for ID, try again.");
-            if (manager.ContainsProduct(id))
+            string newId = GetProductID("Product ID: ", "Invalid input for ID, try again.");
+            if (oldId != newId && manager.ContainsProduct(newId))
             {
-                WriteColorLine($"Product with ID {id} already exists. Switching to main menu.", RED);
+                WriteColorLine($"Product with ID {newId} already exists. Switching to main menu.", RED);
                 UICleanup();
                 return;
             }
@@ -121,7 +121,7 @@ namespace InventoryManagementSystem
             decimal price = GetPrice("Price of the product: ", "Invalid input for price, try again.");
             int quantity = GetQuantity("Quantity of the product: ", "Invalid input for quantity, try again.");
 
-            Product product = new Product(id, name, price, quantity);
+            Product product = new Product(newId, name, price, quantity);
 
             if (manager.UpdateProduct(oldId, product))
             {
@@ -129,7 +129,7 @@ namespace InventoryManagementSystem
             }
             else
             {
-                WriteColorLine($"Product updation failed; product with ID {id} already exists.", RED);
+                WriteColorLine($"Product updation failed; product with ID {newId} already exists.", RED);
             }
 
             UICleanup();
