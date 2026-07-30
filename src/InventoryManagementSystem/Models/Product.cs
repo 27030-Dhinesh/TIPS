@@ -46,7 +46,7 @@
             {
                 if (value < 0)
                 {
-                    this._price = 0m;
+                    throw new ArgumentOutOfRangeException(nameof(this.Price), "Amount must be a positive decimal.");
                 }
                 else
                 {
@@ -66,7 +66,7 @@
             {
                 if (value < 0)
                 {
-                    this._quantity = 0;
+                    throw new ArgumentOutOfRangeException(nameof(this.Quantity), "Amount must be a positive decimal.");
                 }
                 else
                 {

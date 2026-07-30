@@ -2,7 +2,7 @@
 using InventoryManagementSystem.Repository;
 using InventoryManagementSystem.Services;
 using Spectre.Console;
-using static InventoryManagementSystem.ColorConstants;
+using static System.ConsoleColor;
 using static InventoryManagementSystem.ConsoleHelper;
 
 namespace InventoryManagementSystem
@@ -50,11 +50,11 @@ namespace InventoryManagementSystem
                         HandleProductDeletion(manager);
                         break;
                     case "8":
-                        WriteColorLine("Exiting application...", RED);
+                        WriteColorLine("Exiting application...", Red);
                         Thread.Sleep(1000);
                         return;
                     default:
-                        WriteColorLine("Invalid input for choice, try again.", RED);
+                        WriteColorLine("Invalid input for choice, try again.", Red);
                         UICleanup();
                         break;
                 }
@@ -66,7 +66,7 @@ namespace InventoryManagementSystem
             string id = GetProductID("Enter the product ID: ", "Invalid input for ID, try again.");
             if (manager.ContainsProduct(id))
             {
-                WriteColorLine($"Another product with ID {id} exists. Aborting operation...", RED);
+                WriteColorLine($"Another product with ID {id} exists. Aborting operation...", Red);
                 UICleanup(1500);
                 return;
             }
@@ -84,7 +84,7 @@ namespace InventoryManagementSystem
             }
             else
             {
-                WriteColorLine("Failed to add product; another product with same ID exists.", RED);
+                WriteColorLine("Failed to add product; another product with same ID exists.", Red);
             }
 
             UICleanup();
@@ -94,7 +94,7 @@ namespace InventoryManagementSystem
         {
             if (manager.IsEmpty())
             {
-                WriteColorLine("Inventory is empty, cannot perform edit operation.", RED);
+                WriteColorLine("Inventory is empty, cannot perform edit operation.", Red);
                 UICleanup();
                 return;
             }
@@ -102,7 +102,7 @@ namespace InventoryManagementSystem
             string oldId = GetProductID("Enter product ID to update: ", "Invalid input for id, try again.");
             if (!manager.ContainsProduct(oldId))
             {
-                WriteColorLine($"No product found for id {oldId}.", RED);
+                WriteColorLine($"No product found for id {oldId}.", Red);
                 UICleanup();
                 return;
             }
@@ -112,7 +112,7 @@ namespace InventoryManagementSystem
             string newId = GetProductID("Product ID: ", "Invalid input for ID, try again.");
             if (oldId != newId && manager.ContainsProduct(newId))
             {
-                WriteColorLine($"Product with ID {newId} already exists. Switching to main menu.", RED);
+                WriteColorLine($"Product with ID {newId} already exists. Switching to main menu.", Red);
                 UICleanup();
                 return;
             }
@@ -129,7 +129,7 @@ namespace InventoryManagementSystem
             }
             else
             {
-                WriteColorLine($"Product updation failed; product with ID {newId} already exists.", RED);
+                WriteColorLine($"Product updation failed; product with ID {newId} already exists.", Red);
             }
 
             UICleanup();
@@ -139,7 +139,7 @@ namespace InventoryManagementSystem
         {
             if (manager.IsEmpty())
             {
-                WriteColorLine("Inventory is empty, cannot perform search operation.", RED);
+                WriteColorLine("Inventory is empty, cannot perform search operation.", Red);
                 UICleanup();
                 return;
             }
@@ -150,7 +150,7 @@ namespace InventoryManagementSystem
                 searchParam = GetProductID("Enter product ID to search: ", "Invalid input for ID, try again.");
                 if (!manager.ContainsProduct(searchParam))
                 {
-                    WriteColorLine($"Product with ID {searchParam} not found.", RED);
+                    WriteColorLine($"Product with ID {searchParam} not found.", Red);
                     UICleanup();
                     return;
                 }
@@ -161,6 +161,13 @@ namespace InventoryManagementSystem
             }
 
             List<Product> searchResult = manager.SearchProduct(searchParam, useId);
+
+            if (searchResult.Count == 0)
+            {
+                WriteColorLine($"No products found for {searchParam}.", Red);
+                UICleanup();
+                return;
+            }
 
             Table table = PrepareTable(searchResult);
             AnsiConsole.Write(table);
@@ -174,7 +181,7 @@ namespace InventoryManagementSystem
 
             if (products.Count == 0)
             {
-                WriteColorLine("Inventory is empty.", RED);
+                WriteColorLine("Inventory is empty.", Red);
                 UICleanup();
                 return;
             }
@@ -191,7 +198,7 @@ namespace InventoryManagementSystem
         {
             if (manager.IsEmpty())
             {
-                WriteColorLine("Inventory is empty; cannot perform deletion operation.", RED);
+                WriteColorLine("Inventory is empty; cannot perform deletion operation.", Red);
                 UICleanup();
                 return;
             }
@@ -203,7 +210,7 @@ namespace InventoryManagementSystem
             }
             else
             {
-                WriteColorLine($"Deletion failed, product with ID {id} not found.", RED);
+                WriteColorLine($"Deletion failed, product with ID {id} not found.", Red);
             }
 
             UICleanup(1500);
