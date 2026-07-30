@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using InventoryManagementSystem.Models;
 using Spectre.Console;
-using static InventoryManagementSystem.ColorConstants;
+using static System.ConsoleColor;
 using static InventoryManagementSystem.ValidationHelper;
 
 namespace InventoryManagementSystem
@@ -16,7 +16,7 @@ namespace InventoryManagementSystem
         /// </summary>
         public static void DisplayAppInfo()
         {
-            Console.ForegroundColor = GREEN;
+            Console.ForegroundColor = Green;
             Console.WriteLine($@"1. Add new product
 2. Edit product
 3. Search product by name
@@ -43,8 +43,8 @@ namespace InventoryManagementSystem
         public static string GetInput(
             string prompt,
             string errorMessage,
-            ConsoleColor promptColor = BLUE,
-            ConsoleColor errorColor = RED)
+            ConsoleColor promptColor = Blue,
+            ConsoleColor errorColor = Red)
         {
             string? input;
             do
@@ -80,8 +80,8 @@ namespace InventoryManagementSystem
         public static decimal GetPrice(
             string prompt,
             string formatErrorMessage,
-            ConsoleColor promptColor = BLUE,
-            ConsoleColor errorColor = RED)
+            ConsoleColor promptColor = Blue,
+            ConsoleColor errorColor = Red)
         {
             do
             {
@@ -113,8 +113,8 @@ namespace InventoryManagementSystem
         public static string GetProductID(
             string prompt,
             string formatErrorMessage,
-            ConsoleColor promptColor = BLUE,
-            ConsoleColor errorColor = RED)
+            ConsoleColor promptColor = Blue,
+            ConsoleColor errorColor = Red)
         {
             string? id;
             do
@@ -149,8 +149,8 @@ namespace InventoryManagementSystem
         public static string GetProductName(
             string prompt,
             string formatErrorMessage,
-            ConsoleColor promptColor = BLUE,
-            ConsoleColor errorColor = RED)
+            ConsoleColor promptColor = Blue,
+            ConsoleColor errorColor = Red)
         {
             string name;
             do
@@ -184,8 +184,8 @@ namespace InventoryManagementSystem
         public static int GetQuantity(
             string prompt,
             string formatErrorMessage,
-            ConsoleColor promptColor = BLUE,
-            ConsoleColor errorColor = RED)
+            ConsoleColor promptColor = Blue,
+            ConsoleColor errorColor = Red)
         {
             do
             {
