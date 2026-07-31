@@ -1,5 +1,4 @@
-﻿using System.Text;
-using InventoryManagementSystem.Models;
+﻿using InventoryManagementSystem.Models;
 using Spectre.Console;
 using static System.ConsoleColor;
 using static InventoryManagementSystem.ValidationHelper;
@@ -32,46 +31,6 @@ namespace InventoryManagementSystem
         }
 
         /// <summary>
-        /// Prompts the user via the console and repeatedly reads input until a non-empty, non-whitespace string is provided.
-        /// </summary>
-        /// <param name="prompt">The message displayed to the user before requesting input.</param>
-        /// <param name="errorMessage">The error message displayed when the user enters an invalid (empty or whitespace) string.</param>
-        /// <param name="promptColor">The color used for prompt foreground.</param>
-        /// <param name="errorColor">The color used for error message foreground.</param>
-        /// <returns>A valid, non-empty <see cref="string"/> entered by the user.</returns>
-        /// <remarks>
-        /// This method repeats the prompt indefinitely until the user inputs a valid string.
-        /// </remarks>
-        public static string GetInput(
-            string prompt,
-            string errorMessage,
-            ConsoleColor promptColor = Blue,
-            ConsoleColor errorColor = Red)
-        {
-            string? input;
-            int tries = TRIES;
-            do
-            {
-                Console.ForegroundColor = promptColor;
-                Console.Write(prompt);
-                input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
-                {
-                    Console.ForegroundColor = errorColor;
-                    Console.WriteLine(errorMessage + $"{--tries} tries left.");
-                    Console.ResetColor();
-                    continue;
-                }
-
-                Console.ResetColor();
-                return input;
-            }
-            while (tries > 0);
-
-            return string.Empty;
-        }
-
-        /// <summary>
         /// Prompts the user via the console to enter a price and validates the input.
         /// </summary>
         /// <param name="prompt">The text message displayed to request price input from the user.</param>
@@ -91,16 +50,13 @@ namespace InventoryManagementSystem
             int tries = TRIES;
             do
             {
-                Console.ForegroundColor = promptColor;
-                Console.Write(prompt);
+                WriteColorLine(prompt, promptColor);
                 if (decimal.TryParse(Console.ReadLine(), out decimal amount) && amount >= 0)
                 {
-                    Console.ResetColor();
                     return amount;
                 }
 
-                Console.ForegroundColor = errorColor;
-                Console.WriteLine(formatErrorMessage + $" Price of the product should be positive. {--tries} tries left.");
+                WriteColorLine(formatErrorMessage + $" Price of the product should be positive. {--tries} tries left.", errorColor);
             }
             while (tries > 0);
 
@@ -128,14 +84,11 @@ namespace InventoryManagementSystem
             int tries = TRIES;
             do
             {
-                Console.ForegroundColor = promptColor;
-                Console.Write(prompt);
+                WriteColorLine(prompt, promptColor);
                 id = Console.ReadLine();
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || !IsValidId(id))
                 {
-                    Console.ForegroundColor = errorColor;
-                    Console.WriteLine(formatErrorMessage + $"{--tries} tries left.");
-                    Console.ResetColor();
+                    WriteColorLine(formatErrorMessage + $"{--tries} tries left.", errorColor);
                     continue;
                 }
 
@@ -163,21 +116,23 @@ namespace InventoryManagementSystem
             ConsoleColor promptColor = Blue,
             ConsoleColor errorColor = Red)
         {
-            string name;
+            string? name;
+            int tries = TRIES;
             do
             {
-                name = GetInput(prompt, formatErrorMessage);
-                if (!IsValidName(name))
+                WriteColorLine(prompt, promptColor);
+                name = Console.ReadLine();
+                if (name is null || !IsValidName(name))
                 {
-                    Console.ForegroundColor = errorColor;
-                    Console.WriteLine($"Name is invalid, try again.");
-                    Console.ResetColor();
+                    WriteColorLine($"Name is invalid, try again. {--tries} tries left.", errorColor);
                     continue;
                 }
 
                 return name;
             }
-            while (true);
+            while (tries > 0);
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -200,17 +155,16 @@ namespace InventoryManagementSystem
             int tries = TRIES;
             do
             {
-                Console.ForegroundColor = promptColor;
-                Console.Write(prompt);
+                WriteColorLine(prompt, promptColor);
                 if (int.TryParse(Console.ReadLine(), out int quantity) && quantity > 0)
                 {
-                    Console.ResetColor();
                     return quantity;
                 }
 
-                Console.ForegroundColor = errorColor;
-                Console.WriteLine(formatErrorMessage + $" Quantity of the product should be natural number. {--tries} tries left.");
-                Console.ResetColor();
+                WriteColorLine(
+                    $@"{formatErrorMessage} Quantity of the product should be natural number.
+{--tries} tries left.",
+                    errorColor);
             }
             while (tries > 0);
 
@@ -250,6 +204,31 @@ namespace InventoryManagementSystem
             }
 
             return table;
+        }
+
+        /// <summary>
+        /// Pauses execution and clears the console screen.
+        /// </summary>
+        /// <param name="ms">The pause duration in milliseconds. Defaults to 1000 ms.</param>
+        /// <remarks>
+        /// This method blocks the calling thread using <see cref="Thread.Sleep(int)"/>.
+        /// </remarks>
+        public static void UICleanup(int ms = 1000)
+        {
+            Thread.Sleep(ms);
+            Console.Clear();
+        }
+
+        /// <summary>
+        /// Writes a message to the console in a specified color and resets the color afterward.
+        /// </summary>
+        /// <param name="message">The text message to write.</param>
+        /// <param name="color">The color of the text.</param>
+        public static void WriteColorLine(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ResetColor();
         }
     }
 }
