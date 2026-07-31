@@ -24,7 +24,8 @@ namespace InventoryManagementSystem
             while (true)
             {
                 DisplayAppInfo();
-                string choice = GetInput("Enter your choice: ", "Invalid input for choice, try again.");
+                WriteColorLine("Enter your choice:", Blue);
+                string? choice = Console.ReadLine();
 
                 switch (choice)
                 {
@@ -79,6 +80,13 @@ namespace InventoryManagementSystem
             }
 
             string name = GetProductName("Enter the name of the product: ", "Invalid input for Name, try again.");
+            if (name.Equals(string.Empty))
+            {
+                WriteColorLine($"Switching to main menu...", Yellow);
+                UICleanup(1500);
+                return;
+            }
+
             decimal price = GetPrice("Enter the price of the product: ", "Invalid input for price, try again.");
             if (price == 0)
             {
@@ -152,6 +160,13 @@ namespace InventoryManagementSystem
             }
 
             string name = GetProductName("Name of the product: ", "Invalid input for Name, try again.");
+            if (name.Equals(string.Empty))
+            {
+                WriteColorLine($"Switching to main menu...", Yellow);
+                UICleanup(1500);
+                return;
+            }
+
             decimal price = GetPrice("Price of the product: ", "Invalid input for price, try again.");
             if (price == 0)
             {
@@ -212,6 +227,12 @@ namespace InventoryManagementSystem
             else
             {
                 searchParam = GetProductName("Enter product name to search: ", "Invalid input for name, try again.");
+                if (searchParam.Equals(string.Empty))
+                {
+                    WriteColorLine($"Switching to main menu...", Yellow);
+                    UICleanup(1500);
+                    return;
+                }
             }
 
             List<Product> searchResult = manager.SearchProduct(searchParam, useId);
@@ -275,19 +296,6 @@ namespace InventoryManagementSystem
             }
 
             UICleanup(1500);
-        }
-
-        private static void UICleanup(int ms = 1000)
-        {
-            Thread.Sleep(ms);
-            Console.Clear();
-        }
-
-        private static void WriteColorLine(string message, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(message);
-            Console.ResetColor();
         }
     }
 }
