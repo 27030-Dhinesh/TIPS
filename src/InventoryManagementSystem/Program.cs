@@ -63,7 +63,14 @@ namespace InventoryManagementSystem
 
         private static void HandleProductCreation(InventoryManager manager)
         {
-            string id = GetProductID("Enter the product ID: ", "Invalid input for ID, try again.");
+            string? id = GetProductID("Enter the product ID: ", "Invalid input for ID, try again.");
+            if (id is null)
+            {
+                WriteColorLine("Switching to main menu...", Yellow);
+                UICleanup();
+                return;
+            }
+
             if (manager.ContainsProduct(id))
             {
                 WriteColorLine($"Another product with ID {id} exists. Aborting operation...", Red);
@@ -73,7 +80,20 @@ namespace InventoryManagementSystem
 
             string name = GetProductName("Enter the name of the product: ", "Invalid input for Name, try again.");
             decimal price = GetPrice("Enter the price of the product: ", "Invalid input for price, try again.");
+            if (price == 0)
+            {
+                WriteColorLine($"Switching to main menu...", Yellow);
+                UICleanup(1500);
+                return;
+            }
+
             int quantity = GetQuantity("Enter the quantity of the product: ", "Invalid input for quantity, try again.");
+            if (quantity == 0)
+            {
+                WriteColorLine($"Switching to main menu...", Yellow);
+                UICleanup(1500);
+                return;
+            }
 
             Product product = new Product(id, name, price, quantity);
 
@@ -99,7 +119,14 @@ namespace InventoryManagementSystem
                 return;
             }
 
-            string oldId = GetProductID("Enter product ID to update: ", "Invalid input for id, try again.");
+            string? oldId = GetProductID("Enter product ID to update: ", "Invalid input for id, try again.");
+            if (oldId is null)
+            {
+                WriteColorLine("Switching to main menu...", Yellow);
+                UICleanup();
+                return;
+            }
+
             if (!manager.ContainsProduct(oldId))
             {
                 WriteColorLine($"No product found for id {oldId}.", Red);
@@ -109,7 +136,14 @@ namespace InventoryManagementSystem
 
             Console.WriteLine("Edit details:");
 
-            string newId = GetProductID("Product ID: ", "Invalid input for ID, try again.");
+            string? newId = GetProductID("Product ID: ", "Invalid input for ID, try again.");
+            if (newId is null)
+            {
+                WriteColorLine("Switching to main menu...", Yellow);
+                UICleanup();
+                return;
+            }
+
             if (oldId != newId && manager.ContainsProduct(newId))
             {
                 WriteColorLine($"Product with ID {newId} already exists. Switching to main menu.", Red);
@@ -119,7 +153,20 @@ namespace InventoryManagementSystem
 
             string name = GetProductName("Name of the product: ", "Invalid input for Name, try again.");
             decimal price = GetPrice("Price of the product: ", "Invalid input for price, try again.");
+            if (price == 0)
+            {
+                WriteColorLine("Switching to main menu...", Yellow);
+                UICleanup(1500);
+                return;
+            }
+
             int quantity = GetQuantity("Quantity of the product: ", "Invalid input for quantity, try again.");
+            if (quantity == 0)
+            {
+                WriteColorLine("Switching to main menu...", Yellow);
+                UICleanup(1500);
+                return;
+            }
 
             Product product = new Product(newId, name, price, quantity);
 
@@ -144,10 +191,17 @@ namespace InventoryManagementSystem
                 return;
             }
 
-            string searchParam;
+            string? searchParam;
             if (useId)
             {
                 searchParam = GetProductID("Enter product ID to search: ", "Invalid input for ID, try again.");
+                if (searchParam is null)
+                {
+                    WriteColorLine("Switching to main menu...", Yellow);
+                    UICleanup();
+                    return;
+                }
+
                 if (!manager.ContainsProduct(searchParam))
                 {
                     WriteColorLine($"Product with ID {searchParam} not found.", Red);
@@ -203,7 +257,14 @@ namespace InventoryManagementSystem
                 return;
             }
 
-            string id = GetProductID("Enter the product ID to delete: ", "Invalid input for ID, try again.");
+            string? id = GetProductID("Enter the product ID to delete: ", "Invalid input for ID, try again.");
+            if (id is null)
+            {
+                WriteColorLine("Switching to main menu...", Yellow);
+                UICleanup();
+                return;
+            }
+
             if (manager.DeleteProduct(id))
             {
                 Console.WriteLine("Product deleted successfully.");

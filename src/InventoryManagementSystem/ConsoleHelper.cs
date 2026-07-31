@@ -11,6 +11,8 @@ namespace InventoryManagementSystem
     /// </summary>
     internal static class ConsoleHelper
     {
+        private const int TRIES = 3;
+
         /// <summary>
         /// Display app menu for user choices.
         /// </summary>
@@ -47,6 +49,7 @@ namespace InventoryManagementSystem
             ConsoleColor errorColor = Red)
         {
             string? input;
+            int tries = TRIES;
             do
             {
                 Console.ForegroundColor = promptColor;
@@ -55,7 +58,7 @@ namespace InventoryManagementSystem
                 if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
                 {
                     Console.ForegroundColor = errorColor;
-                    Console.WriteLine(errorMessage);
+                    Console.WriteLine(errorMessage + $"{--tries} tries left.");
                     Console.ResetColor();
                     continue;
                 }
@@ -63,7 +66,9 @@ namespace InventoryManagementSystem
                 Console.ResetColor();
                 return input;
             }
-            while (true);
+            while (tries > 0);
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -83,6 +88,7 @@ namespace InventoryManagementSystem
             ConsoleColor promptColor = Blue,
             ConsoleColor errorColor = Red)
         {
+            int tries = TRIES;
             do
             {
                 Console.ForegroundColor = promptColor;
@@ -94,9 +100,11 @@ namespace InventoryManagementSystem
                 }
 
                 Console.ForegroundColor = errorColor;
-                Console.WriteLine(formatErrorMessage + " Price of the product should be positive.");
+                Console.WriteLine(formatErrorMessage + $" Price of the product should be positive. {--tries} tries left.");
             }
-            while (true);
+            while (tries > 0);
+
+            return 0m;
         }
 
         /// <summary>
@@ -110,13 +118,14 @@ namespace InventoryManagementSystem
         /// <remarks>
         /// This method repeats the prompt indefinitely until the user inputs a valid product ID string.
         /// </remarks>
-        public static string GetProductID(
+        public static string? GetProductID(
             string prompt,
             string formatErrorMessage,
             ConsoleColor promptColor = Blue,
             ConsoleColor errorColor = Red)
         {
             string? id;
+            int tries = TRIES;
             do
             {
                 Console.ForegroundColor = promptColor;
@@ -125,14 +134,16 @@ namespace InventoryManagementSystem
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || !IsValidId(id))
                 {
                     Console.ForegroundColor = errorColor;
-                    Console.WriteLine(formatErrorMessage);
+                    Console.WriteLine(formatErrorMessage + $"{--tries} tries left.");
                     Console.ResetColor();
                     continue;
                 }
 
                 return id.ToUpper();
             }
-            while (true);
+            while (tries > 0);
+
+            return null;
         }
 
         /// <summary>
@@ -156,11 +167,10 @@ namespace InventoryManagementSystem
             do
             {
                 name = GetInput(prompt, formatErrorMessage);
-
                 if (!IsValidName(name))
                 {
                     Console.ForegroundColor = errorColor;
-                    Console.WriteLine("Name is invalid, try again.");
+                    Console.WriteLine($"Name is invalid, try again.");
                     Console.ResetColor();
                     continue;
                 }
@@ -187,6 +197,7 @@ namespace InventoryManagementSystem
             ConsoleColor promptColor = Blue,
             ConsoleColor errorColor = Red)
         {
+            int tries = TRIES;
             do
             {
                 Console.ForegroundColor = promptColor;
@@ -198,10 +209,12 @@ namespace InventoryManagementSystem
                 }
 
                 Console.ForegroundColor = errorColor;
-                Console.WriteLine(formatErrorMessage + " Quantity of the product should be natural number.");
+                Console.WriteLine(formatErrorMessage + $" Quantity of the product should be natural number. {--tries} tries left.");
                 Console.ResetColor();
             }
-            while (true);
+            while (tries > 0);
+
+            return 0;
         }
 
         /// <summary>
@@ -215,9 +228,6 @@ namespace InventoryManagementSystem
         /// </remarks>
         public static Table PrepareTable(List<Product> products)
         {
-            Encoding originalEncoding = Console.OutputEncoding;
-            Console.OutputEncoding = Encoding.UTF8;
-
             // Initialize a stylized table
             var table = new Table()
                 .Border(TableBorder.Rounded)
@@ -235,11 +245,10 @@ namespace InventoryManagementSystem
                 table.AddRow(
                     product.Id,
                     product.Name,
-                    product.Price.ToString("C"),
+                    "$" + product.Price.ToString(),
                     product.Quantity.ToString());
             }
 
-            Console.OutputEncoding = originalEncoding;
             return table;
         }
     }
