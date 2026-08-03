@@ -56,7 +56,9 @@ namespace InventoryManagementSystem
                     return amount;
                 }
 
-                WriteColorLine(formatErrorMessage + $" Price of the product should be positive. {--tries} tries left.", errorColor);
+                WriteColorLine(
+                    $@"{formatErrorMessage} Price of the product should be positive.
+{--tries} tries left.", errorColor);
             }
             while (tries > 0);
 
@@ -88,7 +90,7 @@ namespace InventoryManagementSystem
                 id = Console.ReadLine();
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || !IsValidId(id))
                 {
-                    WriteColorLine(formatErrorMessage + $"{--tries} tries left.", errorColor);
+                    WriteColorLine($@"{formatErrorMessage} {--tries} tries left.", errorColor);
                     continue;
                 }
 
