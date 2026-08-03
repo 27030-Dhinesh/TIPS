@@ -15,13 +15,13 @@ namespace EmployeeHierarchy
         /// <param name="args">Arguments from the CLI.</param>
         public static void Main(string[] args)
         {
-            string userChoice;
+            string? userChoice;
             EmployeeService service = new ();
 
             while (true)
             {
                 DisplayAppInfo();
-                userChoice = GetInput("Enter your Choice:", "Invalid choice, try again.");
+                userChoice = Console.ReadLine();
 
                 switch (userChoice)
                 {
@@ -44,21 +44,28 @@ namespace EmployeeHierarchy
         private static void HandleEmployeeRegistration(EmployeeService service, EmployeeType type)
         {
             string name = GetName($"Enter the name of the {type}:", "Invalid name, try again.");
+            if (name.Equals(string.Empty))
+            {
+                Console.WriteLine("Switching to main menu...");
+                return;
+            }
+
             decimal salary = GetSalary($"Enter the salary of the {type}:", "Invalid input, try again.");
+            if (salary == 0)
+            {
+                Console.WriteLine("Switching to main menu...");
+                return;
+            }
 
             Employee? employee = service.CreateEmployee(name, salary, type);
 
-            if (employee is Developer developer)
+            if (employee == null)
             {
-                Console.WriteLine(developer.PrintDetails());
-            }
-            else if (employee is Manager manager)
-            {
-                Console.WriteLine(manager.PrintDetails());
+                Console.WriteLine("Employee registration failed.");
             }
             else
             {
-                Console.WriteLine("Employee registration failed.");
+                Console.WriteLine(employee!.PrintDetails());
             }
         }
     }

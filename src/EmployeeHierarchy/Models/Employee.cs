@@ -27,7 +27,7 @@
         /// Name and Salary details of the Employee.
         /// </summary>
         /// <returns>String representation of the Employee details.</returns>
-        public string PrintDetails()
+        public virtual string PrintDetails()
         {
             return $@"{this.Name} is a/an {this.GetType().Name}, earning {this.Salary} and a bonus amount of {this.CalculateBonus():F2}";
         }

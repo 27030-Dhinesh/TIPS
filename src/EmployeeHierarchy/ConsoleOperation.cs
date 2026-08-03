@@ -7,6 +7,8 @@ namespace EmployeeHierarchy
     /// </summary>
     internal class ConsoleOperation
     {
+        private const int TRIES = 3;
+
         /// <summary>
         /// Display app menu for user choices.
         /// </summary>
@@ -14,32 +16,9 @@ namespace EmployeeHierarchy
         {
             Console.WriteLine($@"1. Manager
 2. Developer
-3. Exit");
-        }
+3. Exit
 
-        /// <summary>
-        /// Get a non-null, non-whitespace input from user.
-        /// </summary>
-        /// <param name="prompt">Prompt to display when asking input.</param>
-        /// <param name="errorMessage">Message to display when user input is invalid.</param>
-        /// <returns>A non-null, non-whitespace string input from user.</returns>
-        public static string GetInput(string prompt, string errorMessage)
-        {
-            string? choice;
-            do
-            {
-                Console.WriteLine(prompt);
-                choice = Console.ReadLine();
-                if (string.IsNullOrEmpty(choice) || string.IsNullOrWhiteSpace(choice))
-                {
-                    Console.WriteLine(errorMessage);
-                }
-                else
-                {
-                    return choice;
-                }
-            }
-            while (true);
+Enter your choice:");
         }
 
         /// <summary>
@@ -50,20 +29,22 @@ namespace EmployeeHierarchy
         /// <returns>Valid string for Name of the Employee.</returns>
         public static string GetName(string prompt, string errorMessage)
         {
-            string name = string.Empty;
-            do
+            string? name;
+            for (int i = TRIES; i > 0;)
             {
-                name = GetInput(prompt, errorMessage);
+                Console.WriteLine(prompt);
+                name = Console.ReadLine();
                 if (IsValidName(name))
                 {
-                    return name;
+                    return name!.Trim();
                 }
                 else
                 {
-                    Console.WriteLine(errorMessage);
+                    Console.WriteLine($"{errorMessage} {--i} tries left.");
                 }
             }
-            while (true);
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -79,7 +60,7 @@ namespace EmployeeHierarchy
 
         private static decimal GetDecimal(string prompt, string errorMessage)
         {
-            do
+            for (int i = TRIES; i > 0;)
             {
                 Console.WriteLine(prompt);
                 if (decimal.TryParse(Console.ReadLine(), out decimal result))
@@ -88,10 +69,11 @@ namespace EmployeeHierarchy
                 }
                 else
                 {
-                    Console.WriteLine(errorMessage);
+                    Console.WriteLine($"{errorMessage} {--i} tries left");
                 }
             }
-            while (true);
+
+            return decimal.Zero;
         }
     }
 }
