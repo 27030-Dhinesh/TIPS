@@ -19,12 +19,16 @@ namespace BankingSystem
             BankAccountRepository repository = new BankAccountRepository();
             BankingSystemService service = new (repository);
 
-            string userChoice;
+            string? userChoice;
 
             while (true)
             {
                 DisplayAppInfo();
-                userChoice = GetInput("Enter your Choice:", "Invalid choice, try again.");
+                userChoice = Console.ReadLine();
+                if (userChoice != null)
+                {
+                    userChoice = userChoice.Trim();
+                }
 
                 switch (userChoice)
                 {
@@ -59,6 +63,12 @@ namespace BankingSystem
         private static void HandleAccountCreation(BankingSystemService service, AccountType type)
         {
             string name = GetName("Enter the name:", "Invalid input for name, try again.");
+            if (name.Equals(string.Empty))
+            {
+                Console.WriteLine("Switching to main menu...");
+                return;
+            }
+
             string accountNumber;
             BankAccount account;
             switch (type)
@@ -80,7 +90,18 @@ namespace BankingSystem
         private static void HandleTransaction(BankingSystemService service, TransactionType type)
         {
             string accountNumber = GetAccountNumber("Enter account no:", "Invalid account number, try again.");
+            if (accountNumber.Equals(string.Empty))
+            {
+                Console.WriteLine("Switching to main menu...");
+                return;
+            }
+
             decimal amount = GetAmount($"Enter amount to {type}:", "Invalid amount, try again.");
+            if (amount == 0)
+            {
+                Console.WriteLine("Switching to main menu...");
+                return;
+            }
 
             bool status = service.Transaction(accountNumber, type, amount);
 
@@ -97,6 +118,11 @@ namespace BankingSystem
         private static void HandleDisplay(BankingSystemService service)
         {
             string accountNumber = GetAccountNumber("Enter the account number:", "Invalid input for account number, try again.");
+            if (accountNumber.Equals(string.Empty))
+            {
+                Console.WriteLine("Switching to main menu...");
+                return;
+            }
 
             BankAccount? account = service.GetAccount(accountNumber);
 
@@ -113,8 +139,13 @@ namespace BankingSystem
         private static void HandleDeletion(BankingSystemService service)
         {
             string accountNumber = GetAccountNumber("Enter the account number:", "Invalid input for account number, try again.");
+            if (accountNumber.Equals(string.Empty))
+            {
+                Console.WriteLine("Switching to main menu...");
+                return;
+            }
 
-            if(service.DeleteAccount(accountNumber))
+            if (service.DeleteAccount(accountNumber))
             {
                 Console.WriteLine("Account closed successfully.");
             }

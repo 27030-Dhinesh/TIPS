@@ -12,9 +12,17 @@ namespace BankingSystem
         /// </summary>
         /// <param name="name">Name of the customer to validate.</param>
         /// <returns>True if the name is valid, false otherwise.</returns>
-        public static bool IsValidName(string name)
+        public static bool IsValidName(string? name)
         {
-            return Regex.IsMatch(name.Trim(), @"^(?=.{2,30}$)\p{L}+(?: \p{L}+)*$");
+            if (name is null)
+            {
+                return false;
+            }
+
+            name = name.Trim();
+            return name.Length >= 2
+                && name.Length <= 30
+                && Regex.IsMatch(name, @"^[a-zA-Z0-9'-]+(?:\s[a-zA-Z0-9'-]+)*$", RegexOptions.Compiled);
         }
 
         /// <summary>
@@ -22,9 +30,15 @@ namespace BankingSystem
         /// </summary>
         /// <param name="accountNumber">Account number to validate.</param>
         /// <returns>True if account number is valid, false otherwise.</returns>
-        public static bool IsValidAccountNumber(string accountNumber)
+        public static bool IsValidAccountNumber(string? accountNumber)
         {
-            return accountNumber.Trim().All(char.IsDigit) && accountNumber.Length == 12;
+            if (accountNumber is null)
+            {
+                return false;
+            }
+
+            accountNumber = accountNumber.Trim();
+            return accountNumber.Length == 12 && accountNumber.All(char.IsDigit);
         }
     }
 }

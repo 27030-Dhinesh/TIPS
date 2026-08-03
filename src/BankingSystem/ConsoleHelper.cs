@@ -7,6 +7,8 @@ namespace BankingSystem
     /// </summary>
     internal static class ConsoleHelper
     {
+        private const int TRIES = 3;
+
         /// <summary>
         /// Display app menu for user choices.
         /// </summary>
@@ -18,32 +20,9 @@ namespace BankingSystem
 4. Deposit Money to Account
 5. Display Account details
 6. Close Account
-7. Exit");
-        }
+7. Exit
 
-        /// <summary>
-        /// Get a non-null, non-whitespace input from user.
-        /// </summary>
-        /// <param name="prompt">Prompt to display when asking input.</param>
-        /// <param name="errorMessage">Message to display when user input is invalid.</param>
-        /// <returns>A non-null, non-whitespace string input from user.</returns>
-        public static string GetInput(string prompt, string errorMessage)
-        {
-            string? choice;
-            do
-            {
-                Console.WriteLine(prompt);
-                choice = Console.ReadLine();
-                if (string.IsNullOrEmpty(choice) || string.IsNullOrWhiteSpace(choice))
-                {
-                    Console.WriteLine(errorMessage);
-                }
-                else
-                {
-                    return choice;
-                }
-            }
-            while (true);
+Enter your choice:");
         }
 
         /// <summary>
@@ -54,19 +33,23 @@ namespace BankingSystem
         /// <returns>A validate name of the customer.</returns>
         public static string GetName(string prompt, string errorMessage)
         {
+            int tries = TRIES;
+            string? name;
             do
             {
-                string name = GetInput(prompt, errorMessage);
-                if (IsValidName(name))
+                Console.WriteLine(prompt);
+                name = Console.ReadLine();
+                if (!IsValidName(name))
                 {
-                    return name;
+                    Console.WriteLine($"{errorMessage} {--tries} tries left.");
+                    continue;
                 }
-                else
-                {
-                    Console.WriteLine(errorMessage);
-                }
+
+                return name!.Trim();
             }
-            while (true);
+            while (tries > 0);
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -77,19 +60,24 @@ namespace BankingSystem
         /// <returns>A valid account number.</returns>
         public static string GetAccountNumber(string prompt, string errorMessage)
         {
+            int tries = TRIES;
+            string? accountNumber;
             do
             {
-                string accountNumber = GetInput(prompt, errorMessage);
+                Console.WriteLine(prompt);
+                accountNumber = Console.ReadLine();
                 if (IsValidAccountNumber(accountNumber))
                 {
-                    return accountNumber;
+                    return accountNumber!.Trim();
                 }
                 else
                 {
-                    Console.WriteLine(errorMessage);
+                    Console.WriteLine($"{errorMessage} {--tries} tries left.");
                 }
             }
-            while (true);
+            while (tries > 0);
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -100,20 +88,23 @@ namespace BankingSystem
         /// <returns>A valid amount.</returns>
         public static decimal GetAmount(string prompt, string errorMessage)
         {
+            int tries = TRIES;
+
             do
             {
                 Console.WriteLine(prompt);
-                decimal amount;
-                if (decimal.TryParse(Console.ReadLine(), out amount))
+                if (decimal.TryParse(Console.ReadLine(), out decimal amount))
                 {
                     return amount;
                 }
                 else
                 {
-                    Console.WriteLine(errorMessage);
+                    Console.WriteLine($"{errorMessage} {--tries} tries left.");
                 }
             }
-            while (true);
+            while (tries > 0);
+
+            return decimal.Zero;
         }
     }
 }
