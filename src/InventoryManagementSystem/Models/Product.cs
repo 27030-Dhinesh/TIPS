@@ -66,7 +66,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(this.Quantity), "Amount must be a positive decimal.");
+                    throw new ArgumentOutOfRangeException(nameof(this.Quantity), "Amount must be a positive integer.");
                 }
                 else
                 {

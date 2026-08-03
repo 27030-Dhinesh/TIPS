@@ -124,7 +124,7 @@ namespace InventoryManagementSystem
                 name = Console.ReadLine();
                 if (name is null || !IsValidName(name))
                 {
-                    WriteColorLine($"Name is invalid, try again. {--tries} tries left.", errorColor);
+                    WriteColorLine($"{formatErrorMessage} {--tries} tries left.", errorColor);
                     continue;
                 }
 
