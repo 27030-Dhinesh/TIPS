@@ -79,7 +79,7 @@ namespace InventoryManagementSystem
                 return;
             }
 
-            string name = GetProductName("Enter the name of the product: ", "Invalid input for Name, try again.");
+            string name = GetProductName("Enter the name of the product: ", "Name is invalid, try again.");
             if (name.Equals(string.Empty))
             {
                 WriteColorLine($"Switching to main menu...", Yellow);
@@ -159,7 +159,7 @@ namespace InventoryManagementSystem
                 return;
             }
 
-            string name = GetProductName("Name of the product: ", "Invalid input for Name, try again.");
+            string name = GetProductName("Name of the product: ", "Name is invalid, try again.");
             if (name.Equals(string.Empty))
             {
                 WriteColorLine($"Switching to main menu...", Yellow);
@@ -226,7 +226,7 @@ namespace InventoryManagementSystem
             }
             else
             {
-                searchParam = GetProductName("Enter product name to search: ", "Invalid input for name, try again.");
+                searchParam = GetProductName("Enter product name to search: ", "Name is invalid, try again.");
                 if (searchParam.Equals(string.Empty))
                 {
                     WriteColorLine($"Switching to main menu...", Yellow);
