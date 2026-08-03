@@ -15,13 +15,13 @@ namespace ShapeHierarchy
         /// <param name="args">Arguments from the CLI.</param>
         public static void Main(string[] args)
         {
-            string userChoice;
+            string? userChoice;
             ShapeService service = new ();
 
             while (true)
             {
                 DisplayAppInfo();
-                userChoice = GetInput("Enter your Choice:", "Invalid choice, try again.");
+                userChoice = Console.ReadLine();
 
                 switch (userChoice)
                 {
@@ -44,6 +44,11 @@ namespace ShapeHierarchy
         private static void HandleCircle(ShapeService shapeService)
         {
             double radius = GetRadius("Enter radius of the circle: ", "Invalid input, try again.");
+            if (double.IsNaN(radius))
+            {
+                Console.WriteLine("Returning to main menu...");
+                return;
+            }
 
             Circle circle = shapeService.CreateCircle(radius);
 
@@ -55,7 +60,18 @@ namespace ShapeHierarchy
         private static void HandleRectangle(ShapeService shapeService)
         {
             double width = GetWidth("Enter width of the rectangle: ", "Invalid input, try again.");
+            if (double.IsNaN(width))
+            {
+                Console.WriteLine("Returning to main menu...");
+                return;
+            }
+
             double height = GetHeight("Enter height of the rectangle: ", "Invalid input, try again.");
+            if (double.IsNaN(height))
+            {
+                Console.WriteLine("Returning to main menu...");
+                return;
+            }
 
             Rectangle rectangle = shapeService.CreateRectangle(width, height);
 

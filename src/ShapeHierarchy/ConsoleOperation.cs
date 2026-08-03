@@ -5,6 +5,8 @@
     /// </summary>
     internal static class ConsoleOperation
     {
+        private const int TRIES = 3;
+
         /// <summary>
         /// Display app menu for user choices.
         /// </summary>
@@ -12,32 +14,9 @@
         {
             Console.WriteLine($@"1. Create a Rectangle
 2. Create a Circle
-3. Exit");
-        }
+3. Exit
 
-        /// <summary>
-        /// Get a non-null, non-whitespace input from user.
-        /// </summary>
-        /// <param name="prompt">Prompt to display when asking input.</param>
-        /// <param name="errorMessage">Message to display when user input is invalid.</param>
-        /// <returns>A non-null, non-whitespace string input from user.</returns>
-        public static string GetInput(string prompt, string errorMessage)
-        {
-            string? choice;
-            do
-            {
-                Console.WriteLine(prompt);
-                choice = Console.ReadLine();
-                if (string.IsNullOrEmpty(choice) || string.IsNullOrWhiteSpace(choice))
-                {
-                    Console.WriteLine(errorMessage);
-                }
-                else
-                {
-                    return choice;
-                }
-            }
-            while (true);
+Enter your choice:");
         }
 
         /// <summary>
@@ -75,7 +54,7 @@
 
         private static double GetDouble(string prompt, string errorMessage)
         {
-            do
+            for (int i = TRIES; i > 0;)
             {
                 Console.WriteLine(prompt);
                 if (double.TryParse(Console.ReadLine(), out double result))
@@ -84,10 +63,11 @@
                 }
                 else
                 {
-                    Console.WriteLine(errorMessage);
+                    Console.WriteLine($"{errorMessage} {--i} tries left");
                 }
             }
-            while (true);
+
+            return double.NaN;
         }
     }
 }
