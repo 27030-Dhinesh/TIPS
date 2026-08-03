@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShapeHierarchy
+﻿namespace ShapeHierarchy
 {
     /// <summary>
     /// Console Operations to support the View layer.
@@ -44,17 +38,6 @@ namespace ShapeHierarchy
                 }
             }
             while (true);
-        }
-
-        /// <summary>
-        /// Get valid Side for the Square Shape.
-        /// </summary>
-        /// <param name="prompt">Prompt to display when asking input.</param>
-        /// <param name="errorMessage">Message to display when user input is invalid.</param>
-        /// <returns>Valid double for Side of Square Shape.</returns>
-        public static double GetSide(string prompt, string errorMessage)
-        {
-            return GetDouble(prompt, errorMessage);
         }
 
         /// <summary>

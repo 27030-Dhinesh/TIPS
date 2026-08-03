@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShapeHierarchy.Models
+﻿namespace ShapeHierarchy.Models
 {
     /// <summary>
     /// This model is derived from the Shape class and defines a Circle Shape.
@@ -14,9 +8,14 @@ namespace ShapeHierarchy.Models
         private double _radius;
 
         /// <summary>
-        /// Gets or sets the Radius of the Circle.
+        /// Gets or sets the radius of the circle.
         /// </summary>
-        /// <value>Radius of the Circle; defaults to 1.</value>
+        /// <value>
+        /// A positive <see cref="double"/> value representing the radius.
+        /// </value>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the assigned value is less than or equal to zero.
+        /// </exception>
         public double Radius
         {
             get
@@ -32,7 +31,7 @@ namespace ShapeHierarchy.Models
                 }
                 else
                 {
-                    this._radius = 1.0;
+                    throw new ArgumentOutOfRangeException($"{nameof(this.Radius)} should be positive.");
                 }
             }
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShapeHierarchy.Models
+﻿namespace ShapeHierarchy.Models
 {
     /// <summary>
     /// This is an abstract model for Shape.

@@ -55,7 +55,7 @@ namespace ShapeHierarchy
         private static void HandleRectangle(ShapeService shapeService)
         {
             double width = GetWidth("Enter width of the rectangle: ", "Invalid input, try again.");
-            double height = GetWidth("Enter height of the rectangle: ", "Invalid input, try again.");
+            double height = GetHeight("Enter height of the rectangle: ", "Invalid input, try again.");
 
             Rectangle rectangle = shapeService.CreateRectangle(width, height);
 

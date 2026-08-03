@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShapeHierarchy.Models
+﻿namespace ShapeHierarchy.Models
 {
     /// <summary>
     /// This model is derived from the Shape class and defines a Rectangle Shape.
@@ -23,7 +17,12 @@ namespace ShapeHierarchy.Models
         /// <summary>
         /// Gets or sets the Width of the Rectangle.
         /// </summary>
-        /// <value>Width of the Rectangle; defaults to 1.</value>
+        /// <value>
+        /// A positive <see cref="double"/> value representing the width of the rectangle.
+        /// </value>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the assigned value is less than or equal to zero.
+        /// </exception>
         public double Width
         {
             get
@@ -39,7 +38,7 @@ namespace ShapeHierarchy.Models
                 }
                 else
                 {
-                    this._width = 1.0;
+                    throw new ArgumentOutOfRangeException($"{nameof(this.Width)} should be positive.");
                 }
             }
         }
@@ -47,7 +46,12 @@ namespace ShapeHierarchy.Models
         /// <summary>
         /// Gets or sets the Height of the Rectangle.
         /// </summary>
-        /// <value>Height of the Rectangle; defaults to 1.</value>
+        /// <value>
+        /// A positive <see cref="double"/> value representing the height of the rectangle.
+        /// </value>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the assigned value is less than or equal to zero.
+        /// </exception>
         public double Height
         {
             get
@@ -63,7 +67,7 @@ namespace ShapeHierarchy.Models
                 }
                 else
                 {
-                    this._height = 1.0;
+                    throw new ArgumentOutOfRangeException($"{nameof(this.Height)} should be positive.");
                 }
             }
         }
