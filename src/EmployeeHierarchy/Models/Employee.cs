@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmployeeHierarchy.Models
+﻿namespace EmployeeHierarchy.Models
 {
     /// <summary>
     /// Abstract model to represent Employee details.
