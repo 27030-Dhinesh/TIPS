@@ -35,7 +35,7 @@ namespace BankingSystem.Repository
 
             if (foundAccount)
             {
-                return this.Clone(this._bankAccounts[index]);
+                return this._bankAccounts[index].Clone();
             }
 
             return null;
@@ -69,7 +69,7 @@ namespace BankingSystem.Repository
             (bool isFound, int index) = this.FindAccount(updatedAccount.AccountNumber);
             if (isFound)
             {
-                this._bankAccounts[index] = this.Clone(updatedAccount);
+                this._bankAccounts[index] = updatedAccount.Clone();
                 return true;
             }
 
@@ -97,18 +97,6 @@ namespace BankingSystem.Repository
             }
 
             return (false, -1);
-        }
-
-        private BankAccount Clone(BankAccount account)
-        {
-            if (account is SavingsAccount savingsAccount)
-            {
-                return new SavingsAccount(account.Name, account.AccountNumber, account.Balance);
-            }
-            else
-            {
-                return new CheckingAccount(account.Name, account.AccountNumber, account.Balance);
-            }
         }
     }
 }

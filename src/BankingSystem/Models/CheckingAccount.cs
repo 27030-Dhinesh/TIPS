@@ -74,5 +74,17 @@
         {
             return base.ToString() + $"Debt Amount: {this.Debt}";
         }
+
+        /// <summary>
+        /// Creates a new <see cref="CheckingAccount"/> instance by copying core details from the current bank account.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="BankAccount"/> reference pointing to the cloned <see cref="CheckingAccount"/> instance.
+        /// </returns>
+        public override BankAccount Clone()
+        {
+            // Cast is required because MemberwiseClone returns 'object'
+            return (CheckingAccount)this.MemberwiseClone();
+        }
     }
 }

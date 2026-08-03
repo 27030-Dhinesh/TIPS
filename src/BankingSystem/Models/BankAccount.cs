@@ -53,6 +53,14 @@
         public abstract bool Deposit(decimal amount);
 
         /// <summary>
+        /// Creates a new instance of a bank account by copying data from an existing one.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="BankAccount"/> object with copied properties.
+        /// </returns>
+        public abstract BankAccount Clone();
+
+        /// <summary>
         /// Returns a string that contains the details of the bank account.
         /// </summary>
         /// <returns>

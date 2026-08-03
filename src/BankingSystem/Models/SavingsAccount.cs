@@ -59,5 +59,17 @@
             this.Balance += amount;
             return true;
         }
+
+        /// <summary>
+        /// Creates a new <see cref="SavingsAccount"/> instance by copying core details from the current bank account.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="BankAccount"/> reference pointing to the cloned <see cref="SavingsAccount"/> instance.
+        /// </returns>
+        public override BankAccount Clone()
+        {
+            // Cast is required because MemberwiseClone returns 'object'
+            return (SavingsAccount)this.MemberwiseClone();
+        }
     }
 }
