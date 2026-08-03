@@ -1,46 +1,63 @@
 ﻿namespace BankingSystem.Models
 {
     /// <summary>
-    /// Model class representing the Bank Account of an customer.
+    /// Represents a customer's bank account and defines the base functionality
+    /// for all bank account types.
     /// </summary>
     internal abstract class BankAccount
     {
         /// <summary>
-        /// Gets or sets the Name of the Acccount holder.
+        /// Gets or sets the name of the account holder.
         /// </summary>
-        /// <value>Name of the account holder.</value>
+        /// <value>
+        /// The name of the account holder.
+        /// </value>
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the Account Number for the customer's bank account.
+        /// Gets or sets the account number associated with the customer's bank account.
         /// </summary>
-        /// <value>Account number of the customer's bank account.</value>
+        /// <value>
+        /// The account number of the customer's bank account.
+        /// </value>
         public string AccountNumber { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the Balance of the customer's bank account initially.
+        /// Gets or sets the current balance of the customer's bank account.
         /// </summary>
-        /// <value>Account balance of the customer's bank account.</value>
+        /// <value>
+        /// The current account balance.
+        /// </value>
         public decimal Balance { get; protected set; } = decimal.Zero;
 
         /// <summary>
-        /// Withdraw money from the customer's bank account.
+        /// Withdraws the specified amount from the bank account.
         /// </summary>
-        /// <param name="amount">Amount to withdraw into the customer's bank account.</param>
-        /// <returns>True if withdraw successful, false otherwise.</returns>
+        /// <param name="amount">
+        /// The amount to withdraw.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> if the withdrawal is successful; otherwise, <see langword="false"/>.
+        /// </returns>
         public abstract bool Withdraw(decimal amount);
 
         /// <summary>
-        /// Deposit money to the customer's bank account.
+        /// Deposits the specified amount into the bank account.
         /// </summary>
-        /// <param name="amount">Amount to deposit into the customer's bank account.</param>
-        /// <returns>True if deposit successful, false otherwise.</returns>
+        /// <param name="amount">
+        /// The amount to deposit.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> if the deposit is successful; otherwise, <see langword="false"/>.
+        /// </returns>
         public abstract bool Deposit(decimal amount);
 
         /// <summary>
-        /// Details of the Bank Account.
+        /// Returns a string that contains the details of the bank account.
         /// </summary>
-        /// <returns>Account details.</returns>
+        /// <returns>
+        /// A string representation of the bank account.
+        /// </returns>
         public override string ToString()
         {
             return $@"This is a {this.GetType().Name}.
