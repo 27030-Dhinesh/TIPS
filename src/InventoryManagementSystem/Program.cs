@@ -1,4 +1,5 @@
-﻿using InventoryManagementSystem.Models;
+﻿using InventoryManagementSystem.Interfaces;
+using InventoryManagementSystem.Models;
 using InventoryManagementSystem.Repository;
 using InventoryManagementSystem.Services;
 using Spectre.Console;
@@ -18,7 +19,7 @@ namespace InventoryManagementSystem
         /// <param name="args">An array of command-line arguments passed to the application.</param>
         public static void Main(string[] args)
         {
-            InMemoryStorage productRepository = new InMemoryStorage();
+            IProductRepository productRepository = new CSVMemoryStorage("products.csv");
             InventoryManager manager = new InventoryManager(productRepository);
 
             while (true)

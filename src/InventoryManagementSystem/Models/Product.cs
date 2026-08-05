@@ -3,7 +3,7 @@
     /// <summary>
     /// This is a model class to represent Product items.
     /// </summary>
-    internal class Product
+    public class Product
     {
         private decimal _price;
         private int _quantity;
@@ -74,6 +74,10 @@
                 }
             }
         }
+
+        public static bool operator true(Product product) => product is not null;
+
+        public static bool operator false(Product product) => product is null;
 
         /// <summary>
         /// Returns a string that represent the current Product.
