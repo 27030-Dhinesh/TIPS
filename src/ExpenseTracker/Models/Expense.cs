@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.Models
+﻿namespace ExpenseTracker.Models
 {
     /// <summary>
     /// Represents an expense and contains the data associated with an expense record.
@@ -15,9 +9,9 @@ namespace ExpenseTracker.Models
         /// Gets or sets the unique identifier for the expense record.
         /// </summary>
         /// <value>
-        /// A string representing the unique expense identifier.
+        /// A Guid representing the unique expense identifier.
         /// </value>
-        internal string Id { get; set; }
+        internal Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the monetary amount of the expense.

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.Views
+﻿namespace ExpenseTracker.Views
 {
     /// <summary>
     /// Manages console-based interactions for financial management operations.
