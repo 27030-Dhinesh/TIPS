@@ -11,5 +11,36 @@ namespace ExpenseTracker.Models
     /// </summary>
     internal class Expense
     {
+        /// <summary>
+        /// Gets or sets the unique identifier for the expense record.
+        /// </summary>
+        /// <value>
+        /// A string representing the unique expense identifier.
+        /// </value>
+        internal string Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the monetary amount of the expense.
+        /// </summary>
+        /// <value>
+        /// The expense amount.
+        /// </value>
+        internal decimal Amount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date on which the expense was incurred.
+        /// </summary>
+        /// <value>
+        /// The date associated with the expense transaction.
+        /// </value>
+        internal DateTime Date { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category that classifies the expense.
+        /// </summary>
+        /// <value>
+        /// An <see cref="ExpenseCategory"/> value representing the expense type.
+        /// </value>
+        internal ExpenseCategory Category { get; set; }
     }
 }
