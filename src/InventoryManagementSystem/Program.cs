@@ -19,7 +19,12 @@ namespace InventoryManagementSystem
         /// <param name="args">An array of command-line arguments passed to the application.</param>
         public static void Main(string[] args)
         {
-            IProductRepository productRepository = new CSVMemoryStorage("products.csv");
+            StorageType storageChoice = GetStorageType();
+            WriteColorLine($"Selected Storage Type: {storageChoice}", DarkGreen);
+            UICleanup(1500);
+
+            IProductRepository productRepository = GetProductRepository(storageChoice);
+
             InventoryManager manager = new InventoryManager(productRepository);
 
             while (true)
@@ -297,6 +302,36 @@ namespace InventoryManagementSystem
             }
 
             UICleanup(1500);
+        }
+
+        private static IProductRepository GetProductRepository(StorageType storageChoice)
+        {
+            if (storageChoice == StorageType.InMemory)
+            {
+                return new InMemoryStorage();
+            }
+
+            return new CSVMemoryStorage("products.csv");
+        }
+
+        private static StorageType GetStorageType()
+        {
+            WriteColorLine(
+                @"Enter Storage Choice:
+1. In-Memory
+2. CSV File
+
+Enter your choice (defaults to In-Memory on invalid input):",
+                DarkYellow);
+
+            string? choice = Console.ReadLine();
+
+            return choice?.Trim() switch
+            {
+                "1" => StorageType.InMemory,
+                "2" => StorageType.CSV,
+                _ => StorageType.InMemory,
+            };
         }
     }
 }

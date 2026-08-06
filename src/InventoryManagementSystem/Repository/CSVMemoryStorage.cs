@@ -72,14 +72,16 @@ namespace InventoryManagementSystem.Repository
                 while ((line = sr.ReadLine()) is not null)
                 {
                     fields = line.Split(",");
+                    if (fields.Length == 4)
+                    {
+                        product = new Product(
+                            fields[0],
+                            fields[1],
+                            decimal.Parse(fields[2]),
+                            int.Parse(fields[3]));
 
-                    product = new Product(
-                        fields[0],
-                        fields[1],
-                        decimal.Parse(fields[2]),
-                        int.Parse(fields[3]));
-
-                    products.Add(product);
+                        products.Add(product);
+                    }
                 }
             }
 
