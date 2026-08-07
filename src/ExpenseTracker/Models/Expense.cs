@@ -5,6 +5,26 @@
     /// </summary>
     internal class Expense
     {
+        public Expense(Guid id, decimal amount, DateTime date, ExpenseCategory category)
+        {
+            this.Id = id;
+            this.Amount = amount;
+            this.Date = date;
+            this.Category = category;
+        }
+
+        public Expense(Expense other)
+        {
+            this.Id = other.Id;
+            this.Amount = other.Amount;
+            this.Date = other.Date;
+            this.Category = other.Category;
+        }
+
+        public static bool operator true(Expense expense) => expense is not null;
+
+        public static bool operator false(Expense expense) => expense is null;
+
         /// <summary>
         /// Gets or sets the unique identifier for the expense record.
         /// </summary>
@@ -36,5 +56,10 @@
         /// An <see cref="ExpenseCategory"/> value representing the expense type.
         /// </value>
         internal ExpenseCategory Category { get; set; }
+
+        public Expense Clone()
+        {
+            return new Expense(this);
+        }
     }
 }

@@ -9,7 +9,10 @@
     /// validation or status messages. This class is responsible for presentation
     /// concerns only and delegates business operations to the service layer.
     /// </remarks>
-    internal class FinanceView
+    internal static class FinanceView
     {
+        public static void DisplayInfo()
+        {
+        }
     }
 }
