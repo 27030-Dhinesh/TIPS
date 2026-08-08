@@ -12,7 +12,7 @@
         /// Expenses related to food and beverages, including restaurants
         /// and groceries.
         /// </summary>
-        Food,
+        Food = 1,
 
         /// <summary>
         /// Expenses related to transportation, such as fuel, public transit,
