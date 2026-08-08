@@ -98,21 +98,12 @@ namespace ExpenseTracker.Helpers
         /// Displays the available <see cref="IncomeCategory"/> options and prompts the user
         /// to select a category.
         /// </summary>
-        /// <param name="prompt">
-        /// The message displayed to the user when requesting a category selection.
-        /// </param>
-        /// <param name="promptColor">
-        /// The color used to display the prompt message. Defaults to
-        /// <see cref="ConsoleColor.Blue"/>.
-        /// </param>
         /// <returns>
         /// The selected <see cref="IncomeCategory"/> value if a valid selection is made;
         /// otherwise, <see langword="null"/> when the selection process is canceled or
         /// no valid choice is obtained.
         /// </returns>
-        public static IncomeCategory? GetIncomeCategory(
-            string prompt,
-            ConsoleColor promptColor = Blue)
+        public static IncomeCategory? GetIncomeCategory()
         {
             foreach (IncomeCategory category in Enum.GetValues<IncomeCategory>())
             {
@@ -136,21 +127,12 @@ namespace ExpenseTracker.Helpers
         /// Displays the available <see cref="ExpenseCategory"/> options and prompts the user
         /// to select a category.
         /// </summary>
-        /// <param name="prompt">
-        /// The message displayed to the user when requesting a category selection.
-        /// </param>
-        /// <param name="promptColor">
-        /// The color used to display the prompt message. Defaults to
-        /// <see cref="ConsoleColor.Blue"/>.
-        /// </param>
         /// <returns>
         /// The selected <see cref="ExpenseCategory"/> value if a valid selection is made;
         /// otherwise, <see langword="null"/> when the selection process is canceled or
         /// no valid choice is obtained.
         /// </returns>
-        public static ExpenseCategory? GetExpenseCategory(
-            string prompt,
-            ConsoleColor promptColor = Blue)
+        public static ExpenseCategory? GetExpenseCategory()
         {
             foreach (ExpenseCategory category in Enum.GetValues<ExpenseCategory>())
             {
