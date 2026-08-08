@@ -97,11 +97,15 @@ namespace ExpenseTracker.Repositories
             return this._incomes.Count == 0;
         }
 
+        // use this.ContainsExpense(id) before calling
+        // this method
         private Expense GetExpenseById(Guid id)
         {
             return this._expenses.FirstOrDefault(entry => entry.Id == id) !;
         }
 
+        // use this.ContainsIncome(id) before calling
+        // this method
         private Income GetIncomeById(Guid id)
         {
             return this._incomes.FirstOrDefault(entry => entry.Id == id) !;

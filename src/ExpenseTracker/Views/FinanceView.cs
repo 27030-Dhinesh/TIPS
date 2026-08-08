@@ -1,4 +1,6 @@
-﻿namespace ExpenseTracker.Views
+﻿using ExpenseTracker.Models;
+
+namespace ExpenseTracker.Views
 {
     /// <summary>
     /// Manages console-based interactions for financial management operations.
@@ -11,8 +13,12 @@
     /// </remarks>
     internal static class FinanceView
     {
-        public static void DisplayInfo()
+        public static void DisplayMenu()
         {
+            foreach (MenuOption option in Enum.GetValues<MenuOption>())
+            {
+                Console.WriteLine($"{(int)option}. {option}");
+            }
         }
     }
 }

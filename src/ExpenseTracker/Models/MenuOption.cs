@@ -55,5 +55,10 @@
         /// Displays a summary of income and expense data.
         /// </summary>
         ShowSummary,
+
+        /// <summary>
+        /// Exit the application.
+        /// </summary>
+        Exit,
     }
 }
