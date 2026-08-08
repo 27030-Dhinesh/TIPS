@@ -3,9 +3,24 @@
     /// <summary>
     /// Represents an expense and contains the data associated with an expense record.
     /// </summary>
-    internal class Expense
+    public class Expense
     {
-        public Expense(Guid id, decimal amount, DateTime date, ExpenseCategory category)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Expense"/> class with the specified details.
+        /// </summary>
+        /// <param name="id">
+        /// The unique identifier of the expense.
+        /// </param>
+        /// <param name="amount">
+        /// The monetary amount of the expense.
+        /// </param>
+        /// <param name="date">
+        /// The date on which the expense was incurred.
+        /// </param>
+        /// <param name="category">
+        /// The category associated with the expense.
+        /// </param>
+        public Expense(Guid id, decimal amount, DateOnly date, ExpenseCategory category)
         {
             this.Id = id;
             this.Amount = amount;
@@ -13,17 +28,25 @@
             this.Category = category;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Expense"/> class by copying
+        /// the values from an existing <see cref="Expense"/> instance.
+        /// </summary>
+        /// <param name="other">
+        /// The <see cref="Expense"/> instance whose values are copied to the new instance.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="other"/> is <see langword="null"/>.
+        /// </exception>
         public Expense(Expense other)
         {
+            ArgumentNullException.ThrowIfNull(other);
+
             this.Id = other.Id;
             this.Amount = other.Amount;
             this.Date = other.Date;
             this.Category = other.Category;
         }
-
-        public static bool operator true(Expense expense) => expense is not null;
-
-        public static bool operator false(Expense expense) => expense is null;
 
         /// <summary>
         /// Gets or sets the unique identifier for the expense record.
@@ -31,7 +54,7 @@
         /// <value>
         /// A Guid representing the unique expense identifier.
         /// </value>
-        internal Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the monetary amount of the expense.
@@ -39,7 +62,7 @@
         /// <value>
         /// The expense amount.
         /// </value>
-        internal decimal Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// Gets or sets the date on which the expense was incurred.
@@ -47,7 +70,7 @@
         /// <value>
         /// The date associated with the expense transaction.
         /// </value>
-        internal DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
 
         /// <summary>
         /// Gets or sets the category that classifies the expense.
@@ -55,8 +78,18 @@
         /// <value>
         /// An <see cref="ExpenseCategory"/> value representing the expense type.
         /// </value>
-        internal ExpenseCategory Category { get; set; }
+        public ExpenseCategory Category { get; set; }
 
+        public static bool operator true(Expense expense) => expense is not null;
+
+        public static bool operator false(Expense expense) => expense is null;
+
+        /// <summary>
+        /// Creates a copy of the current <see cref="Expense"/> instance.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="Expense"/> object initialized with the values of the current instance.
+        /// </returns>
         public Expense Clone()
         {
             return new Expense(this);

@@ -6,7 +6,7 @@
     /// <remarks>
     /// Used to classify expenses for reporting, tracking, and budgeting purposes.
     /// </remarks>
-    internal enum ExpenseCategory
+    public enum ExpenseCategory
     {
         /// <summary>
         /// Expenses related to food and beverages, including restaurants

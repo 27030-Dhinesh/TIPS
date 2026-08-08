@@ -6,7 +6,7 @@
     /// <remarks>
     /// Used to classify income transactions for reporting, analysis, and
     /// financial tracking purposes.</remarks>
-    internal enum IncomeCategory
+    public enum IncomeCategory
     {
         /// <summary>
         /// Income earned through regular employment or wages.

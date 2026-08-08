@@ -1,4 +1,8 @@
-﻿namespace ExpenseTracker
+﻿using ExpenseTracker.Models;
+using ExpenseTracker.Views;
+using static ExpenseTracker.Helpers.ConsoleHelper;
+
+namespace ExpenseTracker
 {
     /// <summary>
     /// Provides the entry point for the finance management application.
@@ -17,7 +21,60 @@
         /// </param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            while (true)
+            {
+                FinanceView.DisplayMenu();
+                WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
+                string? userChoice = Console.ReadLine();
+
+                if (Enum.TryParse(userChoice, out MenuOption option))
+                {
+                    switch (option)
+                    {
+                        case MenuOption.AddIncome:
+                            break;
+
+                        case MenuOption.EditIncome:
+                            break;
+
+                        case MenuOption.DeleteIncome:
+                            break;
+
+                        case MenuOption.ViewIncome:
+                            break;
+
+                        case MenuOption.AddExpense:
+                            break;
+
+                        case MenuOption.EditExpense:
+                            break;
+
+                        case MenuOption.DeleteExpense:
+                            break;
+
+                        case MenuOption.ViewExpense:
+                            break;
+
+                        case MenuOption.ShowSummary:
+                            break;
+
+                        case MenuOption.Exit:
+                            WriteColorLine("Exiting application...", ConsoleColor.DarkYellow);
+                            UICleanup();
+                            return;
+
+                        default:
+                            WriteColorLine("Invalid option...", ConsoleColor.Red);
+                            UICleanup();
+                            break;
+                    }
+                }
+                else
+                {
+                    WriteColorLine("Invalid option...", ConsoleColor.Red);
+                    UICleanup();
+                }
+            }
         }
     }
 }
