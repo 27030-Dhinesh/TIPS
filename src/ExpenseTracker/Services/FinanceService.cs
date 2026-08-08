@@ -22,6 +22,28 @@ namespace ExpenseTracker.Services
         }
 
         /// <summary>
+        /// Gets the total number of income entries.
+        /// </summary>
+        /// <returns>
+        /// The number of income entries currently stored in the system.
+        /// </returns>
+        public int GetIncomeEntriesCount()
+        {
+            return this._repository.GetIncomeEntriesCount(); 
+        }
+
+        /// <summary>
+        /// Gets the total number of expense entries.
+        /// </summary>
+        /// <returns>
+        /// The number of expense entries currently stored in the system.
+        /// </returns>
+        public int GetExpenseEntriesCount()
+        {
+            return this._repository.GetExpenseEntriesCount();
+        }
+
+        /// <summary>
         /// Adds a new income record.
         /// </summary>
         /// <param name="income">
@@ -52,7 +74,7 @@ namespace ExpenseTracker.Services
         /// <summary>
         /// Updates an existing income record.
         /// </summary>
-        /// <param name="id">
+        /// <param name="index">
         /// The unique identifier of the income record to update.
         /// </param>
         /// <param name="updatedIncome">
@@ -61,15 +83,17 @@ namespace ExpenseTracker.Services
         /// <returns>
         /// <see langword="true"/> if the income record was updated successfully; otherwise, <see langword="false"/>.
         /// </returns>
-        public bool EditIncome(Guid id, Income updatedIncome)
+        public bool EditIncome(int index, Income updatedIncome)
         {
+            Guid id = this._repository.GetIncomeIdByIndex(index);
+
             return this._repository.EditIncome(id, updatedIncome);
         }
 
         /// <summary>
         /// Updates an existing expense record.
         /// </summary>
-        /// <param name="id">
+        /// <param name="index">
         /// The unique identifier of the expense record to update.
         /// </param>
         /// <param name="updatedExpense">
@@ -78,22 +102,26 @@ namespace ExpenseTracker.Services
         /// <returns>
         /// <see langword="true"/> if the expense record was updated successfully; otherwise, <see langword="false"/>.
         /// </returns>
-        public bool EditExpense(Guid id, Expense updatedExpense)
+        public bool EditExpense(int index, Expense updatedExpense)
         {
+            Guid id = this._repository.GetExpenseIdByIndex(index);
+
             return this._repository.EditExpense(id, updatedExpense);
         }
 
         /// <summary>
         /// Deletes the income record with the specified identifier.
         /// </summary>
-        /// <param name="id">
+        /// <param name="position">
         /// The unique identifier of the income record to delete.
         /// </param>
         /// <returns>
         /// <see langword="true"/> if the income record exists and is deleted successfully; otherwise, <see langword="false"/>.
         /// </returns>
-        public bool DeleteIncome(Guid id)
+        public bool DeleteIncome(int position)
         {
+            Guid id = this._repository.GetIncomeIdByIndex(position - 1);
+
             if (this._repository.ContainsIncome(id))
             {
                 this._repository.DeleteIncome(id);
@@ -106,14 +134,16 @@ namespace ExpenseTracker.Services
         /// <summary>
         /// Deletes the expense record with the specified identifier.
         /// </summary>
-        /// <param name="id">
+        /// <param name="position">
         /// The unique identifier of the expense record to delete.
         /// </param>
         /// <returns>
         /// <see langword="true"/> if the expense record exists and is deleted successfully; otherwise, <see langword="false"/>.
         /// </returns>
-        public bool DeleteExpense(Guid id)
+        public bool DeleteExpense(int position)
         {
+            Guid id = this._repository.GetExpenseIdByIndex(position - 1);
+
             if (this._repository.ContainsExpense(id))
             {
                 this._repository.DeleteExpense(id);

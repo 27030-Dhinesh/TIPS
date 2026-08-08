@@ -24,6 +24,22 @@ namespace ExpenseTracker.Interfaces
         bool IsExpensesEmpty();
 
         /// <summary>
+        /// Gets the total number of expense entries.
+        /// </summary>
+        /// <returns>
+        /// The number of expense entries currently available.
+        /// </returns>
+        int GetExpenseEntriesCount();
+
+        /// <summary>
+        /// Gets the total number of income entries.
+        /// </summary>
+        /// <returns>
+        /// The number of income entries currently available.
+        /// </returns>
+        int GetIncomeEntriesCount();
+
+        /// <summary>
         /// Adds a new expense record to the repository.
         /// </summary>
         /// <param name="expense">
@@ -134,5 +150,33 @@ namespace ExpenseTracker.Interfaces
         /// <c>true</c> if an income with the specified identifier exists; otherwise, <c>false</c>.
         /// </returns>
         bool ContainsIncome(Guid id);
+
+        /// <summary>
+        /// Retrieves the unique identifier of the income item at the specified index.
+        /// </summary>
+        /// <param name="index">
+        /// The zero-based index of the income item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Guid"/> that uniquely identifies the income item at the specified index.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="index"/> is outside the valid range of available income items.
+        /// </exception>
+        public Guid GetIncomeIdByIndex(int index);
+
+        /// <summary>
+        /// Retrieves the unique identifier of the expense item at the specified index.
+        /// </summary>
+        /// <param name="index">
+        /// The zero-based index of the expense item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Guid"/> that uniquely identifies the expense item at the specified index.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="index"/> is outside the valid range of available expense items.
+        /// </exception>
+        public Guid GetExpenseIdByIndex(int index);
     }
 }

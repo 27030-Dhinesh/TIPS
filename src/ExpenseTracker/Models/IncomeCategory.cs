@@ -11,7 +11,7 @@
         /// <summary>
         /// Income earned through regular employment or wages.
         /// </summary>
-        Salary,
+        Salary = 1,
 
         /// <summary>
         /// Income earned from freelance, contract, or independent professional

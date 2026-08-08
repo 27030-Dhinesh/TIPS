@@ -74,6 +74,12 @@ namespace ExpenseTracker.Repositories
         }
 
         /// <inheritdoc/>
+        public int GetExpenseEntriesCount()
+        {
+            return this._expenses.Count;
+        }
+
+        /// <inheritdoc/>
         public List<Expense> GetExpenses()
         {
             return this._expenses.Select(item => item.Clone()).ToList();
@@ -86,6 +92,12 @@ namespace ExpenseTracker.Repositories
         }
 
         /// <inheritdoc/>
+        public int GetIncomeEntriesCount()
+        {
+            return this._incomes.Count;
+        }
+
+        /// <inheritdoc/>
         public bool IsExpensesEmpty()
         {
             return this._expenses.Count == 0;
@@ -95,6 +107,28 @@ namespace ExpenseTracker.Repositories
         public bool IsIncomesEmpty()
         {
             return this._incomes.Count == 0;
+        }
+
+        /// <inheritdoc/>
+        public Guid GetIncomeIdByIndex(int index)
+        {
+            if (index < 0 || index >= this._incomes.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+
+            return this._incomes[index].Id;
+        }
+
+        /// <inheritdoc/>
+        public Guid GetExpenseIdByIndex(int index)
+        {
+            if (index < 0 || index >= this._expenses.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+
+            return this._expenses[index].Id;
         }
 
         // use this.ContainsExpense(id) before calling

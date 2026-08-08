@@ -1,11 +1,13 @@
-﻿using System.Globalization;
-using System.Threading.Tasks;
-using ExpenseTracker.Models;
+﻿using ExpenseTracker.Models;
 using Spectre.Console;
 using static System.ConsoleColor;
 
 namespace ExpenseTracker.Helpers
 {
+    /// <summary>
+    /// Provides utility methods for interacting with the console, including
+    /// formatted output, user input handling, and console-related operations.
+    /// </summary>
     internal static class ConsoleHelper
     {
         private const int TRIES = 3;
@@ -33,8 +35,8 @@ namespace ExpenseTracker.Helpers
         public static DateOnly GetDate(
             string prompt,
             string errorMessage,
-            ConsoleColor promptColor,
-            ConsoleColor errorColor)
+            ConsoleColor promptColor = Blue,
+            ConsoleColor errorColor = Red)
         {
             for (int i = TRIES; i > 0;)
             {
@@ -52,6 +54,132 @@ namespace ExpenseTracker.Helpers
             return DateOnly.MinValue;
         }
 
+        /// <summary>
+        /// Prompts the user to enter a positive monetary amount and validates the input.
+        /// </summary>
+        /// <param name="prompt">
+        /// The message displayed to the user requesting an amount.
+        /// </param>
+        /// <param name="errorMessage">
+        /// The error message displayed when the entered value is invalid.
+        /// </param>
+        /// <param name="promptColor">
+        /// The color used to display the prompt message. Defaults to <see cref="ConsoleColor.Blue"/>.
+        /// </param>
+        /// <param name="errorColor">
+        /// The color used to display validation error messages. Defaults to <see cref="ConsoleColor.Red"/>.
+        /// </param>
+        /// <returns>
+        /// The validated positive decimal amount entered by the user.
+        /// Returns <see cref="decimal.Zero"/> if the user fails to provide a valid amount
+        /// within the configured number of attempts.
+        /// </returns>
+        public static decimal GetAmount(
+            string prompt,
+            string errorMessage,
+            ConsoleColor promptColor = Blue,
+            ConsoleColor errorColor = Red)
+        {
+            for (int i = TRIES; i > 0;)
+            {
+                WriteColorLine(prompt, promptColor);
+                if (decimal.TryParse(Console.ReadLine(), out decimal amount) && amount > 0)
+                {
+                    return amount;
+                }
+
+                WriteColorLine($"{errorMessage} {--i} tries left.", errorColor);
+            }
+
+            return decimal.Zero;
+        }
+
+        /// <summary>
+        /// Displays the available <see cref="IncomeCategory"/> options and prompts the user
+        /// to select a category.
+        /// </summary>
+        /// <param name="prompt">
+        /// The message displayed to the user when requesting a category selection.
+        /// </param>
+        /// <param name="promptColor">
+        /// The color used to display the prompt message. Defaults to
+        /// <see cref="ConsoleColor.Blue"/>.
+        /// </param>
+        /// <returns>
+        /// The selected <see cref="IncomeCategory"/> value if a valid selection is made;
+        /// otherwise, <see langword="null"/> when the selection process is canceled or
+        /// no valid choice is obtained.
+        /// </returns>
+        public static IncomeCategory? GetIncomeCategory(
+            string prompt,
+            ConsoleColor promptColor = Blue)
+        {
+            foreach (IncomeCategory category in Enum.GetValues<IncomeCategory>())
+            {
+                Console.WriteLine($"{(int)category}. {category}");
+            }
+
+            int choice = GetIntInRange(
+                min: 1,
+                max: Enum.GetValues<IncomeCategory>().Length,
+                prompt: "Enter your choice:");
+
+            if (choice == int.MinValue)
+            {
+                return null;
+            }
+
+            return (IncomeCategory)choice;
+        }
+
+        /// <summary>
+        /// Displays the available <see cref="ExpenseCategory"/> options and prompts the user
+        /// to select a category.
+        /// </summary>
+        /// <param name="prompt">
+        /// The message displayed to the user when requesting a category selection.
+        /// </param>
+        /// <param name="promptColor">
+        /// The color used to display the prompt message. Defaults to
+        /// <see cref="ConsoleColor.Blue"/>.
+        /// </param>
+        /// <returns>
+        /// The selected <see cref="ExpenseCategory"/> value if a valid selection is made;
+        /// otherwise, <see langword="null"/> when the selection process is canceled or
+        /// no valid choice is obtained.
+        /// </returns>
+        public static ExpenseCategory? GetExpenseCategory(
+            string prompt,
+            ConsoleColor promptColor = Blue)
+        {
+            foreach (ExpenseCategory category in Enum.GetValues<ExpenseCategory>())
+            {
+                Console.WriteLine($"{(int)category}. {category}");
+            }
+
+            int choice = GetIntInRange(
+                min: 1,
+                max: Enum.GetValues<ExpenseCategory>().Length,
+                prompt: "Enter your choice:");
+
+            if (choice == int.MinValue)
+            {
+                return null;
+            }
+
+            return (ExpenseCategory)choice;
+        }
+
+        /// <summary>
+        /// Creates and populates a formatted table containing the specified income entries.
+        /// </summary>
+        /// <param name="entries">
+        /// The collection of income entries to display in the table.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Table"/> containing the income entry details, including
+        /// the entry identifier, amount, date, and category.
+        /// </returns>
         public static Table PrepareIncomeTable(List<Income> entries)
         {
             // Initialize a stylized table
@@ -67,9 +195,9 @@ namespace ExpenseTracker.Helpers
             table.AddColumn(new TableColumn("[yellow bold]Category[/]").Centered());
 
             Income entry;
-            for (int i = 0; i < entries.Count; ++i)
+            for (int i = 1; i <= entries.Count; ++i)
             {
-                entry = entries[i];
+                entry = entries[i - 1];
                 table.AddRow(
                     i.ToString(),
                     "$" + entry.Amount.ToString(),
@@ -80,28 +208,42 @@ namespace ExpenseTracker.Helpers
             return table;
         }
 
-        public static decimal GetAmount(
-            string prompt,
-            string formatErrorMessage,
-            ConsoleColor promptColor = Blue,
-            ConsoleColor errorColor = Red)
+        /// <summary>
+        /// Creates and populates a formatted table containing the specified expense entries.
+        /// </summary>
+        /// <param name="entries">
+        /// The collection of expense entries to display in the table.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Table"/> containing the expense entry details, including
+        /// the entry identifier, amount, date, and category.
+        /// </returns>
+        public static Table PrepareExpenseTable(List<Expense> entries)
         {
-            int tries = TRIES;
-            do
+            // Initialize a stylized table
+            var table = new Table()
+                .Border(TableBorder.Rounded)
+                .BorderColor(Color.Blue)
+                .Title("[yellow bold]Transaction Entries[/]\n");
+
+            // Define column layouts and headers
+            table.AddColumn(new TableColumn("[cyan bold]ID[/]").Centered());
+            table.AddColumn(new TableColumn("[magenta bold]Amount[/]").RightAligned());
+            table.AddColumn(new TableColumn("[green bold]Date[/]"));
+            table.AddColumn(new TableColumn("[yellow bold]Category[/]").Centered());
+
+            Expense entry;
+            for (int i = 1; i <= entries.Count; ++i)
             {
-                WriteColorLine(prompt, promptColor);
-                if (decimal.TryParse(Console.ReadLine(), out decimal amount) && amount >= 0)
-                {
-                    return amount;
-                }
-
-                WriteColorLine(
-                    $@"{formatErrorMessage} Price of the product should be positive.
-{--tries} tries left.", errorColor);
+                entry = entries[i - 1];
+                table.AddRow(
+                    i.ToString(),
+                    "$" + entry.Amount.ToString(),
+                    entry.Date.ToString("d"),
+                    entry.Category.ToString());
             }
-            while (tries > 0);
 
-            return 0m;
+            return table;
         }
 
         /// <summary>
@@ -127,6 +269,59 @@ namespace ExpenseTracker.Helpers
         {
             Thread.Sleep(ms);
             Console.Clear();
+        }
+
+        /// <summary>
+        /// Prompts the user to enter an integer within the specified range and validates the input.
+        /// </summary>
+        /// <param name="min">
+        /// The minimum valid value, inclusive.
+        /// </param>
+        /// <param name="max">
+        /// The maximum valid value, inclusive.
+        /// </param>
+        /// <param name="prompt">
+        /// The message displayed to request input from the user.
+        /// </param>
+        /// <param name="promptColor">
+        /// The color used to display the prompt message. Defaults to
+        /// <see cref="ConsoleColor.Blue"/>.
+        /// </param>
+        /// <returns>
+        /// The validated integer entered by the user if it falls within the specified range;
+        /// otherwise, <see cref="int.MinValue"/> if the maximum number of allowed attempts
+        /// is exceeded.
+        /// </returns>
+        public static int GetIntInRange(
+            int min,
+            int max,
+            string prompt,
+            ConsoleColor promptColor = ConsoleColor.Blue)
+        {
+            for (int i = TRIES; i > 0;)
+            {
+                WriteColorLine(prompt, promptColor);
+                if (
+                    int.TryParse(Console.ReadLine(), out int result))
+                {
+                    if (result >= min && result <= max)
+                    {
+                        return result;
+                    }
+
+                    WriteColorLine(
+                        $"Input must be in range {min} and {max}. {--i} tries left.",
+                        ConsoleColor.Red);
+                }
+                else
+                {
+                    WriteColorLine(
+                        $"Please enter a valid integer within range. {--i} tries left.",
+                        ConsoleColor.Red);
+                }
+            }
+
+            return int.MinValue;
         }
     }
 }

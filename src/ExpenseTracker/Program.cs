@@ -1,4 +1,7 @@
-﻿using ExpenseTracker.Models;
+﻿using ExpenseTracker.Interfaces;
+using ExpenseTracker.Models;
+using ExpenseTracker.Repositories;
+using ExpenseTracker.Services;
 using ExpenseTracker.Views;
 using static ExpenseTracker.Helpers.ConsoleHelper;
 
@@ -21,9 +24,13 @@ namespace ExpenseTracker
         /// </param>
         public static void Main(string[] args)
         {
+            IRepository repository = new InMemoryStorage();
+            FinanceService manager = new FinanceService(repository);
+            FinanceView view = new FinanceView(manager);
+
             while (true)
             {
-                FinanceView.DisplayMenu();
+                view.DisplayMenu();
                 WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
                 string? userChoice = Console.ReadLine();
 
@@ -32,30 +39,48 @@ namespace ExpenseTracker
                     switch (option)
                     {
                         case MenuOption.AddIncome:
+                            view.AddIncome();
+                            UICleanup();
                             break;
 
                         case MenuOption.EditIncome:
+                            view.EditIncome();
+                            UICleanup();
                             break;
 
                         case MenuOption.DeleteIncome:
+                            view.DeleteIncome();
+                            UICleanup();
                             break;
 
                         case MenuOption.ViewIncome:
+                            view.ViewIncome();
+                            UICleanup(3000);
                             break;
 
                         case MenuOption.AddExpense:
+                            view.AddExpense();
+                            UICleanup();
                             break;
 
                         case MenuOption.EditExpense:
+                            view.EditExpense();
+                            UICleanup();
                             break;
 
                         case MenuOption.DeleteExpense:
+                            view.DeleteExpense();
+                            UICleanup();
                             break;
 
                         case MenuOption.ViewExpense:
+                            view.ViewExpense();
+                            UICleanup(3000);
                             break;
 
                         case MenuOption.ShowSummary:
+                            Console.WriteLine(MenuOption.ShowSummary);
+                            UICleanup();
                             break;
 
                         case MenuOption.Exit:
