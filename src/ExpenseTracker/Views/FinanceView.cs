@@ -64,7 +64,7 @@ namespace ExpenseTracker.Views
             // If it fails (null or wrong type), enter the `if` block.
             // If it succeeds, assign the value to the new variable `category`
             // (non-nullable) and skip the `if` block.
-            if (GetIncomeCategory("Select Category:") is not IncomeCategory category)
+            if (GetIncomeCategory() is not IncomeCategory category)
             {
                 WriteColorLine("Invalid Category...Switching to main menu...", ConsoleColor.DarkYellow);
                 return;
@@ -106,7 +106,7 @@ namespace ExpenseTracker.Views
             // If it fails (null or wrong type), enter the `if` block.
             // If it succeeds, assign the value to the new variable `category`
             // (non-nullable) and skip the `if` block.
-            if (GetExpenseCategory("Select Category:") is not ExpenseCategory category)
+            if (GetExpenseCategory() is not ExpenseCategory category)
             {
                 WriteColorLine("Invalid Category...Switching to main menu...", ConsoleColor.DarkYellow);
                 return;
@@ -196,7 +196,7 @@ namespace ExpenseTracker.Views
                 return;
             }
 
-            if (GetIncomeCategory("Enter new category:") is not IncomeCategory category)
+            if (GetIncomeCategory() is not IncomeCategory category)
             {
                 WriteColorLine("Switching to main menu...", ConsoleColor.Yellow);
                 return;
@@ -253,7 +253,7 @@ namespace ExpenseTracker.Views
                 return;
             }
 
-            if (GetExpenseCategory("Enter new category:") is not ExpenseCategory category)
+            if (GetExpenseCategory() is not ExpenseCategory category)
             {
                 WriteColorLine("Switching to main menu...", ConsoleColor.Yellow);
                 return;
