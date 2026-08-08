@@ -79,8 +79,8 @@ namespace ExpenseTracker
                             break;
 
                         case MenuOption.ShowSummary:
-                            Console.WriteLine(MenuOption.ShowSummary);
-                            UICleanup();
+                            view.ShowSummary();
+                            UICleanup(3000);
                             break;
 
                         case MenuOption.Exit:

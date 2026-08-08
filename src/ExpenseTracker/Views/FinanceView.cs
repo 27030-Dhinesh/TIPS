@@ -335,5 +335,24 @@ namespace ExpenseTracker.Views
 
             WriteColorLine("Failed to delete expense entry", ConsoleColor.Red);
         }
+
+        /// <summary>
+        /// Display net balance summary based on income and expense entries.
+        /// </summary>
+        public void ShowSummary()
+        {
+            List<Income> incomes = this._manager.GetIncomes();
+            List<Expense> expenses = this._manager.GetExpenses();
+
+            decimal totalIncome = incomes.Sum(entry => entry.Amount);
+            decimal totalExpense = expenses.Sum(entry => entry.Amount);
+
+            WriteColorLine(
+                @$"Total Income: {totalIncome}
+Total Expense: {totalExpense}
+
+Net Balance: {totalIncome - totalExpense}",
+                ConsoleColor.DarkYellow);
+        }
     }
 }
