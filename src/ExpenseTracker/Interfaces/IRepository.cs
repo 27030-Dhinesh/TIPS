@@ -5,7 +5,7 @@ namespace ExpenseTracker.Interfaces
     /// <summary>
     /// Defines a repository for performing CRUD operations on income and expense records.
     /// </summary>
-    internal interface IRepository
+    public interface IRepository
     {
         /// <summary>
         /// Determines whether the income collection contains any records.
