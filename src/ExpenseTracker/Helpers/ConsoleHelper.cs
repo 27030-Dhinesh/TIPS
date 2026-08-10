@@ -43,6 +43,12 @@ namespace ExpenseTracker.Helpers
                 WriteColorLine(prompt, promptColor);
                 if (DateOnly.TryParse(Console.ReadLine(), out DateOnly date))
                 {
+                    if (date > DateOnly.FromDateTime(DateTime.Now))
+                    {
+                        WriteColorLine($"Future date is invalid. {--i} tries left.", errorColor);
+                        continue;
+                    }
+
                     return date;
                 }
                 else
