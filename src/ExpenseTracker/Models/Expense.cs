@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents an expense and contains the data associated with an expense record.
     /// </summary>
-    public class Expense
+    public class Expense : IEntry
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Expense"/> class with the specified details.
@@ -20,7 +20,7 @@
         /// <param name="category">
         /// The category associated with the expense.
         /// </param>
-        public Expense(Guid id, decimal amount, DateOnly date, ExpenseCategory category)
+        public Expense(Guid id, decimal amount, DateOnly date, string category)
         {
             this.Id = id;
             this.Amount = amount;
@@ -78,7 +78,7 @@
         /// <value>
         /// An <see cref="ExpenseCategory"/> value representing the expense type.
         /// </value>
-        public ExpenseCategory Category { get; set; }
+        public string Category { get; set; }
 
         public static bool operator true(Expense expense) => expense is not null;
 
@@ -90,7 +90,7 @@
         /// <returns>
         /// A new <see cref="Expense"/> object initialized with the values of the current instance.
         /// </returns>
-        public Expense Clone()
+        public IEntry Clone()
         {
             return new Expense(this);
         }

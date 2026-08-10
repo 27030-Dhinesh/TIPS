@@ -4,7 +4,7 @@
     /// Represents an income record and contains the data associated with
     /// a source of income.
     /// </summary>
-    public class Income
+    public class Income : IEntry
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Income"/> class with the specified details.
@@ -21,7 +21,7 @@
         /// <param name="category">
         /// The category associated with the income.
         /// </param>
-        public Income(Guid id, decimal amount, DateOnly date, IncomeCategory category)
+        public Income(Guid id, decimal amount, DateOnly date, string category)
         {
             this.Id = id;
             this.Amount = amount;
@@ -78,7 +78,7 @@
         /// <value>
         /// An <see cref="IncomeCategory"/> value representing the income type.
         /// </value>
-        public IncomeCategory Category { get; set; }
+        public string Category { get; set; }
 
         public static bool operator true(Income income) => income is not null;
 
@@ -90,7 +90,7 @@
         /// <returns>
         /// A new <see cref="Income"/> object initialized with the values of the current instance.
         /// </returns>
-        public Income Clone()
+        public IEntry Clone()
         {
             return new Income(this);
         }

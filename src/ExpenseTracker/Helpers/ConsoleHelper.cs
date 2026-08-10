@@ -45,7 +45,7 @@ namespace ExpenseTracker.Helpers
                 {
                     if (date > DateOnly.FromDateTime(DateTime.Now))
                     {
-                        WriteColorLine($"Future date is invalid. {--i} tries left.", errorColor);
+                        WriteColorLine($"Cannot accept future date. {--i} tries left.", errorColor);
                         continue;
                     }
 
