@@ -3,146 +3,61 @@ using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Repositories
 {
-    /// <summary>
-    /// Provides an in-memory repository for storing and managing application data.
-    /// </summary>
-    internal class InMemoryStorage : IRepository
+    internal class InMemoryStorage<T> : IRepository<T>
+        where T : IEntry
     {
-        private readonly List<Income> _incomes = new ();
-        private readonly List<Expense> _expenses = new ();
+        private readonly List<T> _repository = new List<T>();
 
-        /// <inheritdoc/>
-        public bool AddExpense(Expense expense)
+        public bool Add(T entry)
         {
-            this._expenses.Add(expense);
+            this._repository.Add(entry);
             return true;
         }
 
-        /// <inheritdoc/>
-        public bool AddIncome(Income income)
+        public bool Contains(Guid id)
         {
-            this._incomes.Add(income);
-            return true;
+            return this._repository.Any(entry => entry.Id == id);
         }
 
-        /// <inheritdoc/>
-        public bool ContainsExpense(Guid id)
+        public bool Delete(Guid id)
         {
-            return this._expenses.Any(entry => entry.Id == id);
+            return this._repository.RemoveAll(entry => entry.Id == id) > 0;
         }
 
-        /// <inheritdoc/>
-        public bool ContainsIncome(Guid id)
+        public bool Edit(Guid id, T updatedEntry)
         {
-            return this._incomes.Any(entry => entry.Id == id);
-        }
-
-        /// <inheritdoc/>
-        public bool DeleteExpense(Guid id)
-        {
-            return this._expenses.RemoveAll(entry => entry.Id == id) > 0;
-        }
-
-        /// <inheritdoc/>
-        public bool DeleteIncome(Guid id)
-        {
-            return this._incomes.RemoveAll(entry => entry.Id == id) > 0;
-        }
-
-        /// <inheritdoc/>
-        public bool EditExpense(Guid id, Expense updatedExpense)
-        {
-            Expense oldExpense = this.GetExpenseById(id);
-            oldExpense.Id = updatedExpense.Id;
-            oldExpense.Amount = updatedExpense.Amount;
-            oldExpense.Date = updatedExpense.Date;
-            oldExpense.Category = updatedExpense.Category;
+            T oldEntry = this.GetById(id);
+            oldEntry.Id = updatedEntry.Id;
+            oldEntry.Amount = updatedEntry.Amount;
+            oldEntry.Date = updatedEntry.Date;
+            oldEntry.Category = updatedEntry.Category;
 
             return true;
         }
 
-        /// <inheritdoc/>
-        public bool EditIncome(Guid id, Income updatedIncome)
+        public List<T> GetAll()
         {
-            Income oldIncome = this.GetIncomeById(id);
-            oldIncome.Id = updatedIncome.Id;
-            oldIncome.Amount = updatedIncome.Amount;
-            oldIncome.Date = updatedIncome.Date;
-            oldIncome.Category = updatedIncome.Category;
-
-            return true;
+            return this._repository.Select(item => (T)item.Clone()).ToList();
         }
 
-        /// <inheritdoc/>
-        public int GetExpenseEntriesCount()
+        public int GetEntriesCount()
         {
-            return this._expenses.Count;
+            return this._repository.Count;
         }
 
-        /// <inheritdoc/>
-        public List<Expense> GetExpenses()
+        public Guid GetIdByIndex(int index)
         {
-            return this._expenses.Select(item => item.Clone()).ToList();
+            return this._repository[index].Id;
         }
 
-        /// <inheritdoc/>
-        public List<Income> GetIncomes()
+        public bool IsEmpty()
         {
-            return this._incomes.Select(item => item.Clone()).ToList();
+            return this._repository.Count == 0;
         }
 
-        /// <inheritdoc/>
-        public int GetIncomeEntriesCount()
+        private T GetById(Guid id)
         {
-            return this._incomes.Count;
-        }
-
-        /// <inheritdoc/>
-        public bool IsExpensesEmpty()
-        {
-            return this._expenses.Count == 0;
-        }
-
-        /// <inheritdoc/>
-        public bool IsIncomesEmpty()
-        {
-            return this._incomes.Count == 0;
-        }
-
-        /// <inheritdoc/>
-        public Guid GetIncomeIdByIndex(int index)
-        {
-            if (index < 0 || index >= this._incomes.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index));
-            }
-
-            return this._incomes[index].Id;
-        }
-
-        /// <inheritdoc/>
-        public Guid GetExpenseIdByIndex(int index)
-        {
-            if (index < 0 || index >= this._expenses.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index));
-            }
-
-            return this._expenses[index].Id;
-        }
-
-        // use this.ContainsExpense(id) before calling
-        // this method
-        private Expense GetExpenseById(Guid id)
-        {
-            return this._expenses.FirstOrDefault(entry => entry.Id == id) !;
-        }
-
-        // use this.ContainsIncome(id) before calling
-        // this method
-        private Income GetIncomeById(Guid id)
-        {
-            return this._incomes.FirstOrDefault(entry => entry.Id == id) !;
+            return this._repository.FirstOrDefault(entry => entry.Id == id) !;
         }
     }
 }
