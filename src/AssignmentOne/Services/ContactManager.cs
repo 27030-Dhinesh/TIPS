@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
+using AssignmentOne.Models;
+using AssignmentOne.Repository;
+using static AssignmentOne.ValidationHelper;
+
+namespace AssignmentOne.Services
+{
+    /// <summary>
+    /// Contact Manager class.
+    /// </summary>
+    internal class ContactManager
+    {
+        private readonly ContactRepository _repository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactManager"/> class.
+        /// </summary>
+        /// <param name="repository">Repository to store all Contacts.</param>
+        public ContactManager(ContactRepository repository)
+        {
+            this._repository = repository;
+        }
+
+        /// <summary>
+        /// Validate a save a new Contact.
+        /// </summary>
+        /// <param name="newContact">ContactInfo object to be saved.</param>
+        /// <returns>true if save successful, false otherwise.</returns>
+        public bool Save(ContactInfo newContact)
+        {
+            if (!IsValidName(newContact.Name) || !IsValidPhone(newContact.Phone) || !IsValidEmail(newContact.Email))
+            {
+                return false;
+            }
+
+            this._repository.AddContactInfo(newContact);
+            return true;
+        }
+
+        /// <summary>
+        /// Edit ContactInfo.
+        /// </summary>
+        /// <param name="id">Guid of Contact to edit.</param>
+        /// <param name="contact">ContactInfo with edited fields.</param>
+        /// <returns>true if edit successful, false otherwise.</returns>
+        public bool Edit(Guid id, ContactInfo contact)
+        {
+            if (string.IsNullOrWhiteSpace(contact.Phone) || string.IsNullOrWhiteSpace(contact.Email))
+            {
+                return false;
+            }
+
+            if (!IsValidPhone(contact.Phone) || !IsValidEmail(contact.Email))
+            {
+                return false;
+            }
+
+            return this._repository.EditContactInfo(id, contact);
+        }
+
+        /// <summary>
+        /// Delete a ContactInfo by name.
+        /// </summary>
+        /// <param name="id">Guid id of the contact to delete.</param>
+        /// <returns>true if delete successful, false otherwise.</returns>
+        public bool Delete(Guid id)
+        {
+            return this._repository.DeleteContactInfo(id);
+        }
+
+        /// <summary>
+        /// Search for a ContactInfo by name.
+        /// </summary>
+        /// <param name="name">Name of the person to search across Contacts.</param>
+        /// <returns>List of ContactInfo matching the search name.</returns>
+        public List<ContactInfo> SearchContact(string name)
+        {
+            List<ContactInfo> contacts = this._repository.GetContacts();
+            List<ContactInfo> result = new ();
+
+            foreach (ContactInfo contact in contacts)
+            {
+                if (contact.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Add(contact);
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get all contacts from Contact Book.
+        /// </summary>
+        /// <returns>List<ContactInfo> all contacts.</returns>
+        public List<ContactInfo> GetContacts()
+        {
+            return this._repository.GetContacts();
+        }
+
+        /// <summary>
+        /// Check if Contact Book is empty or not.
+        /// </summary>
+        /// <returns>true if ContactRepository is empty, false otherwise.</returns>
+        public bool IsContactBookEmpty()
+        {
+            return this._repository.IsEmpty();
+        }
+    }
+}
