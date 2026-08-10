@@ -24,13 +24,17 @@ namespace ExpenseTracker
         /// </param>
         public static void Main(string[] args)
         {
-            IRepository repository = new InMemoryStorage();
-            FinanceService manager = new FinanceService(repository);
-            FinanceView view = new FinanceView(manager);
+            IRepository<Income> incomeRepository = new InMemoryStorage<Income>();
+            IncomeService incomeManager = new IncomeService(incomeRepository);
+            IncomeView incomeView = new IncomeView(incomeManager);
+
+            IRepository<Expense> expenseRepository = new InMemoryStorage<Expense>();
+            ExpenseService expenseManager = new ExpenseService(expenseRepository);
+            ExpenseView expenseView = new ExpenseView(expenseManager);
 
             while (true)
             {
-                view.DisplayMenu();
+                DisplayMenu();
                 WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
                 string? userChoice = Console.ReadLine();
 
@@ -39,47 +43,47 @@ namespace ExpenseTracker
                     switch (option)
                     {
                         case MenuOption.AddIncome:
-                            view.AddIncome();
+                            incomeView.AddIncome();
                             UICleanup();
                             break;
 
                         case MenuOption.EditIncome:
-                            view.EditIncome();
+                            incomeView.EditIncome();
                             UICleanup();
                             break;
 
                         case MenuOption.DeleteIncome:
-                            view.DeleteIncome();
+                            incomeView.DeleteIncome();
                             UICleanup();
                             break;
 
                         case MenuOption.ViewIncome:
-                            view.ViewIncome();
+                            incomeView.ViewIncome();
                             UICleanup(3000);
                             break;
 
                         case MenuOption.AddExpense:
-                            view.AddExpense();
+                            expenseView.AddExpense();
                             UICleanup();
                             break;
 
                         case MenuOption.EditExpense:
-                            view.EditExpense();
+                            expenseView.EditExpense();
                             UICleanup();
                             break;
 
                         case MenuOption.DeleteExpense:
-                            view.DeleteExpense();
+                            expenseView.DeleteExpense();
                             UICleanup();
                             break;
 
                         case MenuOption.ViewExpense:
-                            view.ViewExpense();
+                            expenseView.ViewExpense();
                             UICleanup(3000);
                             break;
 
                         case MenuOption.ShowSummary:
-                            view.ShowSummary();
+                            Console.WriteLine(MenuOption.ShowSummary);
                             UICleanup(3000);
                             break;
 
@@ -99,6 +103,14 @@ namespace ExpenseTracker
                     WriteColorLine("Invalid option...", ConsoleColor.Red);
                     UICleanup();
                 }
+            }
+        }
+
+        private static void DisplayMenu()
+        {
+            foreach (MenuOption option in Enum.GetValues<MenuOption>())
+            {
+                Console.WriteLine($"{(int)option}. {option}");
             }
         }
     }
