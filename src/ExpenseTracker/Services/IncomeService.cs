@@ -3,6 +3,9 @@ using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Services
 {
+    /// <summary>
+    /// Provides business operations for managing <see cref="Income"/> records.
+    /// </summary>
     public class IncomeService
     {
         private readonly IRepository<Income> _repository;
