@@ -1,7 +1,8 @@
 ﻿namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// 
+    /// Represents a repository entry containing identifying and
+    /// transaction-related information.
     /// </summary>
     public interface IEntry
     {
@@ -37,6 +38,12 @@
         /// </value>
         string Category { get; set; }
 
+        /// <summary>
+        /// Creates a copy of the current entry.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="IEntry"/> instance that contains the same values as the current entry.
+        /// </returns>
         IEntry Clone();
     }
 }
