@@ -34,7 +34,7 @@ namespace ExpenseTracker
 
             while (true)
             {
-                DisplayMenu();
+                DisplayMainMenu();
                 WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
                 string? userChoice = Console.ReadLine();
 
@@ -42,44 +42,12 @@ namespace ExpenseTracker
                 {
                     switch (option)
                     {
-                        case MenuOption.AddIncome:
-                            incomeView.AddIncome();
-                            UICleanup();
+                        case MenuOption.IncomeManagement:
+                            IncomeManagement(incomeView);
                             break;
 
-                        case MenuOption.EditIncome:
-                            incomeView.EditIncome();
-                            UICleanup();
-                            break;
-
-                        case MenuOption.DeleteIncome:
-                            incomeView.DeleteIncome();
-                            UICleanup();
-                            break;
-
-                        case MenuOption.ViewIncome:
-                            incomeView.ViewIncome();
-                            UICleanup(3000);
-                            break;
-
-                        case MenuOption.AddExpense:
-                            expenseView.AddExpense();
-                            UICleanup();
-                            break;
-
-                        case MenuOption.EditExpense:
-                            expenseView.EditExpense();
-                            UICleanup();
-                            break;
-
-                        case MenuOption.DeleteExpense:
-                            expenseView.DeleteExpense();
-                            UICleanup();
-                            break;
-
-                        case MenuOption.ViewExpense:
-                            expenseView.ViewExpense();
-                            UICleanup(3000);
+                        case MenuOption.ExpenseManagement:
+                            ExpenseManagement(expenseView);
                             break;
 
                         case MenuOption.ShowSummary:
@@ -106,9 +74,128 @@ namespace ExpenseTracker
             }
         }
 
-        private static void DisplayMenu()
+        private static void ExpenseManagement(ExpenseView expenseView)
+        {
+            UICleanup();
+            while (true)
+            {
+                DisplayExpenseMenu();
+                WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
+                string? userChoice = Console.ReadLine();
+
+                if (Enum.TryParse(userChoice, out ExpenseMenu option))
+                {
+                    switch (option)
+                    {
+                        case ExpenseMenu.AddExpense:
+                            expenseView.AddExpense();
+                            UICleanup();
+                            break;
+
+                        case ExpenseMenu.EditExpense:
+                            expenseView.EditExpense();
+                            UICleanup();
+                            break;
+
+                        case ExpenseMenu.DeleteExpense:
+                            expenseView.DeleteExpense();
+                            UICleanup();
+                            break;
+
+                        case ExpenseMenu.ViewExpense:
+                            expenseView.ViewExpense();
+                            UICleanup(3000);
+                            break;
+
+                        case ExpenseMenu.SwitchToMainMenu:
+                            WriteColorLine("Switching to main menu...", ConsoleColor.DarkYellow);
+                            UICleanup();
+                            return;
+
+                        default:
+                            WriteColorLine("Invalid option...", ConsoleColor.Red);
+                            UICleanup();
+                            break;
+                    }
+                }
+                else
+                {
+                    WriteColorLine("Invalid option...", ConsoleColor.Red);
+                    UICleanup();
+                }
+            }
+        }
+
+        private static void IncomeManagement(IncomeView incomeView)
+        {
+            while (true)
+            {
+                DisplayIncomeMenu();
+                WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
+                string? userChoice = Console.ReadLine();
+
+                if (Enum.TryParse(userChoice, out IncomeMenu option))
+                {
+                    switch (option)
+                    {
+                        case IncomeMenu.AddIncome:
+                            incomeView.AddIncome();
+                            UICleanup();
+                            break;
+
+                        case IncomeMenu.EditIncome:
+                            incomeView.EditIncome();
+                            UICleanup();
+                            break;
+
+                        case IncomeMenu.DeleteIncome:
+                            incomeView.DeleteIncome();
+                            UICleanup();
+                            break;
+
+                        case IncomeMenu.ViewIncome:
+                            incomeView.ViewIncome();
+                            UICleanup(3000);
+                            break;
+
+                        case IncomeMenu.SwitchToMainMenu:
+                            WriteColorLine("Switching to main menu...", ConsoleColor.DarkYellow);
+                            UICleanup();
+                            return;
+
+                        default:
+                            WriteColorLine("Invalid option...", ConsoleColor.Red);
+                            UICleanup();
+                            break;
+                    }
+                }
+                else
+                {
+                    WriteColorLine("Invalid option...", ConsoleColor.Red);
+                    UICleanup();
+                }
+            }
+        }
+
+        private static void DisplayMainMenu()
         {
             foreach (MenuOption option in Enum.GetValues<MenuOption>())
+            {
+                Console.WriteLine($"{(int)option}. {option}");
+            }
+        }
+
+        private static void DisplayIncomeMenu()
+        {
+            foreach (IncomeMenu option in Enum.GetValues<IncomeMenu>())
+            {
+                Console.WriteLine($"{(int)option}. {option}");
+            }
+        }
+
+        private static void DisplayExpenseMenu()
+        {
+            foreach (ExpenseMenu option in Enum.GetValues<ExpenseMenu>())
             {
                 Console.WriteLine($"{(int)option}. {option}");
             }
