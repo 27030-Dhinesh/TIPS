@@ -14,7 +14,7 @@
         /// <summary>
         /// Manage income-related operations.
         /// </summary>
-        IncomeManagement,
+        IncomeManagement = 1,
 
         /// <summary>
         /// Manage expense-related operations.
