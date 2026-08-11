@@ -97,6 +97,15 @@ namespace ExpenseTracker.Interfaces
         /// <returns>
         /// The unique identifier of the entry at the specified index.
         /// </returns>
-        public Guid GetIdByIndex(int index);
+        Guid GetIdByIndex(int index);
+
+        /// <summary>
+        /// Calculates the total monetary amount of all entries in the repository.
+        /// </summary>
+        /// <returns>
+        /// The sum of the amounts associated with all entries in the repository.
+        /// Returns <c>0</c> if the repository contains no entries.
+        /// </returns>
+        decimal GetTotalAmount();
     }
 }
