@@ -9,50 +9,20 @@
     /// Explicit numeric values are assigned to align menu selections
     /// with user input.
     /// </remarks>
-    internal enum MenuOption
+    public enum MenuOption
     {
         /// <summary>
-        /// Adds a new income record.
+        /// Manage income-related operations.
         /// </summary>
-        AddIncome = 1,
+        IncomeManagement,
 
         /// <summary>
-        /// Displays existing income records.
+        /// Manage expense-related operations.
         /// </summary>
-        ViewIncome,
+        ExpenseManagement,
 
         /// <summary>
-        /// Modifies an existing income record.
-        /// </summary>
-        EditIncome,
-
-        /// <summary>
-        /// Removes an existing income record.
-        /// </summary>
-        DeleteIncome,
-
-        /// <summary>
-        /// Adds a new expense record.
-        /// </summary>
-        AddExpense,
-
-        /// <summary>
-        /// Displays existing expense records.
-        /// </summary>
-        ViewExpense,
-
-        /// <summary>
-        /// Modifies an existing expense record.
-        /// </summary>
-        EditExpense,
-
-        /// <summary>
-        /// Removes an existing expense record.
-        /// </summary>
-        DeleteExpense,
-
-        /// <summary>
-        /// Displays a summary of income and expense data.
+        /// Display a consolidated summary of income and expense information.
         /// </summary>
         ShowSummary,
 
