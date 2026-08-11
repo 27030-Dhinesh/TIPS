@@ -71,6 +71,12 @@ namespace ExpenseTracker.Repositories
             return this._repository.Count == 0;
         }
 
+        /// <inheritdoc/>
+        public decimal GetTotalAmount()
+        {
+            return this._repository.Sum(entry => entry.Amount);
+        }
+
         private T GetById(Guid id)
         {
             return this._repository.FirstOrDefault(entry => entry.Id == id) !;
