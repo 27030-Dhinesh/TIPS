@@ -5,7 +5,10 @@ using static ExpenseTracker.Helpers.ConsoleHelper;
 
 namespace ExpenseTracker.Views
 {
-    internal class ExpenseView
+    /// <summary>
+    /// Provides the user interface for viewing and managing expense records.
+    /// </summary>
+    public class ExpenseView
     {
         private readonly ExpenseService _manager;
 

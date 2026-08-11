@@ -5,7 +5,10 @@ using static ExpenseTracker.Helpers.ConsoleHelper;
 
 namespace ExpenseTracker.Views
 {
-    internal class IncomeView
+    /// <summary>
+    /// Provides the user interface for viewing and managing income records.
+    /// </summary>
+    public class IncomeView
     {
         private readonly IncomeService _manager;
 

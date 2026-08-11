@@ -3,7 +3,10 @@ using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Services
 {
-    internal class ExpenseService
+    /// <summary>
+    /// Provides business operations for managing <see cref="Expense"/> records.
+    /// </summary>
+    public class ExpenseService
     {
         private readonly IRepository<Expense> _repository;
 
