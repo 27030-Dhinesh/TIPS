@@ -47,7 +47,7 @@ namespace ExpenseTracker.Views
                 return;
             }
 
-            DateOnly date = GetDate("Enter Date of Transaction (dd/mm/yyyy):", "Invalid input for Date.");
+            DateOnly date = GetDate("Enter Date of Transaction (d-M-yy):", "Invalid input for Date.");
             if (date.Equals(DateOnly.MinValue))
             {
                 WriteColorLine("Switching to main menu...", ConsoleColor.DarkYellow);
@@ -123,7 +123,7 @@ namespace ExpenseTracker.Views
                 return;
             }
 
-            DateOnly date = GetDate("Enter new date:", "Invalid input for date.");
+            DateOnly date = GetDate("Enter new date (d-M-yy):", "Invalid input for date.");
             if (date.Equals(DateOnly.MinValue))
             {
                 WriteColorLine("Switching to main menu...", ConsoleColor.Yellow);
