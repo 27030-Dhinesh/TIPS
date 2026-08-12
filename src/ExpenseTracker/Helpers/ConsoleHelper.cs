@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Models;
+﻿using System.Globalization;
+using ExpenseTracker.Models;
 using Spectre.Console;
 using static System.ConsoleColor;
 
@@ -38,10 +39,11 @@ namespace ExpenseTracker.Helpers
             ConsoleColor promptColor = Blue,
             ConsoleColor errorColor = Red)
         {
+            string[] allowedDateFormats = { "d-M-yy" };
             for (int i = TRIES; i > 0;)
             {
                 WriteColorLine(prompt, promptColor);
-                if (DateOnly.TryParse(Console.ReadLine(), out DateOnly date))
+                if (DateOnly.TryParseExact(Console.ReadLine(), allowedDateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateOnly date))
                 {
                     if (date > DateOnly.FromDateTime(DateTime.Now))
                     {
