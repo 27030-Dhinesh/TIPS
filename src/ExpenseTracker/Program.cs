@@ -32,6 +32,9 @@ namespace ExpenseTracker
             ExpenseService expenseManager = new ExpenseService(expenseRepository);
             ExpenseView expenseView = new ExpenseView(expenseManager);
 
+            SummaryService summaryService = new SummaryService(incomeRepository, expenseRepository);
+            SummaryView summaryView = new SummaryView(summaryService);
+
             while (true)
             {
                 DisplayMainMenu();
@@ -51,7 +54,7 @@ namespace ExpenseTracker
                             break;
 
                         case MenuOption.ShowSummary:
-                            Console.WriteLine(MenuOption.ShowSummary);
+                            summaryView.ShowSummary();
                             UICleanup(3000);
                             break;
 
@@ -128,6 +131,7 @@ namespace ExpenseTracker
 
         private static void IncomeManagement(IncomeView incomeView)
         {
+            UICleanup();
             while (true)
             {
                 DisplayIncomeMenu();
