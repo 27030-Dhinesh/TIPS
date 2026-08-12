@@ -3,15 +3,29 @@ using static ExpenseTracker.Helpers.ConsoleHelper;
 
 namespace ExpenseTracker.Views
 {
+    /// <summary>
+    /// Provides functionality for displaying financial summary information
+    /// to the user.
+    /// </summary>
     public class SummaryView
     {
         private readonly SummaryService _service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SummaryView"/> class.
+        /// </summary>
+        /// <param name="service">
+        /// The summary service used to retrieve financial data.
+        /// </param>
         public SummaryView(SummaryService service)
         {
             this._service = service;
         }
 
+        /// <summary>
+        /// Retrieves and displays the total income, total expense,
+        /// and net balance information to the console.
+        /// </summary>
         public void GetSummary()
         {
             decimal totalIncome = this._service.GetTotalIncome();
