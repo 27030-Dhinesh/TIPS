@@ -26,7 +26,7 @@ namespace ExpenseTracker.Views
         /// Retrieves and displays the total income, total expense,
         /// and net balance information to the console.
         /// </summary>
-        public void GetSummary()
+        public void ShowSummary()
         {
             decimal totalIncome = this._service.GetTotalIncome();
             decimal totalExpense = this._service.GetTotalExpense();
