@@ -252,12 +252,22 @@ namespace ExpenseTracker.Helpers
         /// Pauses execution and clears the console screen.
         /// </summary>
         /// <param name="ms">The pause duration in milliseconds. Defaults to 1000 ms.</param>
+        /// <param name="waitForUser">Wait for the user instead of fixed-duration sleep.</param>
         /// <remarks>
         /// This method blocks the calling thread using <see cref="Thread.Sleep(int)"/>.
         /// </remarks>
-        public static void UICleanup(int ms = 1000)
+        public static void UICleanup(int ms = 1000, bool waitForUser = false)
         {
-            Thread.Sleep(ms);
+            if (waitForUser)
+            {
+                WriteColorLine("Press any key to continue...", ConsoleColor.DarkGreen);
+                Console.ReadKey();
+            }
+            else
+            {
+                Thread.Sleep(ms);
+            }
+
             Console.Clear();
         }
 
