@@ -11,7 +11,7 @@ namespace ExceptionHandling.TaskThree
         /// <summary>
         /// Executes an array access operation using user-supplied input.
         /// </summary>
-        /// <exception cref="InvalidArrayIndexException">
+        /// <exception cref="InvalidUserInputException">
         /// Thrown when an attempt is made to access an array element
         /// using an invalid index.
         /// </exception>
@@ -44,7 +44,7 @@ namespace ExceptionHandling.TaskThree
             }
             catch (IndexOutOfRangeException e)
             {
-                throw new InvalidArrayIndexException("Index out of range.", e);
+                throw new InvalidUserInputException("Index out of range.", e);
             }
             catch (Exception e)
             {
@@ -58,7 +58,7 @@ namespace ExceptionHandling.TaskThree
 
         /// <summary>
         /// Executes the custom exception demonstration and handles
-        /// <see cref="InvalidArrayIndexException"/> instances.
+        /// <see cref="InvalidUserInputException"/> instances.
         /// </summary>
         public void Run()
         {
@@ -66,7 +66,7 @@ namespace ExceptionHandling.TaskThree
             {
                 this.ExecuteTask();
             }
-            catch (InvalidArrayIndexException e)
+            catch (InvalidUserInputException e)
             {
                 Console.WriteLine(@$"Caught custom exception:
 
