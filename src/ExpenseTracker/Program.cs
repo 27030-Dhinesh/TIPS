@@ -55,7 +55,7 @@ namespace ExpenseTracker
 
                         case MenuOption.ShowSummary:
                             summaryView.ShowSummary();
-                            UICleanup(3000);
+                            UICleanup(waitForUser: true);
                             break;
 
                         case MenuOption.Exit:
@@ -107,7 +107,7 @@ namespace ExpenseTracker
 
                         case ExpenseMenu.ViewExpense:
                             expenseView.ViewExpense();
-                            UICleanup(3000);
+                            UICleanup(waitForUser: true);
                             break;
 
                         case ExpenseMenu.SwitchToMainMenu:
@@ -159,7 +159,7 @@ namespace ExpenseTracker
 
                         case IncomeMenu.ViewIncome:
                             incomeView.ViewIncome();
-                            UICleanup(3000);
+                            UICleanup(waitForUser: true);
                             break;
 
                         case IncomeMenu.SwitchToMainMenu:
