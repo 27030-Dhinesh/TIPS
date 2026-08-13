@@ -10,60 +10,69 @@ namespace Assignments
     {
         public static void Main(string[] args)
         {
-            TaskOneRunner taskOneRunner = new TaskOneRunner();
-            TaskTwoRunner taskTwoRunner = new TaskTwoRunner();
-            TaskThreeRunner taskThreeRunner = new TaskThreeRunner();
-            TaskFourRunner taskFourRunner = new TaskFourRunner();
-            TaskFiveRunner taskFiveRunner = new TaskFiveRunner();
-
-            string? choice;
-            while (true)
+            try
             {
-                Console.Write(@"1. Divide by zero
+                TaskOneRunner taskOneRunner = new TaskOneRunner();
+                TaskTwoRunner taskTwoRunner = new TaskTwoRunner();
+                TaskThreeRunner taskThreeRunner = new TaskThreeRunner();
+                TaskFourRunner taskFourRunner = new TaskFourRunner();
+                TaskFiveRunner taskFiveRunner = new TaskFiveRunner();
+
+                string? choice;
+                while (true)
+                {
+                    Console.Write(@"1. Divide by zero
 2. Array access out of bound with custom message
 3. Array access out of bound with custom exceptions
-4. 
+4. AppDomain.CurrentDomain.UnhandledException Event
 5. Displaying stack trace of Exception
 6. Exit
 
 Enter your choice: ");
-                choice = Console.ReadLine();
-                Console.Clear();
+                    choice = Console.ReadLine();
+                    Console.Clear();
 
-                switch (choice)
-                {
-                    case "1":
-                        taskOneRunner.Run();
-                        break;
+                    switch (choice)
+                    {
+                        case "1":
+                            taskOneRunner.Run();
+                            break;
 
-                    case "2":
-                        taskTwoRunner.Run();
-                        break;
+                        case "2":
+                            taskTwoRunner.Run();
+                            break;
 
-                    case "3":
-                        taskThreeRunner.Run();
-                        break;
+                        case "3":
+                            taskThreeRunner.Run();
+                            break;
 
-                    case "4":
-                        taskFourRunner.Run();
-                        break;
+                        case "4":
+                            taskFourRunner.Run();
+                            break;
 
-                    case "5":
-                        taskFiveRunner.Run();
-                        break;
+                        case "5":
+                            taskFiveRunner.Run();
+                            break;
 
-                    case "6":
-                        return;
+                        case "6":
+                            return;
 
-                    default:
-                        Console.WriteLine("Invalid choice, try again.");
-                        break;
+                        default:
+                            Console.WriteLine("Invalid choice, try again.");
+                            break;
+                    }
+
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
-
-                Console.WriteLine("\nPress any key to continue...");
-                Console.ReadKey();
-                Console.Clear();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR]: {ex.ToString()}");
+            }
+
+            Console.ReadKey();
         }
     }
 }
