@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using ExceptionHandling.TaskTwo;
@@ -65,6 +66,20 @@ namespace ExceptionHandling.TaskThree
 
 {e.InnerException?.StackTrace}");
             }
+        }
+
+        public void ThrowRandomException()
+        {
+            Exception[] exceptions =
+            {
+                new Exception("This is Exception."),
+                new ArgumentNullException(),
+                new ArgumentNullException("ArgumentNullException with custom message."),
+                new OverflowException("OverflowException is thrown"),
+                new ArgumentException("ArgumentException: I don't have any arguments though."),
+            };
+
+            throw exceptions[Random.Shared.Next(1, exceptions.Length + 1)];
         }
     }
 }
