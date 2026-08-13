@@ -6,29 +6,29 @@ namespace ExceptionHandling.TaskThree
     /// Represents an exception that is thrown when an invalid array index
     /// is used to access an array element.
     /// </summary>
-    public class InvalidArrayIndexException : Exception
+    public class InvalidUserInputException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidArrayIndexException"/> class.
+        /// Initializes a new instance of the <see cref="InvalidUserInputException"/> class.
         /// </summary>
-        public InvalidArrayIndexException()
+        public InvalidUserInputException()
             : base()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidArrayIndexException"/> class.
+        /// Initializes a new instance of the <see cref="InvalidUserInputException"/> class.
         /// </summary>
         /// <param name="message">
         /// The message that describes the error.
         /// </param>
-        public InvalidArrayIndexException(string? message)
+        public InvalidUserInputException(string? message)
             : base(message)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidArrayIndexException"/> class.
+        /// Initializes a new instance of the <see cref="InvalidUserInputException"/> class.
         /// </summary>
         /// <param name="message">
         /// The message that describes the error.
@@ -36,13 +36,13 @@ namespace ExceptionHandling.TaskThree
         /// <param name="innerException">
         /// The exception that caused the current exception.
         /// </param>
-        public InvalidArrayIndexException(string? message, Exception innerException)
+        public InvalidUserInputException(string? message, Exception innerException)
             : base(message, innerException)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidArrayIndexException"/> class.
+        /// Initializes a new instance of the <see cref="InvalidUserInputException"/> class.
         /// </summary>
         /// <param name="info">
         /// The <see cref="SerializationInfo"/> that holds the serialized object data.
@@ -51,7 +51,7 @@ namespace ExceptionHandling.TaskThree
         /// The <see cref="StreamingContext"/> that contains contextual information
         /// about the source or destination.
         /// </param>
-        protected InvalidArrayIndexException(SerializationInfo info, StreamingContext context)
+        protected InvalidUserInputException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
