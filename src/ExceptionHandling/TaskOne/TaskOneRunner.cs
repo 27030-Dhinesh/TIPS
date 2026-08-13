@@ -1,7 +1,17 @@
 ﻿namespace ExceptionHandling.TaskOne
 {
+    /// <summary>
+    /// Executes the workflow for demonstrating divide-by-zero exception handling.
+    /// Collects user input, performs an integer division operation, and displays
+    /// the result or relevant exception details.
+    /// </summary>
     public class TaskOneRunner
     {
+        /// <summary>
+        /// Runs the divide-by-zero exception demonstration.
+        /// Prompts the user for two integer values, performs division using the
+        /// <see cref="Divide"/> class, and handles common runtime exceptions.
+        /// </summary>
         public void Run()
         {
             int num1;
