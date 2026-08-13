@@ -65,5 +65,10 @@ namespace ExceptionHandling.TaskTwo
 {e.InnerException?.StackTrace}");
             }
         }
+
+        public void RunWithoutExceptionHandling()
+        {
+            this.ExecuteTask();
+        }
     }
 }
