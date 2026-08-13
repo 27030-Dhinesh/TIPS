@@ -6,8 +6,20 @@ using ExceptionHandling.TaskTwo;
 
 namespace Assignments
 {
+    /// <summary>
+    /// Entry point of the application.
+    /// Presents a menu-driven console interface that allows users to execute
+    /// various exception-handling demonstration tasks.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Initializes task runners and displays the main application menu.
+        /// Processes user input and routes execution to the selected task.
+        /// </summary>
+        /// <param name="args">
+        /// Command-line arguments supplied to the application.
+        /// </param>
         public static void Main(string[] args)
         {
             try
