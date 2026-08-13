@@ -2,8 +2,19 @@
 
 namespace ExceptionHandling.TaskThree
 {
+    /// <summary>
+    /// Demonstrates the use of custom exceptions when accessing array elements
+    /// and provides methods for testing exception handling scenarios.
+    /// </summary>
     public class TaskThreeRunner
     {
+        /// <summary>
+        /// Executes an array access operation using user-supplied input.
+        /// </summary>
+        /// <exception cref="InvalidArrayIndexException">
+        /// Thrown when an attempt is made to access an array element
+        /// using an invalid index.
+        /// </exception>
         public void ExecuteTask()
         {
             int length;
@@ -45,6 +56,10 @@ namespace ExceptionHandling.TaskThree
             }
         }
 
+        /// <summary>
+        /// Executes the custom exception demonstration and handles
+        /// <see cref="InvalidArrayIndexException"/> instances.
+        /// </summary>
         public void Run()
         {
             try
@@ -62,6 +77,9 @@ namespace ExceptionHandling.TaskThree
             }
         }
 
+        /// <summary>
+        /// Throws a randomly selected exception for demonstration purposes.
+        /// </summary>
         public void ThrowRandomException()
         {
             Exception[] exceptions =
