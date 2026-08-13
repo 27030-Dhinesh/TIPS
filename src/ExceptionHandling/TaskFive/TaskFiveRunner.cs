@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExceptionHandling.TaskTwo;
 
 namespace ExceptionHandling.TaskFive
 {
@@ -10,6 +11,18 @@ namespace ExceptionHandling.TaskFive
     {
         public void Run()
         {
+            try
+            {
+                TaskTwoRunner taskTwoRunner = new TaskTwoRunner();
+                taskTwoRunner.RunWithoutExceptionHandling();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($@"Error from Task 5 (used Task 2):
+
+Exception Type: {ex.GetType()}
+Exception Stack Trace: {ex.StackTrace}");
+            }
         }
     }
 }

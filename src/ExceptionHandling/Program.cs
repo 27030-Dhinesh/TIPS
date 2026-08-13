@@ -23,7 +23,7 @@ namespace Assignments
 2. Array access out of bound with custom message
 3. Array access out of bound with custom exceptions
 4. 
-5. 
+5. Displaying stack trace of Exception
 6. Exit
 
 Enter your choice: ");
