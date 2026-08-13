@@ -2,8 +2,16 @@
 
 namespace ExceptionHandling.TaskFour
 {
+    /// <summary>
+    /// Demonstrates handling unhandled exceptions through the
+    /// <see cref="AppDomain.UnhandledException"/> event.
+    /// </summary>
     public class TaskFourRunner
     {
+        /// <summary>
+        /// Registers an event handler for unhandled exceptions and
+        /// initiates an operation that may throw an exception.
+        /// </summary>
         public void Run()
         {
             AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
