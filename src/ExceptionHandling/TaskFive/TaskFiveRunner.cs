@@ -2,8 +2,16 @@
 
 namespace ExceptionHandling.TaskFive
 {
+    /// <summary>
+    /// Demonstrates how to capture and display exception stack trace
+    /// information when an exception propagates to a higher level in
+    /// the application.
+    /// </summary>
     public class TaskFiveRunner
     {
+        /// <summary>
+        /// Executes the stack trace demonstration.
+        /// </summary>
         public void Run()
         {
             try
