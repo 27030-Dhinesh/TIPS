@@ -1,7 +1,20 @@
 ﻿namespace ExceptionHandling.TaskTwo
 {
+    /// <summary>
+    /// Executes and demonstrates array access operations along with
+    /// exception handling techniques for invalid user input and
+    /// out-of-range array access.
+    /// </summary>
     public class TaskTwoRunner
     {
+        /// <summary>
+        /// Performs the array access workflow by collecting user input,
+        /// creating an array, and retrieving a value from a specified index.
+        /// </summary>
+        /// <exception cref="IndexOutOfRangeException">
+        /// Thrown when an invalid array index is accessed. The original exception
+        /// is preserved as the inner exception.
+        /// </exception>
         public void ExecuteTask()
         {
             int length;
@@ -43,6 +56,10 @@
             }
         }
 
+        /// <summary>
+        /// Executes the array access demonstration and handles
+        /// out-of-range index exceptions with custom output.
+        /// </summary>
         public void Run()
         {
             try
@@ -60,6 +77,10 @@
             }
         }
 
+        /// <summary>
+        /// Executes the array access demonstration without handling
+        /// rethrown index-related exceptions.
+        /// </summary>
         public void RunWithoutExceptionHandling()
         {
             this.ExecuteTask();
