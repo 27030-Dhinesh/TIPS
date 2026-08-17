@@ -6,6 +6,13 @@
     public class Expense : IEntry
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Expense"/> class.
+        /// </summary>
+        public Expense()
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Expense"/> class with the specified details.
         /// </summary>
         /// <param name="id">

@@ -7,6 +7,13 @@
     public class Income : IEntry
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Income"/> class.
+        /// </summary>
+        public Income()
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Income"/> class with the specified details.
         /// </summary>
         /// <param name="id">

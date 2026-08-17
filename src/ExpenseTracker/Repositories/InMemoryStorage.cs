@@ -14,7 +14,15 @@ namespace ExpenseTracker.Repositories
     internal class InMemoryStorage<T> : IRepository<T>
         where T : IEntry
     {
-        private readonly List<T> _repository = new List<T>();
+        private readonly List<T> _repository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InMemoryStorage{T}"/> class.
+        /// </summary>
+        public InMemoryStorage()
+        {
+            this._repository = new List<T>();
+        }
 
         /// <inheritdoc/>
         public bool Add(T entry)

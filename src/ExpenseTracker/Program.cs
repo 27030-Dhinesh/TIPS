@@ -24,7 +24,7 @@ namespace ExpenseTracker
         /// </param>
         public static void Main(string[] args)
         {
-            IRepository<Income> incomeRepository = new InMemoryStorage<Income>();
+            IRepository<Income> incomeRepository = new CSVRepository<Income>("income.csv");
             IncomeService incomeManager = new IncomeService(incomeRepository);
             IncomeView incomeView = new IncomeView(incomeManager);
 
@@ -79,7 +79,7 @@ namespace ExpenseTracker
 
         private static void ExpenseManagement(ExpenseView expenseView)
         {
-            UICleanup();
+            Console.Clear();
             while (true)
             {
                 DisplayExpenseMenu();
@@ -112,6 +112,7 @@ namespace ExpenseTracker
 
                         case ExpenseMenu.ViewByCategory:
                             expenseView.ViewExpensesByCategory();
+                            UICleanup(waitForUser: true);
                             break;
 
                         case ExpenseMenu.SwitchToMainMenu:
@@ -135,7 +136,7 @@ namespace ExpenseTracker
 
         private static void IncomeManagement(IncomeView incomeView)
         {
-            UICleanup();
+            Console.Clear();
             while (true)
             {
                 DisplayIncomeMenu();
@@ -168,6 +169,7 @@ namespace ExpenseTracker
 
                         case IncomeMenu.ViewByCategory:
                             incomeView.ViewIncomesByCategory();
+                            UICleanup(waitForUser: true);
                             break;
 
                         case IncomeMenu.SwitchToMainMenu:
