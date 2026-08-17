@@ -24,11 +24,11 @@ namespace ExpenseTracker.Views
         }
 
         /// <summary>
-        /// Displays the available menu options for Income to the console.
+        /// Displays the available menu options for Income management to the console.
         /// </summary>
-        public void DisplayMenu()
+        public void DisplayIncomeMenu()
         {
-            foreach (MenuOption option in Enum.GetValues<MenuOption>())
+            foreach (IncomeMenu option in Enum.GetValues<IncomeMenu>())
             {
                 Console.WriteLine($"{(int)option}. {option}");
             }

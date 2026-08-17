@@ -24,11 +24,23 @@ namespace ExpenseTracker
         /// </param>
         public static void Main(string[] args)
         {
-            IRepository<Income> incomeRepository = new CSVRepository<Income>("income.csv");
+            IRepository<Income> incomeRepository;
+            IRepository<Expense> expenseRepository;
+
+            bool useInMemory = true;
+
+            WriteColorLine("Do you want to use CSV Repository? [Y/N]", ConsoleColor.DarkBlue);
+            string? choice = Console.ReadLine();
+            if (choice is not null && choice.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase))
+            {
+                useInMemory = false;
+            }
+
+            ConfigureRepositoryType(incomeRepository, expenseRepository, useInMemory);
+
             IncomeService incomeManager = new IncomeService(incomeRepository);
             IncomeView incomeView = new IncomeView(incomeManager);
 
-            IRepository<Expense> expenseRepository = new InMemoryStorage<Expense>();
             ExpenseService expenseManager = new ExpenseService(expenseRepository);
             ExpenseView expenseView = new ExpenseView(expenseManager);
 
@@ -77,12 +89,25 @@ namespace ExpenseTracker
             }
         }
 
+        private static void ConfigureRepositoryType(IRepository<Income> incomeRepository, IRepository<Expense> expenseRepository, bool useInMemory)
+        {
+            if (useInMemory)
+            {
+                incomeRepository = new InMemoryStorage<Income>();
+                expenseRepository = new InMemoryStorage<Expense>();
+                return;
+            }
+
+            incomeRepository = new CSVRepository<Income>("incomes.csv");
+            expenseRepository = new CSVRepository<Expense>("expenses.csv");
+        }
+
         private static void ExpenseManagement(ExpenseView expenseView)
         {
             Console.Clear();
             while (true)
             {
-                DisplayExpenseMenu();
+                expenseView.DisplayExpenseMenu();
                 WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
                 string? userChoice = Console.ReadLine();
 
@@ -139,7 +164,7 @@ namespace ExpenseTracker
             Console.Clear();
             while (true)
             {
-                DisplayIncomeMenu();
+                incomeView.DisplayIncomeMenu();
                 WriteColorLine("Enter your choice:", ConsoleColor.DarkGreen);
                 string? userChoice = Console.ReadLine();
 
@@ -194,22 +219,6 @@ namespace ExpenseTracker
         private static void DisplayMainMenu()
         {
             foreach (MenuOption option in Enum.GetValues<MenuOption>())
-            {
-                Console.WriteLine($"{(int)option}. {option}");
-            }
-        }
-
-        private static void DisplayIncomeMenu()
-        {
-            foreach (IncomeMenu option in Enum.GetValues<IncomeMenu>())
-            {
-                Console.WriteLine($"{(int)option}. {option}");
-            }
-        }
-
-        private static void DisplayExpenseMenu()
-        {
-            foreach (ExpenseMenu option in Enum.GetValues<ExpenseMenu>())
             {
                 Console.WriteLine($"{(int)option}. {option}");
             }

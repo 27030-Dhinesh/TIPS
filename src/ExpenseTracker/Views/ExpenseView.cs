@@ -24,6 +24,17 @@ namespace ExpenseTracker.Views
         }
 
         /// <summary>
+        /// Displays the available menu options for Expense management to the console.
+        /// </summary>
+        public void DisplayExpenseMenu()
+        {
+            foreach (ExpenseMenu option in Enum.GetValues<ExpenseMenu>())
+            {
+                Console.WriteLine($"{(int)option}. {option}");
+            }
+        }
+
+        /// <summary>
         /// Prompts the user for expense details and creates a new expense entry.
         /// </summary>
         public void AddExpense()
