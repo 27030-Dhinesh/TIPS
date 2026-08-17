@@ -94,6 +94,33 @@ namespace ExpenseTracker.Views
             AnsiConsole.Write(table);
         }
 
+        public void ViewIncomesByCategory()
+        {
+            if (this._manager.IsIncomesEmpty())
+            {
+                WriteColorLine("There are no income transaction entries.", ConsoleColor.Red);
+                return;
+            }
+
+            if (GetIncomeCategory() is not IncomeCategory category)
+            {
+                WriteColorLine("Switching to main menu...", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            List<Income> filteredEntries = this._manager.GetIncomesByCategory(category);
+
+            if (filteredEntries.Count == 0)
+            {
+                WriteColorLine($"There are no income transaction entries for category {category}.", ConsoleColor.Red);
+                return;
+            }
+
+            Table table = PrepareIncomeTable(filteredEntries);
+
+            AnsiConsole.Write(table);
+        }
+
         /// <summary>
         /// Prompts the user for updated income details to update existing income entry.
         /// </summary>

@@ -83,6 +83,33 @@ namespace ExpenseTracker.Views
             AnsiConsole.Write(table);
         }
 
+        public void ViewExpensesByCategory()
+        {
+            if (this._manager.IsExpensesEmpty())
+            {
+                WriteColorLine("There are no expense transaction entries.", ConsoleColor.Red);
+                return;
+            }
+
+            if (GetExpenseCategory() is not ExpenseCategory category)
+            {
+                WriteColorLine("Switching to main menu...", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            List<Expense> filteredEntries = this._manager.GetExpensesByCategory(category);
+
+            if (filteredEntries.Count == 0)
+            {
+                WriteColorLine($"There are no expense transaction entries for category {category}.", ConsoleColor.Red);
+                return;
+            }
+
+            Table table = PrepareExpenseTable(filteredEntries);
+
+            AnsiConsole.Write(table);
+        }
+
         /// <summary>
         /// Prompts the user for updated expense details to update existing expense entry.
         /// </summary>

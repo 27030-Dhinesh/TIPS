@@ -110,6 +110,10 @@ namespace ExpenseTracker
                             UICleanup(waitForUser: true);
                             break;
 
+                        case ExpenseMenu.ViewByCategory:
+                            expenseView.ViewExpensesByCategory();
+                            break;
+
                         case ExpenseMenu.SwitchToMainMenu:
                             WriteColorLine("Switching to main menu...", ConsoleColor.DarkYellow);
                             UICleanup();
@@ -160,6 +164,10 @@ namespace ExpenseTracker
                         case IncomeMenu.ViewIncome:
                             incomeView.ViewIncome();
                             UICleanup(waitForUser: true);
+                            break;
+
+                        case IncomeMenu.ViewByCategory:
+                            incomeView.ViewIncomesByCategory();
                             break;
 
                         case IncomeMenu.SwitchToMainMenu:

@@ -98,6 +98,14 @@ namespace ExpenseTracker.Services
             return this._repository.GetAll();
         }
 
+        public List<Income> GetIncomesByCategory(IncomeCategory category)
+        {
+            return
+                this.GetIncomes()
+                .Where(entry => entry.Category == category.ToString())
+                .ToList();
+        }
+
         /// <summary>
         /// Determines whether the collection of income records is empty.
         /// </summary>

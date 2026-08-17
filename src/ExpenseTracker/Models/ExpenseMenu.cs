@@ -25,6 +25,8 @@
         /// </summary>
         DeleteExpense,
 
+        ViewByCategory,
+
         /// <summary>
         /// Switch back to the main menu.
         /// </summary>
