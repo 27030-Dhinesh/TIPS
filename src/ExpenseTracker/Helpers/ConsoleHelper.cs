@@ -113,10 +113,7 @@ namespace ExpenseTracker.Helpers
         /// </returns>
         public static IncomeCategory? GetIncomeCategory()
         {
-            foreach (IncomeCategory category in Enum.GetValues<IncomeCategory>())
-            {
-                Console.WriteLine($"{(int)category}. {category}");
-            }
+            DisplayIncomeCategory();
 
             int choice = GetIntInRange(
                 min: 1,
@@ -132,6 +129,17 @@ namespace ExpenseTracker.Helpers
         }
 
         /// <summary>
+        /// Writes all available <see cref="IncomeCategory"/> values and their numeric IDs to the console.
+        /// </summary>
+        public static void DisplayIncomeCategory()
+        {
+            foreach (IncomeCategory category in Enum.GetValues<IncomeCategory>())
+            {
+                Console.WriteLine($"{(int)category}. {category}");
+            }
+        }
+
+        /// <summary>
         /// Displays the available <see cref="ExpenseCategory"/> options and prompts the user
         /// to select a category.
         /// </summary>
@@ -142,10 +150,7 @@ namespace ExpenseTracker.Helpers
         /// </returns>
         public static ExpenseCategory? GetExpenseCategory()
         {
-            foreach (ExpenseCategory category in Enum.GetValues<ExpenseCategory>())
-            {
-                Console.WriteLine($"{(int)category}. {category}");
-            }
+            DisplayExpenseCategory();
 
             int choice = GetIntInRange(
                 min: 1,
@@ -158,6 +163,17 @@ namespace ExpenseTracker.Helpers
             }
 
             return (ExpenseCategory)choice;
+        }
+
+        /// <summary>
+        /// Writes all available <see cref="ExpenseCategory"/> values and their numeric IDs to the console.
+        /// </summary>
+        public static void DisplayExpenseCategory()
+        {
+            foreach (ExpenseCategory category in Enum.GetValues<ExpenseCategory>())
+            {
+                Console.WriteLine($"{(int)category}. {category}");
+            }
         }
 
         /// <summary>
