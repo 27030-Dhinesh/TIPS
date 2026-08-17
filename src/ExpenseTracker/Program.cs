@@ -34,9 +34,15 @@ namespace ExpenseTracker
             if (choice is not null && choice.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase))
             {
                 useInMemory = false;
+                WriteColorLine("Selected CSV Repository...", ConsoleColor.DarkBlue);
+            }
+            else
+            {
+                WriteColorLine("Using in-memory repository...", ConsoleColor.DarkBlue);
             }
 
-            ConfigureRepositoryType(incomeRepository, expenseRepository, useInMemory);
+            ConfigureRepositoryType(out incomeRepository, out expenseRepository, useInMemory);
+            UICleanup();
 
             IncomeService incomeManager = new IncomeService(incomeRepository);
             IncomeView incomeView = new IncomeView(incomeManager);
@@ -89,7 +95,7 @@ namespace ExpenseTracker
             }
         }
 
-        private static void ConfigureRepositoryType(IRepository<Income> incomeRepository, IRepository<Expense> expenseRepository, bool useInMemory)
+        private static void ConfigureRepositoryType(out IRepository<Income> incomeRepository, out IRepository<Expense> expenseRepository, bool useInMemory)
         {
             if (useInMemory)
             {
