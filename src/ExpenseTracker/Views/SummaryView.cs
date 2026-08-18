@@ -28,9 +28,16 @@ namespace ExpenseTracker.Views
         /// </summary>
         public void ShowSummary()
         {
+            Dictionary<string, decimal> results = this._service.GenerateSummary();
+
+            foreach (KeyValuePair<string, decimal> kvp in results)
+            {
+                WriteColorLine($"{kvp.Key}\t:{kvp.Value}", ConsoleColor.Blue);
+            }
+
             decimal totalIncome = this._service.GetTotalIncome();
             decimal totalExpense = this._service.GetTotalExpense();
-            decimal netAmount = this._service.GetSummary();
+            decimal netAmount = totalIncome - totalExpense;
 
             WriteColorLine(
                 $@"Total Income: {totalIncome}

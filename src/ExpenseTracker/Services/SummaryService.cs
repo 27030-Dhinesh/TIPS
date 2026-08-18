@@ -59,9 +59,35 @@ namespace ExpenseTracker.Services
         /// The net balance, where a positive value indicates a surplus
         /// and a negative value indicates a deficit.
         /// </returns>
-        public decimal GetSummary()
+        public Dictionary<string, decimal> GenerateSummary()
         {
-            return this.GetTotalIncome() - this.GetTotalExpense();
+            Dictionary<string, decimal> result = new Dictionary<string, decimal>();
+
+            foreach (IEntry entry in this._incomeRepository.GetAll())
+            {
+                if (result.TryGetValue(entry.Category, out decimal value))
+                {
+                    result[entry.Category] = value + entry.Amount;
+                }
+                else
+                {
+                    result[entry.Category] = entry.Amount;
+                }
+            }
+
+            foreach (IEntry entry in this._expenseRepository.GetAll())
+            {
+                if (result.TryGetValue(entry.Category, out decimal value))
+                {
+                    result[entry.Category] = value + entry.Amount;
+                }
+                else
+                {
+                    result[entry.Category] = entry.Amount;
+                }
+            }
+
+            return result;
         }
     }
 }
