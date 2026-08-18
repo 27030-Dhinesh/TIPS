@@ -9,6 +9,8 @@ namespace ExpenseTracker.Views
     /// </summary>
     public class SummaryView
     {
+        private const int TOTALKEYWIDTH = -15;
+        private const int TOTALVALUEWIDTH = 15;
         private readonly SummaryService _service;
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace ExpenseTracker.Views
 
             foreach (KeyValuePair<string, decimal> kvp in results)
             {
-                WriteColorLine($"{kvp.Key}\t:{kvp.Value}", ConsoleColor.Blue);
+                WriteColorLine($"{kvp.Key,TOTALKEYWIDTH}:{$"${kvp.Value:N2}",TOTALVALUEWIDTH}", ConsoleColor.Blue);
             }
 
             decimal totalIncome = this._service.GetTotalIncome();
@@ -40,11 +42,13 @@ namespace ExpenseTracker.Views
             decimal netAmount = totalIncome - totalExpense;
 
             WriteColorLine(
-                $@"Total Income: {totalIncome}
-Total Expense: {totalExpense}
+                $@"
+{$"Total Income",TOTALKEYWIDTH}:{$"${totalIncome:N2}",TOTALVALUEWIDTH}
+{$"Total Expense",TOTALKEYWIDTH}:{$"${totalExpense:N2}",TOTALVALUEWIDTH}
 
-Net Balance: {netAmount}",
-                ConsoleColor.DarkYellow);
+{$"Net Balance",TOTALKEYWIDTH}:{$"${netAmount:N2}",TOTALVALUEWIDTH}
+",
+                ConsoleColor.Magenta);
         }
     }
 }
