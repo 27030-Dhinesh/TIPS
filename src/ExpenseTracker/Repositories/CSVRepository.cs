@@ -113,10 +113,22 @@ namespace ExpenseTracker.Repositories
         /// <inheritdoc/>
         public Guid GetIdByIndex(int index)
         {
-            string row = File.ReadAllLines(this._filePath)[index];
+            string[] lines = File.ReadAllLines(this._filePath);
+
+            if (index < 0 || index > lines.Length)
+            {
+                return Guid.Empty;
+            }
+
+            string row = lines[index];
             string id = row.Split(",")[0];
 
-            return Guid.Parse(id);
+            if (Guid.TryParse(id, out Guid parsedId))
+            {
+                return parsedId;
+            }
+
+            return Guid.Empty;
         }
 
         /// <inheritdoc/>

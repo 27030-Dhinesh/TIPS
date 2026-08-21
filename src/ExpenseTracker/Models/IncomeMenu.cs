@@ -25,6 +25,9 @@
         /// </summary>
         DeleteIncome,
 
+        /// <summary>
+        /// Displays income records for specific requested category.
+        /// </summary>
         ViewByCategory,
 
         /// <summary>

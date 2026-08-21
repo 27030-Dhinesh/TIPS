@@ -61,33 +61,33 @@ namespace ExpenseTracker.Services
         /// </returns>
         public Dictionary<string, decimal> GenerateSummary()
         {
-            Dictionary<string, decimal> result = new Dictionary<string, decimal>();
+            Dictionary<string, decimal> categoryTotals = new Dictionary<string, decimal>();
 
             foreach (IEntry entry in this._incomeRepository.GetAll())
             {
-                if (result.TryGetValue(entry.Category, out decimal value))
+                if (categoryTotals.TryGetValue(entry.Category, out decimal value))
                 {
-                    result[entry.Category] = value + entry.Amount;
+                    categoryTotals[entry.Category] = value + entry.Amount;
                 }
                 else
                 {
-                    result[entry.Category] = entry.Amount;
+                    categoryTotals[entry.Category] = entry.Amount;
                 }
             }
 
             foreach (IEntry entry in this._expenseRepository.GetAll())
             {
-                if (result.TryGetValue(entry.Category, out decimal value))
+                if (categoryTotals.TryGetValue(entry.Category, out decimal value))
                 {
-                    result[entry.Category] = value + entry.Amount;
+                    categoryTotals[entry.Category] = value + entry.Amount;
                 }
                 else
                 {
-                    result[entry.Category] = entry.Amount;
+                    categoryTotals[entry.Category] = entry.Amount;
                 }
             }
 
-            return result;
+            return categoryTotals;
         }
     }
 }

@@ -25,6 +25,9 @@
         /// </summary>
         DeleteExpense,
 
+        /// <summary>
+        /// Displays expense records for specific requested category.
+        /// </summary>
         ViewByCategory,
 
         /// <summary>

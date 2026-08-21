@@ -62,6 +62,11 @@ namespace ExpenseTracker.Services
         {
             Guid id = this._repository.GetIdByIndex(index);
 
+            if (id.Equals(Guid.Empty))
+            {
+                return false;
+            }
+
             return this._repository.Edit(id, updatedExpense);
         }
 
@@ -77,6 +82,11 @@ namespace ExpenseTracker.Services
         public bool DeleteExpense(int position)
         {
             Guid id = this._repository.GetIdByIndex(position - 1);
+
+            if (id.Equals(Guid.Empty))
+            {
+                return false;
+            }
 
             if (this._repository.Contains(id))
             {
