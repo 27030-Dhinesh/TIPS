@@ -27,22 +27,10 @@ namespace ExpenseTracker
             IRepository<Income> incomeRepository;
             IRepository<Expense> expenseRepository;
 
-            bool useInMemory = true;
+            ConsoleKey repoChoice = GetRepoChoice();
 
-            WriteColorLine("Do you want to use CSV Repository? [Y/N]", ConsoleColor.DarkBlue);
-            string? choice = Console.ReadLine();
-            if (choice is not null && choice.Trim().Equals("Y", StringComparison.OrdinalIgnoreCase))
-            {
-                useInMemory = false;
-                WriteColorLine("Selected CSV Repository...", ConsoleColor.DarkBlue);
-            }
-            else
-            {
-                WriteColorLine("Using in-memory repository...", ConsoleColor.DarkBlue);
-            }
-
-            ConfigureRepositoryType(out incomeRepository, out expenseRepository, useInMemory);
-            UICleanup();
+            ConfigureRepositoryType(out incomeRepository, out expenseRepository, repoChoice);
+            Console.Clear();
 
             IncomeService incomeManager = new IncomeService(incomeRepository);
             IncomeView incomeView = new IncomeView(incomeManager);
@@ -95,17 +83,43 @@ namespace ExpenseTracker
             }
         }
 
-        private static void ConfigureRepositoryType(out IRepository<Income> incomeRepository, out IRepository<Expense> expenseRepository, bool useInMemory)
+        private static ConsoleKey GetRepoChoice()
         {
-            if (useInMemory)
-            {
-                incomeRepository = new InMemoryStorage<Income>();
-                expenseRepository = new InMemoryStorage<Expense>();
-                return;
-            }
+            WriteColorLine(
+                @"Select the type of Repository to use:
+[1] In-memory (selected by default on invalid input)
+[2] CSV file
+[3] JSON file
 
-            incomeRepository = new CSVRepository<Income>("incomes.csv");
-            expenseRepository = new CSVRepository<Expense>("expenses.csv");
+Enter your choice:",
+                ConsoleColor.DarkBlue);
+
+            ConsoleKey userChoice = Console.ReadKey().Key;
+
+            return userChoice;
+        }
+
+        private static void ConfigureRepositoryType(out IRepository<Income> incomeRepository, out IRepository<Expense> expenseRepository, ConsoleKey repoChoice)
+        {
+            switch (repoChoice)
+            {
+                case ConsoleKey.D2:
+                case ConsoleKey.NumPad2:
+                    incomeRepository = new CSVRepository<Income>("incomes.csv");
+                    expenseRepository = new CSVRepository<Expense>("expenses.csv");
+                    break;
+
+                case ConsoleKey.D3:
+                case ConsoleKey.NumPad3:
+                    incomeRepository = new JsonRepository<Income>("incomes.json");
+                    expenseRepository = new JsonRepository<Expense>("expenses.json");
+                    break;
+
+                default:
+                    incomeRepository = new InMemoryStorage<Income>();
+                    expenseRepository = new InMemoryStorage<Expense>();
+                    break;
+            }
         }
 
         private static void ExpenseManagement(ExpenseView expenseView)
