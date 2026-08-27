@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LinqExpression.Models;
+﻿using LinqExpression.Models;
 
 namespace LinqExpression.Helpers
 {
+    /// <summary>
+    /// Provides pre-populated sample data used by the LINQ exercise tasks.
+    /// </summary>
     public static class DataPopulatorHelper
     {
-        public static List<Product> GetProducts()
+        /// <summary>
+        /// Generates a collection of sample products across different categories.
+        /// </summary>
+        /// <returns>
+        /// A list of <see cref="Product"/> instances populated with sample data.
+        /// </returns>
+        public static List<Product> GenerateSampleProducts()
         {
             return new List<Product>
             {
@@ -41,7 +45,13 @@ namespace LinqExpression.Helpers
             };
         }
 
-        public static List<Order> GetOrders()
+        /// <summary>
+        /// Generates a collection of sample order items with various dates and statuses.
+        /// </summary>
+        /// <returns>
+        /// A list of <see cref="Order"/> instances populated with sample data.
+        /// </returns>
+        public static List<Order> GenerateSampleOrderItems()
         {
             return new List<Order>
             {
@@ -68,7 +78,13 @@ namespace LinqExpression.Helpers
             };
         }
 
-        public static List<Supplier> GetSuppliers()
+        /// <summary>
+        /// Generates a collection of sample suppliers associated with products.
+        /// </summary>
+        /// <returns>
+        /// A list of <see cref="Supplier"/> instances populated with sample data.
+        /// </returns>
+        public static List<Supplier> GenerateSampleSuppliers()
         {
             return new List<Supplier>
             {
