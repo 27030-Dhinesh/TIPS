@@ -25,6 +25,7 @@ namespace LinqExpression
             TaskOne taskOne = new TaskOne(context.Products);
             TaskTwo taskTwo = new TaskTwo(context.Products, context.Suppliers);
             TaskThreeAndFour taskThree = new TaskThreeAndFour(count: 20, target: 30);
+            TaskFive taskFive = new TaskFive(context.Products);
 
             while (true)
             {
@@ -65,6 +66,7 @@ Enter your choice: ");
 
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:
+                        taskFive.Execute();
                         break;
 
                     case ConsoleKey.D6:
