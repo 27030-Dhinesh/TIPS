@@ -1,4 +1,4 @@
-﻿using static BasicCalculator.MathUtility;
+﻿using static UtilityLibraries.MathUtility;
 
 namespace BasicCalculator
 {

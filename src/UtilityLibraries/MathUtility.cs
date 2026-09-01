@@ -1,4 +1,4 @@
-﻿namespace BasicCalculator
+﻿namespace UtilityLibraries
 {
     /// <summary>
     /// Provides utility methods for performing basic arithmetic calculations.
