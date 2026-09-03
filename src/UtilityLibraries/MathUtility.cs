@@ -68,14 +68,14 @@
         /// <returns>
         /// The quotient of <paramref name="num1"/> divided by <paramref name="num2"/>.
         /// </returns>
-        /// <exception cref="ArgumentException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when the <paramref name="num2"/> parameter is 0.
         /// </exception>
-        public static int Quotient(int num1, int num2)
+        public static int Division(int num1, int num2)
         {
             if (num2 == 0)
             {
-                throw new ArgumentException($"Cannot divide by zero.", nameof(num2));
+                throw new ArgumentOutOfRangeException($"Cannot divide by zero.", nameof(num2));
             }
 
             return num1 / num2;
@@ -93,14 +93,14 @@
         /// <returns>
         /// The remainder of dividing <paramref name="num1"/> by <paramref name="num2"/>.
         /// </returns>
-        /// <exception cref="ArgumentException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when the <paramref name="num2"/> parameter is 0.
         /// </exception>
         public static int Remainder(int num1, int num2)
         {
             if (num2 == 0)
             {
-                throw new ArgumentException($"Cannot divide by zero.", nameof(num2));
+                throw new ArgumentOutOfRangeException($"Cannot divide by zero.", nameof(num2));
             }
 
             return num1 % num2;

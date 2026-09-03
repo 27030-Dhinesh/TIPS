@@ -3,12 +3,12 @@
 namespace BasicCalculator
 {
     /// <summary>
-    /// Provides the entry point for the application.
+    /// Provides the entry point for the Calculator application.
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// The entry point of the application.
+        /// The entry point of the calculator application.
         /// </summary>
         /// <param name="args">
         /// The command-line arguments passed to the application.
@@ -41,6 +41,8 @@ Enter your choice: ");
 
                 if (operation == OperationEnum.Exit)
                 {
+                    Console.WriteLine("Press any key to exit...");
+                    Console.ReadKey();
                     return;
                 }
 
@@ -73,7 +75,7 @@ Enter your choice: ");
                             break;
 
                         case OperationEnum.Division:
-                            Console.WriteLine($"Division Result: {Quotient(num1, num2)}");
+                            Console.WriteLine($"Division Result: {Division(num1, num2)}");
                             break;
 
                         case OperationEnum.Remainder:
