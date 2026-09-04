@@ -61,6 +61,7 @@ Enter your choice: ");
 
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
+                        BurstMemoryUsage();
                         break;
 
                     case ConsoleKey.D4:

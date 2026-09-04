@@ -91,6 +91,26 @@ namespace MemoryManagement
             }
         }
 
+        private static void BurstMemoryUsage()
+        {
+            List<Student> students = new ();
+
+            for (long i = 0; i < 1_000_000_000; ++i)
+            {
+                Student student = new Student(100, "Jonathan");
+
+                if (i % 5_000 == 0)
+                {
+                    students.Add(student);
+                }
+
+                if (i % 10_000 == 0)
+                {
+                    GC.Collect();
+                }
+            }
+        }
+
         private static void PrintStudent(Student student)
         {
             Console.WriteLine($"Register Number: {student.RegisterNumber}\nName: {student.Name}");
