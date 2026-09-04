@@ -62,9 +62,6 @@ namespace MemoryManagement
             // Instantiate the struct
             ExplicitLayoutStruct explicitLayoutStruct = default;
 
-            // Dummy operation to prevent compiler optimization discarding the variable
-            GC.KeepAlive(explicitLayoutStruct);
-
             long bytesAfter = GC.GetAllocatedBytesForCurrentThread();
             long allocatedBytes = bytesAfter - bytesBefore;
 
@@ -93,9 +90,13 @@ namespace MemoryManagement
 
         private static void BurstMemoryUsage()
         {
-            List<Student> students = new ();
+            Stopwatch stopwatch = new Stopwatch();
+            long startBytes = GC.GetAllocatedBytesForCurrentThread();
+            stopwatch.Start();
 
-            for (long i = 0; i < 1_000_000_000; ++i)
+            List<Student> students = new();
+
+            for (long i = 0; i < 10_000_000; ++i)
             {
                 Student student = new Student(100, "Jonathan");
 
@@ -108,6 +109,31 @@ namespace MemoryManagement
                 {
                     GC.Collect();
                 }
+            }
+
+            stopwatch.Stop();
+            long endBytes = GC.GetAllocatedBytesForCurrentThread();
+
+            Console.WriteLine($"Time taken: {stopwatch.ElapsedMilliseconds} ms");
+            Console.WriteLine($"Memory Usage: {endBytes - startBytes} bytes");
+        }
+
+        private static void WriteTextToFileAndRead()
+        {
+            string filePath = "text.txt";
+            Console.WriteLine("Writing data to file...\n");
+            using (TextFileWriter writer = new TextFileWriter(filePath, append: true))
+            {
+                Console.WriteLine("Enter some text dat:");
+                string? textToWrite = Console.ReadLine();
+                writer.Write(textToWrite);
+            }
+
+            Console.WriteLine("Reading from file...\n");
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines)
+            {
+                Console.WriteLine(line);
             }
         }
 

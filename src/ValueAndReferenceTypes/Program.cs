@@ -24,8 +24,8 @@ namespace MemoryManagement
 
 1. Value and Reference types - modification inside a method
 2. Stack and Heap Memory Profiling
-3.
-4.
+3. Burst memory usage and trigger GC
+4. Releasing file resource by implementing IDisposable for custom file reader/writer
 5. Exit
 
 Enter your choice: ");
@@ -66,6 +66,7 @@ Enter your choice: ");
 
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
+                        WriteTextToFileAndRead();
                         break;
 
                     case ConsoleKey.D5:
@@ -73,6 +74,10 @@ Enter your choice: ");
                         Console.WriteLine("Press any key to exit...");
                         Console.ReadKey();
                         return;
+
+                    default:
+                        Console.WriteLine("Invalid choice, try again.");
+                        break;
                 }
 
                 Console.WriteLine("Press any key to continue...");
