@@ -15,8 +15,8 @@ namespace MemoryManagement
         /// </param>
         public static void Main(string[] args)
         {
-            Student student = new Student(100, "John");
-            Teacher teacher = new Teacher(100, "Joan");
+            Student student = new (100, "John");
+            Teacher teacher = new (100, "Joan");
 
             while (true)
             {

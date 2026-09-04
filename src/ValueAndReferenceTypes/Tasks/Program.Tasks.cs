@@ -90,15 +90,13 @@ namespace MemoryManagement
 
         private static void BurstMemoryUsage()
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new ();
             long startBytes = GC.GetAllocatedBytesForCurrentThread();
             stopwatch.Start();
 
-            List<Student> students = new();
-
             for (long i = 0; i < 10_000_000; ++i)
             {
-                Student student = new Student(100, "Jonathan");
+                Student student = new (100, "Jonathan");
 
                 if (i % 10_000 == 0)
                 {
@@ -117,7 +115,7 @@ namespace MemoryManagement
         {
             string filePath = "text.txt";
             Console.WriteLine("Writing data to file...\n");
-            using (TextFileWriter writer = new TextFileWriter(filePath, append: true))
+            using (TextFileWriter writer = new (filePath, append: true))
             {
                 Console.WriteLine("Enter some text dat:");
                 string? textToWrite = Console.ReadLine();
