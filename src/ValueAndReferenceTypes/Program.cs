@@ -44,7 +44,7 @@ Enter your choice: ");
                         PrintTeacher(teacher);
                         Console.WriteLine();
 
-                        ValueAndReferenceTypeMethodModification(student, teacher);
+                        ModifyInsideMethod(student, teacher);
 
                         Console.WriteLine("Student after modification:");
                         PrintStudent(student);
@@ -80,7 +80,7 @@ Enter your choice: ");
             }
         }
 
-        private static void ValueAndReferenceTypeMethodModification(Student student, Teacher teacher)
+        private static void ModifyInsideMethod(Student student, Teacher teacher)
         {
             Console.WriteLine("Attempting to change student name as 'Jonathan'");
             student.Name = "Jonathan";
