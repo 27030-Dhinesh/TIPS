@@ -5,7 +5,7 @@ namespace ValueAndReferenceTypes
     /// <summary>
     /// Provides the entry point for the application.
     /// </summary>
-    public class Program
+    public partial class Program
     {
         /// <summary>
         /// Executes the application and serves as its main entry point.
@@ -22,8 +22,8 @@ namespace ValueAndReferenceTypes
             {
                 Console.Write(@$"Memory Management
 
-1. Value and Reference types - modification by a method
-2.
+1. Value and Reference types - modification inside a method
+2. Stack and Heap Memory Profiling
 3.
 4.
 5. Exit
@@ -56,7 +56,7 @@ Enter your choice: ");
 
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        TaskTwo();
+                        ProfileStackAndHeapMemory();
                         break;
 
                     case ConsoleKey.D3:
@@ -78,36 +78,6 @@ Enter your choice: ");
                 Console.ReadKey();
                 Console.Clear();
             }
-        }
-
-        private static void ModifyInsideMethod(Student student, Teacher teacher)
-        {
-            Console.WriteLine("Attempting to change student name as 'Jonathan'");
-            student.Name = "Jonathan";
-            Console.WriteLine("Student inside the method:");
-            PrintStudent(student);
-            Console.WriteLine();
-
-            Console.WriteLine("Attempting to change teacher name as 'Joanna'");
-            teacher.Name = "Joanna";
-            Console.WriteLine("Teacher inside the method:");
-            PrintTeacher(teacher);
-            Console.WriteLine();
-        }
-
-        private static void TaskTwo()
-        {
-            Console.WriteLine("wait for it... coming soon...");
-        }
-
-        private static void PrintStudent(Student student)
-        {
-            Console.WriteLine($"Register Number: {student.RegisterNumber}\nName: {student.Name}");
-        }
-
-        private static void PrintTeacher(Teacher teacher)
-        {
-            Console.WriteLine($"Register Number: {teacher.EnrollmentNumber}\nName: {teacher.Name}");
         }
     }
 }
