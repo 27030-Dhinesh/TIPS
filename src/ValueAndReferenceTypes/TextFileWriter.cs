@@ -19,6 +19,7 @@
         public TextFileWriter(string filePath, bool append = false)
         {
             this._filePath = filePath;
+            this.Initialize();
             this._writer = new StreamWriter(filePath, append: append);
         }
 
@@ -48,6 +49,16 @@ Calling StreamWriter.Dispose()...");
             this._writer.Dispose();
 
             GC.SuppressFinalize(this);
+        }
+
+        private void Initialize()
+        {
+            if (!File.Exists(this._filePath))
+            {
+                using (File.Create(this._filePath))
+                {
+                }
+            }
         }
     }
 }

@@ -100,11 +100,6 @@ namespace MemoryManagement
             {
                 Student student = new Student(100, "Jonathan");
 
-                if (i % 5_000 == 0)
-                {
-                    students.Add(student);
-                }
-
                 if (i % 10_000 == 0)
                 {
                     GC.Collect();
@@ -126,7 +121,7 @@ namespace MemoryManagement
             {
                 Console.WriteLine("Enter some text dat:");
                 string? textToWrite = Console.ReadLine();
-                writer.Write(textToWrite);
+                writer.WriteLine(textToWrite);
             }
 
             Console.WriteLine("Reading from file...\n");
