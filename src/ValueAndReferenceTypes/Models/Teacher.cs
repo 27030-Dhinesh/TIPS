@@ -1,4 +1,4 @@
-﻿namespace ValueAndReferenceTypes.Models
+﻿namespace MemoryManagement.Models
 {
     /// <summary>
     /// Represents a teacher.

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ValueAndReferenceTypes.Models
+namespace MemoryManagement.Models
 {
     /// <summary>
     /// Represents a large value-type structure designed to allocate

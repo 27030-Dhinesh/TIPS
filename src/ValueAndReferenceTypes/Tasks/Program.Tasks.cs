@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using ValueAndReferenceTypes.Models;
+using MemoryManagement.Models;
 
-namespace ValueAndReferenceTypes
+namespace MemoryManagement
 {
     /// <summary>
     /// Provides the entry point for the application.

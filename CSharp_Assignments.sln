@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "src\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker", "src\ExpenseTracker\ExpenseTracker.csproj", "{0E7E5694-089F-4D5E-B962-63F8F040D84C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueAndReferenceTypes", "src\ValueAndReferenceTypes\ValueAndReferenceTypes.csproj", "{01749375-DDD3-49B6-BB91-3CDF03EF68DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryManagement", "src\ValueAndReferenceTypes\MemoryManagement.csproj", "{01749375-DDD3-49B6-BB91-3CDF03EF68DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
