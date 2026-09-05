@@ -39,8 +39,8 @@ Enter your choice: ");
                     case ConsoleKey.NumPad1:
                         Console.WriteLine("Student before modification:");
                         PrintStudent(student);
-                        Console.WriteLine();
-                        Console.WriteLine("Teacher before modification:");
+
+                        Console.WriteLine("\nTeacher before modification:");
                         PrintTeacher(teacher);
                         Console.WriteLine();
 
@@ -48,8 +48,8 @@ Enter your choice: ");
 
                         Console.WriteLine("Student after modification:");
                         PrintStudent(student);
-                        Console.WriteLine();
-                        Console.WriteLine("Teacher after modification:");
+
+                        Console.WriteLine("\nTeacher after modification:");
                         PrintTeacher(teacher);
                         Console.WriteLine();
                         break;

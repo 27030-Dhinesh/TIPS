@@ -15,9 +15,8 @@ namespace MemoryManagement
             student.Name = "Jonathan";
             Console.WriteLine("Student inside the method:");
             PrintStudent(student);
-            Console.WriteLine();
 
-            Console.WriteLine("Attempting to change teacher name as 'Joanna'");
+            Console.WriteLine("\nAttempting to change teacher name as 'Joanna'");
             teacher.Name = "Joanna";
             Console.WriteLine("Teacher inside the method:");
             PrintTeacher(teacher);
