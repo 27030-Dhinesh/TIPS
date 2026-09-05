@@ -13,7 +13,7 @@ namespace MemoryManagement
         /// <param name="args">
         /// The command-line arguments passed to the application.
         /// </param>
-        public static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Student student = new (100, "John");
             Teacher teacher = new (100, "Joan");
